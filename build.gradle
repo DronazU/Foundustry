@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'foundustry'
@@ -11,14 +12,45 @@ java {
     }
 }
 
+ext {
+    gdxVersion = '1.13.1'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['core/src/main/java']
+        }
+        resources {
+            srcDirs = ['core/assets']
+        }
+    }
+}
+
+application {
+    mainClass = 'foundustry.game.GameLauncher'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://sonatype.org" }
+}
+
 jar {
     manifest {
         attributes(
-                'Main-Class': 'game.GameLauncher'
+                'Main-Class': 'foundustry.game.GameLauncher'
         )
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }
