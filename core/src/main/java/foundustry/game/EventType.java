@@ -8,4 +8,8 @@ public class EventType {
             this.startTime = startTime;
         }
     }
+
+    public static class GameRenderEvent {
+        public GameRenderEvent() {}
+    }
 }

@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8914a302-7e19-478f-814a-78012c87a639" name="Changes" comment="" />
+    <list default="true" id="8914a302-7e19-478f-814a-78012c87a639" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets-raw/sprites/blocks/environment/dirt1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets-raw/sprites/blocks/environment/grass1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets-raw/sprites/blocks/environment/sand-floor1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets-raw/sprites/blocks/environment/stone1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/textureAtlas.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/textureAtlas.atlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/foundustry/game/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/foundustry/game/EventType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/foundustry/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/foundustry/game/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/foundustry/graphics/Atlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/foundustry/graphics/Atlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/foundustry/world/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/foundustry/world/Generator.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,26 +72,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GameLauncher.executor": "Run",
-    "Gradle.Build foundustry.executor": "Run",
-    "Gradle.build & run.executor": "Run",
-    "Gradle.foundustry [:foundustry.game.GameLauncher.main()].executor": "Run",
-    "Gradle.foundustry [:foundustry.graphics.AtlasPacker.main()].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GameLauncher.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build foundustry.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.build &amp; run.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.foundustry [:foundustry.game.GameLauncher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.foundustry [:foundustry.graphics.AtlasPacker.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.GameLauncher">
     <configuration name="AtlasPacker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="foundustry.graphics.AtlasPacker" />
