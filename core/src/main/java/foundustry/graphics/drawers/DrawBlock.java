@@ -1,4 +1,4 @@
-package foundustry.world.drawers;
+package foundustry.graphics.drawers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.graphics.Atlas;

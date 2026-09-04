@@ -9,7 +9,11 @@ public class EventType {
         }
     }
 
-    public static class GameRenderEvent {
-        public GameRenderEvent() {}
+    public static class GameUpdateEvent {
+        public GameUpdateEvent() {}
+    }
+
+    public static class GameExitEvent {
+        public GameExitEvent() {}
     }
 }

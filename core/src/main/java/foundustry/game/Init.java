@@ -1,6 +1,6 @@
 package foundustry.game;
 
-import foundustry.world.drawers.DrawBlock;
+import foundustry.graphics.drawers.DrawBlock;
 
 public class Init {
     public static DrawBlock drawBlock;

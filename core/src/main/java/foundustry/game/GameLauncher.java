@@ -28,7 +28,7 @@ public class GameLauncher extends ApplicationAdapter {
         ScreenUtils.clear(0, 100, 50, 1);
         Init.drawBlock.render();
 
-        Events.go(new EventType.GameRenderEvent());
+        Events.go(new EventType.GameUpdateEvent());
     }
 
     public void dispose() {
