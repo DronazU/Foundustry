@@ -25,7 +25,7 @@ public class GameLauncher extends ApplicationAdapter {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0, 100, 50, 1);
+        ScreenUtils.clear(42, 62, 94, 1);
         Init.drawBlock.render();
 
         Events.go(new EventType.GameUpdateEvent());
@@ -38,7 +38,7 @@ public class GameLauncher extends ApplicationAdapter {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Foundustry");
-        config.setWindowedMode(800, 600);
+        config.setWindowedMode(1200, 900);
 
         Events.on(EventType.GameLaunchEvent.class, event -> {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
