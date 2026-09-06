@@ -6,9 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import foundustry.game.Time;
 import foundustry.log.Log;
 import foundustry.world.Block;
-import foundustry.world.Tile;
 import foundustry.world.content.Blocks;
-import org.lwjgl.input.Mouse;
 
 import static foundustry.game.Init.camera;
 import static foundustry.graphics.drawers.DrawBlock.gameMap;
@@ -35,8 +33,11 @@ public class Player extends UnitType {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * Time.delta();
         if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * Time.delta();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) block = Blocks.grass;
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) block = Blocks.stone;
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            Vector3 mousePosition = getMousePosition();
+            block = gameMap[(int)mousePosition.x][(int)mousePosition.y].block;
+            Log.debug("block: " + block);
+        }
 
         camera.position.set(this.x, this.y, 0);
     }
@@ -48,11 +49,16 @@ public class Player extends UnitType {
 
     public void build() {
         if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(mousePosition);
-            int tileX = (int)mousePosition.x / tileSize;
-            int tileY = (int)mousePosition.y / tileSize;
-            gameMap[tileX][tileY].block = block;
+            Vector3 mousePosition = getMousePosition();
+            gameMap[(int)mousePosition.x][(int)mousePosition.y].block = block;
         }
+    }
+
+    public Vector3 getMousePosition() {
+        Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePosition);
+        int tileX = (int)mousePosition.x / tileSize;
+        int tileY = (int)mousePosition.y / tileSize;
+        return new Vector3(tileX, tileY, 0);
     }
 }

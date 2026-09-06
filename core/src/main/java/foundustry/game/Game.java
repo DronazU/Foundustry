@@ -1,5 +1,6 @@
 package foundustry.game;
 
+import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.graphics.Atlas;
 import foundustry.types.Player;
 
@@ -18,6 +19,7 @@ public class Game {
     }
 
     public void render() {
+        ScreenUtils.clear(0, 0, 0, 1f);
         Init.drawBlock.render();
     }
 
