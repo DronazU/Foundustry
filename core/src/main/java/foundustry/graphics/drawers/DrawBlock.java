@@ -6,6 +6,8 @@ import foundustry.world.Generator;
 import foundustry.world.Tile;
 import foundustry.world.content.Blocks;
 
+import static foundustry.game.Init.camera;
+
 public class DrawBlock {
     private SpriteBatch batch;
     private Tile[][] gameMap;
@@ -17,14 +19,17 @@ public class DrawBlock {
         Blocks.load();
 
         Generator generator = new Generator();
-        generator.width = 40;
-        generator.height = 30;
+        generator.width = 200;
+        generator.height = 200;
 
         gameMap = generator.generate();
     }
 
 
     public void render() {
+        camera.update();
+
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         if (gameMap != null) {

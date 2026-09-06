@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import foundustry.graphics.drawers.DrawBlock;
 
 public class Init {
-    public static DrawBlock drawBlock;
     public static OrthographicCamera camera;
+    public static DrawBlock drawBlock;
 
     public static void init() {
         drawBlock = new DrawBlock();

@@ -6,7 +6,7 @@ import static foundustry.game.Init.camera;
 
 public class Player extends UnitType {
     public float x, y;
-    public float speed = 2f;
+    public float speed = 2f * 60f;
 
     public Player(float x, float y) {
         this.x = x;
