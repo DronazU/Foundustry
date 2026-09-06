@@ -9,7 +9,7 @@ import static foundustry.game.Init.camera;
 
 public class DrawBlock {
     private SpriteBatch batch;
-    private Tile[][] gameMap;
+    public static Tile[][] gameMap;
 
     public DrawBlock() {
         batch = new SpriteBatch();

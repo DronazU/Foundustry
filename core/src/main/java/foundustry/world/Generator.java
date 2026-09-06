@@ -7,7 +7,7 @@ import static foundustry.world.SimplexNoise.noise;
 public class Generator {
     public int width;
     public int height;
-    public int tileSize = 32;
+    public static int tileSize = 32;
     public float scale = 0.05f;
     public float seed = (float)Math.random() * 1000;
 

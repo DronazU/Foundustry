@@ -8,8 +8,8 @@ public class Game {
     private final Player player;
 
     public Game() {
-        Init.init();
         Atlas.load();
+        Init.init();
         player = new Player(0, 0);
     }
 
