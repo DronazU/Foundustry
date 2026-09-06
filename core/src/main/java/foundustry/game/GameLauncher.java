@@ -1,51 +1,37 @@
 package foundustry.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.utils.ScreenUtils;
-import foundustry.graphics.Atlas;
 import foundustry.log.Log;
-import foundustry.types.Player;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GameLauncher extends ApplicationAdapter {
-    static Log Log = new Log();
-    private Init init;
-    private Player player;
+
+    private Game game;
 
     @Override
     public void create() {
-        Init.init();
-        Atlas.load();
-
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                Events.go(new EventType.KeyPressEvent(keycode));
-                return true;
-            }
-        });
-
-        player = new Player(0, 0);
+        game = new Game();
 
         Events.go(new EventType.GameLaunchEvent(System.currentTimeMillis()));
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(42, 62, 94, 1);
-        Init.drawBlock.render();
-        player.update();
+        game.update();
+        game.render();
+
         Events.go(new EventType.GameUpdateEvent());
     }
 
+    @Override
     public void dispose() {
-        Init.drawBlock.dispose();
+        game.dispose();
+
+        Events.go(new EventType.GameExitEvent());
     }
 
     public static void main(String[] args) {

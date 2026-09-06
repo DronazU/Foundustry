@@ -1,7 +1,7 @@
 package foundustry.log;
 
 public class Log {
-    private String whereIsIt() {
+    private static String whereIsIt() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (StackTraceElement element : stackTrace) {
             String className = element.getClassName();
@@ -18,23 +18,23 @@ public class Log {
         return "(unknown)";
     }
 
-    public void errExc(Exception exception) {
+    public static void errExc(Exception exception) {
         System.err.println("[Error]" + exception.getMessage() + " <- " + whereIsIt());
     }
 
-    public void errExc(String message) {
+    public static void errExc(String message) {
         System.err.println("[Error]" + message + " <- " + whereIsIt());
     }
 
-    public void info(String message) {
+    public static void info(String message) {
         System.out.println("\u001B[34m" + "[Info]" +  message + " <- " + whereIsIt() + "\u001B[0m");
     }
 
-    public void debug(String message) {
+    public static void debug(String message) {
         System.out.println("\u001B[35m" + "[Debug]" + message + " <- " + whereIsIt() + "\u001B[0m");
     }
 
-    public void warn(String message) {
+    public static void warn(String message) {
         System.out.println("\u001B[33m" + "[Warn]" + message + " <- " + whereIsIt() + "\u001B[0m");
     }
 }

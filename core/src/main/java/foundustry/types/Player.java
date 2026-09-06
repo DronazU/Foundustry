@@ -2,6 +2,8 @@ package foundustry.types;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import foundustry.game.Time;
+
 import static foundustry.game.Init.camera;
 
 public class Player extends UnitType {
@@ -14,17 +16,15 @@ public class Player extends UnitType {
     }
 
     public void handleInput() {
-        float delta = Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * delta;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) camera.zoom += delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) camera.zoom -= delta;
-
+        if (Gdx.input.isKeyPressed(Input.Keys.PLUS)) camera.zoom += Time.delta();
+        if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) camera.zoom -= Time.delta();
         if (camera.zoom < 0.5f) camera.zoom = 0.5f;
         if (camera.zoom > 3.0f) camera.zoom = 3.0f;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= speed * Time.delta() / camera.zoom;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += speed * Time.delta() / camera.zoom;
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * Time.delta() / camera.zoom;
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * Time.delta() / camera.zoom;
 
         camera.position.set(this.x, this.y, 0);
     }

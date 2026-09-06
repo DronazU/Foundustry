@@ -1,7 +1,6 @@
 package foundustry.graphics.drawers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import foundustry.graphics.Atlas;
 import foundustry.world.Generator;
 import foundustry.world.Tile;
 import foundustry.world.content.Blocks;
@@ -14,7 +13,6 @@ public class DrawBlock {
 
     public DrawBlock() {
         batch = new SpriteBatch();
-        Atlas.load();
 
         Blocks.load();
 
@@ -47,6 +45,5 @@ public class DrawBlock {
 
     public void dispose() {
         if (batch != null) batch.dispose();
-        Atlas.dispose();
     }
 }
