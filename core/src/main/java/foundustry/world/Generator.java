@@ -1,15 +1,14 @@
 package foundustry.world;
 
+import foundustry.game.Vars;
 import foundustry.world.content.Blocks;
-
 import static foundustry.world.SimplexNoise.noise;
 
 public class Generator {
     public int width;
     public int height;
-    public static int tileSize = 32;
-    public float scale = 0.05f;
-    public float seed = (float)Math.random() * 1000;
+    public float scale;
+    public float seed;
     public static Tile[][] map;
 
     public Tile[][] generate() {
@@ -17,8 +16,8 @@ public class Generator {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                float x = i * tileSize;
-                float y = j * tileSize;
+                float x = i * Vars.tileSize;
+                float y = j * Vars.tileSize;
 
                 float value = noise(i * scale + seed, j * scale + seed);
                 Block block = Blocks.nothing;
@@ -46,10 +45,9 @@ public class Generator {
     }
 
     public Tile[][] createMap(int width, int height) {
-        Generator generator = new Generator();
-        generator.width = width;
-        generator.height = height;
-        map = generator.generate();
+        this.width = width;
+        this.height = height;
+        map = generate();
         return map;
     }
 }

@@ -1,7 +1,5 @@
 package foundustry.game;
 
-import com.badlogic.gdx.Gdx;
-
 public class EventType {
     public static class GameLaunchEvent {
         public final long startTime;

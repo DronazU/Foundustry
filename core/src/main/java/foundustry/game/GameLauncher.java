@@ -14,7 +14,6 @@ public class GameLauncher extends ApplicationAdapter {
     @Override
     public void create() {
         game = new Game();
-        game.load();
         Events.go(new EventType.GameLaunchEvent(System.currentTimeMillis()));
     }
 

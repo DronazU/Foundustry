@@ -12,13 +12,19 @@ import static foundustry.world.Generator.map;
 public class Game {
 
     private final Player player;
-    Generator generator = new Generator();
+    Generator generator = new Generator() {{
+        width = 300;
+        height = 300;
+        scale = 0.01f;
+        seed = (float)Math.random() * 1000;
+    }};
 
     public Game() {
         Atlas.load();
         Init.init();
+        Blocks.load();
         player = new Player(0, 0);
-        map = generator.createMap(300, 300);
+        map = generator.createMap(generator.width, generator.height);
     }
 
     public void update() {
@@ -34,10 +40,5 @@ public class Game {
     public void dispose() {
         Atlas.dispose();
         DrawBlock.dispose();
-    }
-
-    public void load() {
-        Atlas.load();
-        Blocks.load();
     }
 }

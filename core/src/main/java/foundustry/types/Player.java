@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import foundustry.game.Time;
+import foundustry.game.Vars;
 import foundustry.log.Log;
 import foundustry.world.Block;
 import foundustry.world.content.Blocks;
 
 import static foundustry.game.Init.camera;
 import static foundustry.world.Generator.map;
-import static foundustry.world.Generator.tileSize;
 
 public class Player extends UnitType {
     public float x, y;
@@ -57,8 +57,8 @@ public class Player extends UnitType {
     public Vector3 getMousePosition() {
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePosition);
-        int tileX = (int)mousePosition.x / tileSize;
-        int tileY = (int)mousePosition.y / tileSize;
+        int tileX = (int)mousePosition.x / Vars.tileSize;
+        int tileY = (int)mousePosition.y / Vars.tileSize;
         return new Vector3(tileX, tileY, 0);
     }
 }
