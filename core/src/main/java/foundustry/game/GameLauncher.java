@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import foundustry.log.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,22 +14,19 @@ public class GameLauncher extends ApplicationAdapter {
     @Override
     public void create() {
         game = new Game();
-
+        game.load();
         Events.go(new EventType.GameLaunchEvent(System.currentTimeMillis()));
     }
 
     @Override
     public void render() {
         game.update();
-        game.render();
-
         Events.go(new EventType.GameUpdateEvent());
     }
 
     @Override
     public void dispose() {
         game.dispose();
-
         Events.go(new EventType.GameExitEvent());
     }
 

@@ -9,7 +9,7 @@ import foundustry.world.Block;
 import foundustry.world.content.Blocks;
 
 import static foundustry.game.Init.camera;
-import static foundustry.graphics.drawers.DrawBlock.gameMap;
+import static foundustry.world.Generator.map;
 import static foundustry.world.Generator.tileSize;
 
 public class Player extends UnitType {
@@ -35,7 +35,7 @@ public class Player extends UnitType {
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             Vector3 mousePosition = getMousePosition();
-            block = gameMap[(int)mousePosition.x][(int)mousePosition.y].block;
+            block = map[(int)mousePosition.x][(int)mousePosition.y].block;
             Log.debug("block: " + block);
         }
 
@@ -50,7 +50,7 @@ public class Player extends UnitType {
     public void build() {
         if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             Vector3 mousePosition = getMousePosition();
-            gameMap[(int)mousePosition.x][(int)mousePosition.y].block = block;
+            map[(int)mousePosition.x][(int)mousePosition.y].block = block;
         }
     }
 

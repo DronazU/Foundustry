@@ -10,6 +10,7 @@ public class Generator {
     public static int tileSize = 32;
     public float scale = 0.05f;
     public float seed = (float)Math.random() * 1000;
+    public static Tile[][] map;
 
     public Tile[][] generate() {
         Tile[][] map = new Tile[width][height];
@@ -41,6 +42,14 @@ public class Generator {
             }
         }
 
+        return map;
+    }
+
+    public Tile[][] createMap(int width, int height) {
+        Generator generator = new Generator();
+        generator.width = width;
+        generator.height = height;
+        map = generator.generate();
         return map;
     }
 }

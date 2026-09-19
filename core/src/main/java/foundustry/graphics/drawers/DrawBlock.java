@@ -1,26 +1,16 @@
 package foundustry.graphics.drawers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import foundustry.world.Generator;
 import foundustry.world.Tile;
-import foundustry.world.content.Blocks;
 
 import static foundustry.game.Init.camera;
+import static foundustry.world.Generator.map;
 
 public class DrawBlock {
-    private SpriteBatch batch;
-    public static Tile[][] gameMap;
+    public static SpriteBatch batch;
 
     public DrawBlock() {
         batch = new SpriteBatch();
-
-        Blocks.load();
-
-        Generator generator = new Generator();
-        generator.width = 200;
-        generator.height = 200;
-
-        gameMap = generator.generate();
     }
 
 
@@ -30,8 +20,8 @@ public class DrawBlock {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        if (gameMap != null) {
-            for (Tile[] tiles : gameMap) {
+        if (map != null) {
+            for (Tile[] tiles : map) {
                 for (Tile tile : tiles) {
                     if (tile != null) {
                         tile.draw(batch);
@@ -43,7 +33,7 @@ public class DrawBlock {
         batch.end();
     }
 
-    public void dispose() {
+    public static void dispose() {
         if (batch != null) batch.dispose();
     }
 }
