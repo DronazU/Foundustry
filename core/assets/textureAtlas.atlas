@@ -1,6 +1,6 @@
 
 textureAtlas.png
-size: 512, 64
+size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -13,50 +13,57 @@ deep-water
   index: -1
 dirt
   rotate: false
-  xy: 36, 2
+  xy: 68, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 70, 2
+  xy: 102, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 nothing
   rotate: false
-  xy: 104, 2
+  xy: 136, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-floor
   rotate: false
-  xy: 138, 2
+  xy: 170, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 172, 2
+  xy: 204, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 206, 2
+  xy: 36, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 240, 2
+  xy: 70, 34
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+alpha-drone
+  rotate: false
+  xy: 2, 36
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1

@@ -3,7 +3,7 @@ package foundustry.game;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.graphics.Atlas;
 import foundustry.graphics.drawers.DrawBlock;
-import foundustry.types.Player;
+import foundustry.types.UnitTypes.Player;
 import foundustry.world.Generator;
 import foundustry.world.content.Blocks;
 

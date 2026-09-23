@@ -1,7 +1,8 @@
-package foundustry.types;
+package foundustry.types.UnitTypes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import foundustry.game.Time;
 import foundustry.game.Vars;
@@ -14,8 +15,10 @@ import static foundustry.world.Generator.map;
 
 public class Player extends UnitType {
     public float x, y;
-    public float speed = 4f * 60f;
+    public float speed = 10f * 60f;
     public Block block = Blocks.nothing;
+
+    private TextureRegion region;
 
     public Player(float x, float y) {
         this.x = x;
@@ -52,6 +55,8 @@ public class Player extends UnitType {
             Vector3 mousePosition = getMousePosition();
             map[(int)mousePosition.x][(int)mousePosition.y].block = block;
         }
+
+
     }
 
     public Vector3 getMousePosition() {
@@ -60,5 +65,10 @@ public class Player extends UnitType {
         int tileX = (int)mousePosition.x / Vars.tileSize;
         int tileY = (int)mousePosition.y / Vars.tileSize;
         return new Vector3(tileX, tileY, 0);
+    }
+
+    @Override
+    public void render() {
+
     }
 }
