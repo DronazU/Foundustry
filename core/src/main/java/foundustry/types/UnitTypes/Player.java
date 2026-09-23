@@ -2,10 +2,13 @@ package foundustry.types.UnitTypes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import foundustry.game.Time;
 import foundustry.game.Vars;
+import foundustry.graphics.Atlas;
 import foundustry.log.Log;
 import foundustry.world.Block;
 import foundustry.world.content.Blocks;
@@ -14,15 +17,19 @@ import static foundustry.game.Init.camera;
 import static foundustry.world.Generator.map;
 
 public class Player extends UnitType {
-    public float x, y;
+    public float x;
+    public float y;
     public float speed = 10f * 60f;
     public Block block = Blocks.nothing;
+    public float rotation;
 
-    private TextureRegion region;
+    public final TextureRegion region;
 
     public Player(float x, float y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+        speed = 10 * 60f;
+        region = Atlas.find("alpha-drone");
+        rotateSpeed = 10f;
     }
 
     public void handleInput() {
@@ -31,10 +38,26 @@ public class Player extends UnitType {
         if (camera.zoom < 0.5f) camera.zoom = 0.5f;
         if (camera.zoom > 3.0f) camera.zoom = 3.0f;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= speed * Time.delta();
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += speed * Time.delta();
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * Time.delta();
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * Time.delta();
+        boolean a = Gdx.input.isKeyPressed(Input.Keys.A);
+        boolean d = Gdx.input.isKeyPressed(Input.Keys.D);
+        boolean w = Gdx.input.isKeyPressed(Input.Keys.W);
+        boolean s = Gdx.input.isKeyPressed(Input.Keys.S);
+
+        if (a) x -= speed * Time.delta();
+        if (d) x += speed * Time.delta();
+        if (w) y += speed * Time.delta();
+        if (s) y -= speed * Time.delta();
+
+        if (a || d || w || s) {
+            rotation = MathUtils.lerpAngleDeg(
+                    rotation,
+                    MathUtils.atan2(
+                            (a ? 1 : 0) - (d ? 1 : 0),
+                            (w ? 1 : 0) - (s ? 1 : 0)
+                    ) * MathUtils.radiansToDegrees,
+                    Math.min(1f, rotateSpeed * Time.delta())
+            );
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             Vector3 mousePosition = getMousePosition();
@@ -68,7 +91,18 @@ public class Player extends UnitType {
     }
 
     @Override
-    public void render() {
-
+    public void render(SpriteBatch batch) {
+        batch.draw(
+                region,
+                x - 32,
+                y - 32,
+                32,
+                32,
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                1,
+                1,
+                rotation
+        );
     }
 }
