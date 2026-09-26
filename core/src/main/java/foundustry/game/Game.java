@@ -7,6 +7,7 @@ import foundustry.graphics.drawers.DrawUnit;
 import foundustry.types.UnitTypes.Player;
 import foundustry.world.Generator;
 import foundustry.world.content.Blocks;
+import foundustry.world.content.UnitTypes;
 
 import static foundustry.world.Generator.map;
 
@@ -24,6 +25,7 @@ public class Game {
         Atlas.load();
         Init.init();
         Blocks.load();
+        UnitTypes.load();
         player = new Player();
         map = generator.createMap(generator.width, generator.height);
     }

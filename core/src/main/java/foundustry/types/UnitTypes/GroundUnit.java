@@ -3,8 +3,8 @@ package foundustry.types.UnitTypes;
 import foundustry.world.content.UnitType;
 
 public class GroundUnit extends UnitType {
-    public GroundUnit() {
-        super();
+    public GroundUnit(String name) {
+        super(name);
         flying = false;
     }
 }

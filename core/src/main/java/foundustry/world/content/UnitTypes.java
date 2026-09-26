@@ -1,10 +1,7 @@
 package foundustry.world.content;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.game.Vars;
 import foundustry.log.Log;
-import foundustry.types.BlockTypes.NothingBlock;
-import foundustry.types.BlockTypes.Floor;
 import foundustry.types.UnitTypes.GroundUnit;
 
 public class UnitTypes {
@@ -14,13 +11,14 @@ public class UnitTypes {
             ;
 
     public static void load() {
-        constructionDrone = new GroundUnit() {{
-            speed = 10f;
+        constructionDrone = new GroundUnit("construction-drone") {{
+            speed = 10 * 60f;
+            size = 2;
         }};
 
         for (UnitType unit : Vars.units) {
             unit.load();
         }
-        Log.info("Blocks loaded.");
+        Log.info("UnitTypes loaded.");
     }
 }
