@@ -1,4 +1,6 @@
-package foundustry.world;
+package foundustry.types.BlockTypes;
+
+import foundustry.world.content.Block;
 
 public class Floor extends Block {
 

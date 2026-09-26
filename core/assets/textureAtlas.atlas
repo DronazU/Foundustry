@@ -60,7 +60,7 @@ water
   orig: 32, 32
   offset: 0, 0
   index: -1
-alpha-drone
+construction-drone
   rotate: false
   xy: 2, 36
   size: 64, 64

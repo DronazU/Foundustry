@@ -1,7 +1,9 @@
 package foundustry.world.content;
 
-import foundustry.world.Block;
-import foundustry.world.Floor;
+import foundustry.game.Vars;
+import foundustry.log.Log;
+import foundustry.types.BlockTypes.NothingBlock;
+import foundustry.types.BlockTypes.Floor;
 
 public class Blocks {
     public static Block
@@ -21,8 +23,9 @@ public class Blocks {
         deepWater = new Floor("deep-water");
         sandWater = new Floor("sand-water");
 
-        for (Block block : Block.worldBlocks) {
+        for (Block block : Vars.blocks) {
             block.load();
         }
+        Log.info("Blocks loaded.");
     }
 }

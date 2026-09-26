@@ -1,6 +1,8 @@
 package foundustry.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import foundustry.world.content.Block;
+
 public class Tile {
     public float x, y;
     public Block block;

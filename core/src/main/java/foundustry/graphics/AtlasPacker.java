@@ -4,7 +4,6 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import foundustry.log.Log;
 
 public class AtlasPacker {
-    static Log Log = new Log();
 
     public static void main(String[] args) {
         try {

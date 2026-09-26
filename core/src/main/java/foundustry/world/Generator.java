@@ -1,6 +1,8 @@
 package foundustry.world;
 
 import foundustry.game.Vars;
+import foundustry.log.Log;
+import foundustry.world.content.Block;
 import foundustry.world.content.Blocks;
 import static foundustry.world.SimplexNoise.noise;
 
@@ -48,6 +50,7 @@ public class Generator {
         this.width = width;
         this.height = height;
         map = generate();
+        Log.info("map created.");
         return map;
     }
 }

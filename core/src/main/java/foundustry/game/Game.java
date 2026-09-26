@@ -24,7 +24,7 @@ public class Game {
         Atlas.load();
         Init.init();
         Blocks.load();
-        player = new Player(0, 0);
+        player = new Player();
         map = generator.createMap(generator.width, generator.height);
     }
 

@@ -1,6 +1,6 @@
-package foundustry.world.content;
+package foundustry.types.BlockTypes;
 
-import foundustry.world.Block;
+import foundustry.world.content.Block;
 
 public class NothingBlock extends Block {
     public NothingBlock(String name) {

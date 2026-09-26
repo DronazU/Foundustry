@@ -10,8 +10,9 @@ import foundustry.game.Time;
 import foundustry.game.Vars;
 import foundustry.graphics.Atlas;
 import foundustry.log.Log;
-import foundustry.world.Block;
+import foundustry.world.content.Block;
 import foundustry.world.content.Blocks;
+import foundustry.world.content.UnitType;
 
 import static foundustry.game.Init.camera;
 import static foundustry.world.Generator.map;
@@ -25,11 +26,8 @@ public class Player extends UnitType {
 
     public final TextureRegion region;
 
-    public Player(float x, float y) {
-        super(x, y);
-        speed = 10 * 60f;
-        region = Atlas.find("alpha-drone");
-        rotateSpeed = 10f;
+    public Player() {
+        super();
     }
 
     public void handleInput() {
@@ -78,8 +76,6 @@ public class Player extends UnitType {
             Vector3 mousePosition = getMousePosition();
             map[(int)mousePosition.x][(int)mousePosition.y].block = block;
         }
-
-
     }
 
     public Vector3 getMousePosition() {
