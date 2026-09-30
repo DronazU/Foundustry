@@ -1,5 +1,6 @@
 package foundustry.ui.game;
 
+import com.badlogic.gdx.graphics.Color;
 import foundustry.ui.UI;
 import foundustry.ui.UIItems.Button;
 import foundustry.ui.UIItems.Label;
@@ -13,10 +14,12 @@ public class MainMenu extends UI {
 
     public MainMenu() {
         title = new Label(600, 700, "FOUNDustry");
-
         play = new Button(500, 450, 200, 60, "PLAY");
         settings = new Button(500, 370, 200, 60, "SETTINGS");
         exit = new Button(500, 290, 200, 60, "EXIT");
+        exit.onHover(button -> {
+            button.setFillColor(Color.BLUE);
+        });
     }
 
     @Override
@@ -30,7 +33,6 @@ public class MainMenu extends UI {
     @Override
     public void render() {
         title.render();
-
         play.render();
         settings.render();
         exit.render();

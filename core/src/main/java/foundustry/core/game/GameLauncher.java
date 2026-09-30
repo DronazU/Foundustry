@@ -22,6 +22,7 @@ public class GameLauncher extends ApplicationAdapter {
     @Override
     public void render() {
         game.update();
+        game.render();
         Events.go(new EventType.GameUpdateEvent());
     }
 

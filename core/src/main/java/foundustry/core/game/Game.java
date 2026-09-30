@@ -40,12 +40,17 @@ public class Game {
             return;
         }
 
-        render();
         player.update();
     }
 
     public void render() {
         ScreenUtils.clear(0, 0, 0, 1f);
+
+        if (gameState.isMenu()) {
+            mainMenu.render();
+            return;
+        }
+
         Init.drawBlock.render();
         Init.drawUnit.render();
     }
