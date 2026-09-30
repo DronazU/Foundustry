@@ -1,4 +1,4 @@
-package foundustry.game;
+package foundustry.core.game;
 
 import com.badlogic.gdx.Gdx;
 

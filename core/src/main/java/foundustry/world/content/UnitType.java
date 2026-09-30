@@ -1,8 +1,9 @@
 package foundustry.world.content;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import foundustry.game.Vars;
+import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
 
 public abstract class UnitType {
@@ -33,7 +34,7 @@ public abstract class UnitType {
 
     public void render(SpriteBatch batch) {
         float drawSize = size * Vars.tileSize;
-
+        drawShadow(batch);
         batch.draw(
                 region,
                 x - drawSize / 2f,
@@ -46,5 +47,25 @@ public abstract class UnitType {
                 1f,
                 rotation
         );
+    }
+
+    public void drawShadow(SpriteBatch batch) {
+        float drawSize = size * Vars.tileSize;
+        float shadowX = x - Vars.tileSize * (flying ? 2f : 0.25f);
+        float shadowY = y - Vars.tileSize * (flying ? 2f : 0.25f);
+        batch.setColor(0f, 0f, 0f, 0.5f);
+        batch.draw(
+                region,
+                shadowX - drawSize / 2f,
+                shadowY - drawSize / 2f,
+                drawSize / 2f,
+                drawSize / 2f,
+                drawSize,
+                drawSize,
+                1f,
+                1f,
+                rotation
+        );
+        batch.setColor(Color.WHITE);
     }
 }

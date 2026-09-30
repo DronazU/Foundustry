@@ -3,8 +3,8 @@ package foundustry.graphics.drawers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.world.content.UnitType;
 
-import static foundustry.game.Init.camera;
-import static foundustry.game.Vars.units;
+import static foundustry.core.Init.camera;
+import static foundustry.core.Vars.units;
 
 public class DrawUnit {
     public static SpriteBatch batch;
@@ -16,7 +16,9 @@ public class DrawUnit {
     public void render() {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for (UnitType unit : units) unit.render(batch);
+        for (UnitType unit : units) {
+            unit.render(batch);
+        }
         batch.end();
     }
 

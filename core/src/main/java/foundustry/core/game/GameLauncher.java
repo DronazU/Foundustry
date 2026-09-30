@@ -1,8 +1,10 @@
-package foundustry.game;
+package foundustry.core.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import foundustry.core.EventType;
+import foundustry.core.Events;
 import foundustry.log.Log;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -3,7 +3,7 @@ package foundustry.graphics.drawers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.world.Tile;
 
-import static foundustry.game.Init.camera;
+import static foundustry.core.Init.camera;
 import static foundustry.world.Generator.map;
 
 public class DrawBlock {

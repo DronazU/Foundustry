@@ -1,4 +1,4 @@
-package foundustry.game;
+package foundustry.core;
 
 public class EventType {
     public static class GameLaunchEvent {

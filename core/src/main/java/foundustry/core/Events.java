@@ -1,4 +1,4 @@
-package foundustry.game;
+package foundustry.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;

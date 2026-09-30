@@ -6,54 +6,68 @@ filter: Nearest, Nearest
 repeat: none
 deep-water
   rotate: false
-  xy: 2, 2
+  xy: 68, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 dirt
   rotate: false
-  xy: 68, 68
+  xy: 102, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 102, 68
+  xy: 136, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 nothing
   rotate: false
-  xy: 136, 68
+  xy: 170, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-floor
   rotate: false
-  xy: 170, 68
+  xy: 204, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 204, 68
+  xy: 36, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 36, 2
+  xy: 104, 34
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
+  rotate: false
+  xy: 138, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+circle-shadow
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+square-shadow
   rotate: false
   xy: 70, 34
   size: 32, 32

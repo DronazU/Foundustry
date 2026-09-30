@@ -3,7 +3,7 @@ package foundustry.world.content;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.graphics.Atlas;
 
-import static foundustry.game.Vars.blocks;
+import static foundustry.core.Vars.blocks;
 
 public class Block {
     public String name;

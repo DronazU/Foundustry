@@ -1,10 +1,12 @@
-package foundustry.game;
+package foundustry.core.game;
 
 import com.badlogic.gdx.utils.ScreenUtils;
+import foundustry.core.Init;
 import foundustry.graphics.Atlas;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
 import foundustry.types.UnitTypes.Player;
+import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitTypes;
@@ -12,8 +14,10 @@ import foundustry.world.content.UnitTypes;
 import static foundustry.world.Generator.map;
 
 public class Game {
-
     private final Player player;
+    private final MainMenu mainMenu = new MainMenu();
+    private final GameState gameState = new GameState();
+
     Generator generator = new Generator() {{
         width = 300;
         height = 300;
@@ -31,6 +35,11 @@ public class Game {
     }
 
     public void update() {
+        if (gameState.isMenu()) {
+            mainMenu.update();
+            return;
+        }
+
         render();
         player.update();
     }

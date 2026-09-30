@@ -1,6 +1,6 @@
 package foundustry.world.content;
 
-import foundustry.game.Vars;
+import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.UnitTypes.GroundUnit;
 
