@@ -1,7 +1,24 @@
 package foundustry.ui;
 
+import com.badlogic.gdx.utils.Array;
+
 public abstract class UI {
-    public abstract void update();
-    public abstract void render();
-    public abstract void dispose();
+
+    protected final Array<UIItem> items = new Array<>();
+
+    public void update() {
+        for (UIItem item : items) {
+            item.update();
+        }
+    }
+
+    public void render() {
+        for (UIItem item : items) {
+            item.render();
+        }
+    }
+
+    public void dispose() {
+
+    }
 }

@@ -21,6 +21,7 @@ public class Button extends UIItem {
     private Color color = Color.GRAY;
 
     private Consumer<Button> hoverListener;
+    private Consumer<Button> clickListener;
 
     public Button(float x, float y, float width, float height, String text) {
         super(x, y, width, height);
@@ -36,6 +37,7 @@ public class Button extends UIItem {
     public void update() {
         if (isHovered() && hoverListener != null) hoverListener.accept(this);
         else setDefaultButtonState();
+        if (isHovered() && Gdx.input.justTouched() && clickListener != null) clickListener.accept(this);
     }
 
     @Override
@@ -62,9 +64,12 @@ public class Button extends UIItem {
                 mouseY <= y + height;
     }
 
-    public Button onHover(Consumer<Button> listener) {
+    public void onHover(Consumer<Button> listener) {
         this.hoverListener = listener;
-        return this;
+    }
+
+    public void onClick(Consumer<Button> listener) {
+        this.clickListener = listener;
     }
 
     public void setFillColor(Color color) {

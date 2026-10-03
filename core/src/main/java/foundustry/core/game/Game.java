@@ -15,8 +15,8 @@ import static foundustry.world.Generator.map;
 
 public class Game {
     private final Player player;
-    private final MainMenu mainMenu = new MainMenu();
     private final GameState gameState = new GameState();
+    private final MainMenu mainMenu = new MainMenu(gameState);
 
     Generator generator = new Generator() {{
         width = 300;

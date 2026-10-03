@@ -51,9 +51,9 @@ public abstract class UnitType {
 
     public void drawShadow(SpriteBatch batch) {
         float drawSize = size * Vars.tileSize;
-        float shadowX = x - Vars.tileSize * (flying ? 2f : 0.25f);
-        float shadowY = y - Vars.tileSize * (flying ? 2f : 0.25f);
-        batch.setColor(0f, 0f, 0f, 0.5f);
+        float shadowX = x - Vars.tileSize * (flying ? 1f : 0.25f);
+        float shadowY = y - Vars.tileSize * (flying ? 1f : 0.25f);
+        batch.setColor(0f, 0f, 0f, 0.25f);
         batch.draw(
                 region,
                 shadowX - drawSize / 2f,
