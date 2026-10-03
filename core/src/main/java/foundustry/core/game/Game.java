@@ -6,6 +6,7 @@ import foundustry.graphics.Atlas;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
 import foundustry.types.UnitTypes.Player;
+import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
 import foundustry.world.content.Blocks;
@@ -17,6 +18,7 @@ public class Game {
     private final Player player;
     private final GameState gameState = new GameState();
     private final MainMenu mainMenu = new MainMenu(gameState);
+    private final GameUI gameUI = new GameUI();
 
     Generator generator = new Generator() {{
         width = 300;
@@ -40,6 +42,7 @@ public class Game {
             return;
         }
 
+        gameUI.update();
         player.update();
     }
 
@@ -53,6 +56,8 @@ public class Game {
 
         Init.drawBlock.render();
         Init.drawUnit.render();
+
+        gameUI.render();
     }
 
     public void dispose() {
