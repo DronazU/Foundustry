@@ -36,7 +36,6 @@ public class GameLauncher extends ApplicationAdapter {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Foundustry");
         config.setWindowedMode(1200, 900);
-
         Events.on(EventType.GameLaunchEvent.class, event -> {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             Log.info("Start time: " + sdf.format(new Date(event.startTime)));
