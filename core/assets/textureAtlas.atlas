@@ -1,61 +1,61 @@
 
 textureAtlas.png
-size: 256, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 deep-water
-  rotate: false
-  xy: 68, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-dirt
-  rotate: false
-  xy: 102, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-grass
-  rotate: false
-  xy: 136, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-nothing
-  rotate: false
-  xy: 170, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-sand-floor
-  rotate: false
-  xy: 204, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-sand-water
   rotate: false
   xy: 36, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+dirt
+  rotate: false
+  xy: 332, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+grass
+  rotate: false
+  xy: 366, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+nothing
+  rotate: false
+  xy: 400, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sand-floor
+  rotate: false
+  xy: 434, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sand-water
+  rotate: false
+  xy: 468, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 stone
   rotate: false
-  xy: 104, 34
+  xy: 366, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 138, 34
+  xy: 400, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -69,14 +69,49 @@ circle-shadow
   index: -1
 square-shadow
   rotate: false
-  xy: 70, 34
+  xy: 332, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-construction-drone
+category-defence
+  rotate: false
+  xy: 2, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+category-logistics
   rotate: false
   xy: 2, 36
+  size: 64, 24
+  orig: 64, 24
+  offset: 0, 0
+  index: -1
+category-power
+  rotate: false
+  xy: 68, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+category-production
+  rotate: false
+  xy: 134, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+category-science
+  rotate: false
+  xy: 200, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+construction-drone
+  rotate: false
+  xy: 266, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
