@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import foundustry.graphics.Fonts;
 import foundustry.ui.UIItem;
 
 import java.util.function.Consumer;
@@ -16,7 +17,6 @@ public class Button extends UIItem {
 
     private final ShapeRenderer shape;
     private final SpriteBatch batch;
-    private final BitmapFont font;
 
     private Color color = Color.GRAY;
 
@@ -30,7 +30,6 @@ public class Button extends UIItem {
 
         shape = new ShapeRenderer();
         batch = new SpriteBatch();
-        font = new BitmapFont();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class Button extends UIItem {
         shape.end();
 
         batch.begin();
-        font.draw(batch, text, x + 20, y + height / 2f);
+        Fonts.ui.draw(batch, text, x + 20, y + height / 2f);
         batch.end();
     }
 
@@ -84,6 +83,5 @@ public class Button extends UIItem {
     public void dispose() {
         shape.dispose();
         batch.dispose();
-        font.dispose();
     }
 }

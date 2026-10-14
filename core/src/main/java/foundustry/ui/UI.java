@@ -20,6 +20,7 @@ public abstract class UI {
     }
 
     public void render() {
+        if (!visible) return;
         for (UIItem item : items) {
             item.render();
         }

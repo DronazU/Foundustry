@@ -3,6 +3,7 @@ package foundustry.core.game;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.core.Init;
 import foundustry.graphics.Atlas;
+import foundustry.graphics.Fonts;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
 import foundustry.types.UnitTypes.Player;
@@ -28,6 +29,7 @@ public class Game {
     }};
 
     public Game() {
+        Fonts.load();
         Atlas.load();
         Init.init();
         Blocks.load();
@@ -72,5 +74,6 @@ public class Game {
         Atlas.dispose();
         DrawBlock.dispose();
         DrawUnit.dispose();
+        Fonts.dispose();
     }
 }

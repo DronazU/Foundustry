@@ -5,7 +5,6 @@ public enum Category {
     PRODUCTION("Производство"),
     POWER("Энергетика"),
     SCIENCE("Наука"),
-    EQUIPMENT("Экипировка"),
     DEFENCE("Защита");
 
     public final String localizedName;
