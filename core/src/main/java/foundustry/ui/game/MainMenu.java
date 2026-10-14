@@ -2,6 +2,8 @@ package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import foundustry.core.EventType;
+import foundustry.core.Events;
 import foundustry.core.game.GameState;
 import foundustry.ui.UI;
 import foundustry.ui.UIItems.Button;
@@ -35,6 +37,7 @@ public class MainMenu extends UI {
             button.setFillColor(Color.BLUE);
         });
         exit.onClick(button -> {
+            Events.go(new EventType.GameExitEvent());
             Gdx.app.exit();
         });
 

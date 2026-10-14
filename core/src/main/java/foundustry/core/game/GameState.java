@@ -1,7 +1,7 @@
 package foundustry.core.game;
 
 public class GameState {
-    private static State state = State.MENU;
+    private State state = State.MENU;
     public enum State {
         GAME,
         MENU,
@@ -20,7 +20,7 @@ public class GameState {
         return state == otherState;
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return state == State.GAME;
     }
 

@@ -17,4 +17,6 @@ public abstract class UIItem {
     public abstract void update();
 
     public abstract void render();
+
+    public void dispose() {}
 }

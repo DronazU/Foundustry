@@ -7,6 +7,7 @@ import foundustry.ui.UIItems.Button;
 public class BuildMenu extends UI {
 
     private final Button build;
+    private final DefenseMenu defenseMenu;
 
     public BuildMenu() {
         build = new Button(500, 50, 200, 60, "BUILD");
@@ -14,6 +15,11 @@ public class BuildMenu extends UI {
         build.onHover(button -> {
             button.setFillColor(Color.BLUE);
         });
+
+        defenseMenu = new DefenseMenu();
+
+        items.add(build);
+        childrens.add(defenseMenu);
 
         items.add(build);
     }

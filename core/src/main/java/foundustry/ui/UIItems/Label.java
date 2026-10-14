@@ -30,4 +30,10 @@ public class Label extends UIItem {
         font.draw(batch, text, x, y);
         batch.end();
     }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+        font.dispose();
+    }
 }

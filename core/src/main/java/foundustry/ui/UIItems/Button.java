@@ -79,4 +79,11 @@ public class Button extends UIItem {
     public void setDefaultButtonState() {
         setFillColor(defaultColor);
     }
+
+    @Override
+    public void dispose() {
+        shape.dispose();
+        batch.dispose();
+        font.dispose();
+    }
 }

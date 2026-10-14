@@ -1,9 +1,11 @@
 package foundustry.world.content;
 
+import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.BlockTypes.NothingBlock;
 import foundustry.types.BlockTypes.Floor;
+import foundustry.types.Category;
 
 public class Blocks {
     public static Block
@@ -27,5 +29,16 @@ public class Blocks {
             block.load();
         }
         Log.info("Blocks loaded.");
+    }
+
+    public static Array<Block> getByCategory(Category category) {
+        Array<Block> output = new Array<>();
+
+        for (Block block : Vars.blocks) {
+            if (block.category == category) {
+                output.add(block);
+            }
+        }
+        return output;
     }
 }

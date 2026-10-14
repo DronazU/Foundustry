@@ -37,6 +37,11 @@ public class Game {
     }
 
     public void update() {
+
+        if (gameState.isPaused()) {
+            return;
+        }
+
         if (gameState.isMenu()) {
             mainMenu.update();
             return;
@@ -61,6 +66,9 @@ public class Game {
     }
 
     public void dispose() {
+        mainMenu.dispose();
+        gameUI.dispose();
+
         Atlas.dispose();
         DrawBlock.dispose();
         DrawUnit.dispose();
