@@ -57,4 +57,5 @@ dependencies {
 
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    implementation 'org.mongodb:mongodb-driver-sync:5.5.1'
 }
