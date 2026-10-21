@@ -2,6 +2,7 @@ package foundustry.ui.uiItems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.graphics.Fonts;
@@ -16,6 +17,7 @@ public class Button extends UIItem {
 
     private final ShapeRenderer shape;
     private final SpriteBatch batch;
+    private final TextureRegion icon;
 
     private Color color = Color.GRAY;
 
@@ -26,6 +28,17 @@ public class Button extends UIItem {
         super(x, y, width, height);
 
         this.text = text;
+        this.icon = null;
+
+        shape = new ShapeRenderer();
+        batch = new SpriteBatch();
+    }
+
+    public Button(float x, float y, float width, float height, TextureRegion icon) {
+        super(x, y, width, height);
+
+        this.text = null;
+        this.icon = icon;
 
         shape = new ShapeRenderer();
         batch = new SpriteBatch();
@@ -41,14 +54,33 @@ public class Button extends UIItem {
     @Override
     public void render() {
         shape.begin(ShapeRenderer.ShapeType.Filled);
-
         shape.setColor(color);
         shape.rect(x, y, width, height);
-
         shape.end();
 
         batch.begin();
-        Fonts.ui.draw(batch, text, x + 20, y + height / 2f);
+
+        if (icon != null) {
+            float maxSize = 40f;
+            float scale = Math.min(
+                    maxSize / icon.getRegionWidth(),
+                    maxSize / icon.getRegionHeight()
+            );
+
+            float iconWidth = icon.getRegionWidth() * scale;
+            float iconHeight = icon.getRegionHeight() * scale;
+
+            batch.draw(
+                    icon,
+                    x + (width - iconWidth) / 2f,
+                    y + (height - iconHeight) / 2f,
+                    iconWidth,
+                    iconHeight
+            );
+        } else if (text != null) {
+            Fonts.ui.draw(batch, text, x + 20, y + height / 2f);
+        }
+
         batch.end();
     }
 

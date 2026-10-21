@@ -24,7 +24,7 @@ public class Game {
     private final SaveManager saveManager;
     private final GameState gameState = new GameState();
     private final MainMenu mainMenu = new MainMenu(gameState);
-    private final GameUI gameUI = new GameUI();
+    private final GameUI gameUI;
 
     Generator generator = new Generator() {{
         width = 300;
@@ -42,6 +42,7 @@ public class Game {
         UnitTypes.load();
 
         player = new Player();
+        gameUI = new GameUI();
         map = generator.createMap(generator.width, generator.height);
 
         saveManager = new SaveManager();

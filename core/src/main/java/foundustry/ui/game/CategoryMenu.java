@@ -1,6 +1,7 @@
 package foundustry.ui.game;
 
 import com.badlogic.gdx.graphics.Color;
+import foundustry.graphics.Atlas;
 import foundustry.types.Category;
 import foundustry.ui.UI;
 import foundustry.ui.uiItems.Button;
@@ -28,7 +29,7 @@ public class CategoryMenu extends UI {
                     20,
                     buttonWidth,
                     buttonHeight,
-                    category.localizedName
+                    Atlas.find("category-" + category.name().toLowerCase())
             );
 
             button.onHover(b -> b.setFillColor(Color.BLUE));
