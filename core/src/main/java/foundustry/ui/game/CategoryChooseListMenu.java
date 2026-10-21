@@ -3,7 +3,7 @@ package foundustry.ui.game;
 import foundustry.types.Category;
 import foundustry.ui.UI;
 import foundustry.ui.UIItem;
-import foundustry.ui.UIItems.Button;
+import foundustry.ui.uiItems.Button;
 import foundustry.world.content.Block;
 import foundustry.world.content.Blocks;
 

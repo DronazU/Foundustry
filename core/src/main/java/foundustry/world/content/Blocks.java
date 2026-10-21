@@ -3,8 +3,8 @@ package foundustry.world.content;
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.log.Log;
-import foundustry.types.BlockTypes.NothingBlock;
-import foundustry.types.BlockTypes.Floor;
+import foundustry.types.blockTypes.NothingBlock;
+import foundustry.types.blockTypes.Floor;
 import foundustry.types.Category;
 
 public class Blocks {

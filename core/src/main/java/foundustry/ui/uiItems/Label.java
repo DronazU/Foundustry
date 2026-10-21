@@ -1,4 +1,4 @@
-package foundustry.ui.UIItems;
+package foundustry.ui.uiItems;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

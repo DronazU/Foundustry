@@ -1,12 +1,16 @@
 package foundustry.core.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.core.Init;
+import foundustry.core.game.data.GameFiles;
+import foundustry.core.game.data.database.SaveManager;
 import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
-import foundustry.types.UnitTypes.Player;
+import foundustry.types.unitTypes.Player;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
@@ -17,6 +21,7 @@ import static foundustry.world.Generator.map;
 
 public class Game {
     private final Player player;
+    private final SaveManager saveManager;
     private final GameState gameState = new GameState();
     private final MainMenu mainMenu = new MainMenu(gameState);
     private final GameUI gameUI = new GameUI();
@@ -32,10 +37,21 @@ public class Game {
         Fonts.load();
         Atlas.load();
         Init.init();
+        GameFiles.init();
         Blocks.load();
         UnitTypes.load();
+
         player = new Player();
         map = generator.createMap(generator.width, generator.height);
+
+        saveManager = new SaveManager();
+
+        float[] position = saveManager.loadPosition();
+
+        if (position != null) {
+            player.unit.x = position[0];
+            player.unit.y = position[1];
+        }
     }
 
     public void update() {
@@ -51,6 +67,13 @@ public class Game {
 
         gameUI.update();
         player.update();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F5)) {
+            saveManager.savePosition(
+                    player.unit.x,
+                    player.unit.y
+            );
+        }
     }
 
     public void render() {
@@ -75,5 +98,6 @@ public class Game {
         DrawBlock.dispose();
         DrawUnit.dispose();
         Fonts.dispose();
+        saveManager.close();
     }
 }

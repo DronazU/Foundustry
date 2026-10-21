@@ -6,8 +6,8 @@ import foundustry.core.EventType;
 import foundustry.core.Events;
 import foundustry.core.game.GameState;
 import foundustry.ui.UI;
-import foundustry.ui.UIItems.Button;
-import foundustry.ui.UIItems.Label;
+import foundustry.ui.uiItems.Button;
+import foundustry.ui.uiItems.Label;
 
 public class MainMenu extends UI {
 

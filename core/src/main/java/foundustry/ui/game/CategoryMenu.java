@@ -3,7 +3,7 @@ package foundustry.ui.game;
 import com.badlogic.gdx.graphics.Color;
 import foundustry.types.Category;
 import foundustry.ui.UI;
-import foundustry.ui.UIItems.Button;
+import foundustry.ui.uiItems.Button;
 
 public class CategoryMenu extends UI {
 

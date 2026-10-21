@@ -1,10 +1,9 @@
-package foundustry.types.UnitTypes;
+package foundustry.types.unitTypes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
-import foundustry.core.game.GameState;
 import foundustry.core.game.Time;
 import foundustry.core.Vars;
 import foundustry.log.Log;

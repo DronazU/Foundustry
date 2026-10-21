@@ -1,4 +1,4 @@
-package foundustry.types.BlockTypes;
+package foundustry.types.blockTypes;
 
 import foundustry.world.content.Block;
 
