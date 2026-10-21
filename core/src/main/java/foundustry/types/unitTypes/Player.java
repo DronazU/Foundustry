@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import foundustry.core.game.Time;
 import foundustry.core.Vars;
-import foundustry.log.Log;
+import foundustry.ui.game.GameUI;
 import foundustry.world.content.Block;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitType;
@@ -18,6 +18,7 @@ import static foundustry.world.Generator.map;
 public class Player {
     public UnitType unit = UnitTypes.constructionDrone;
     public Block block = Blocks.nothing;
+    private GameUI gameUI;
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta();
@@ -75,10 +76,8 @@ public class Player {
             );
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            Vector3 mousePosition = getMousePosition();
-            block = map[(int)mousePosition.x][(int)mousePosition.y].block;
-            Log.debug("block: " + block);
+        if (gameUI != null && gameUI.getSelectedBlock() != null) {
+            block = gameUI.getSelectedBlock();
         }
 
         camera.position.set(unit.x, unit.y, 0);
@@ -102,5 +101,15 @@ public class Player {
         int tileX = (int)mousePosition.x / Vars.tileSize;
         int tileY = (int)mousePosition.y / Vars.tileSize;
         return new Vector3(tileX, tileY, 0);
+    }
+
+    public void setGameUI(GameUI gameUI) {
+        this.gameUI = gameUI;
+    }
+
+    public void setBlock(Block block) {
+        if (block != null) {
+            this.block = block;
+        }
     }
 }

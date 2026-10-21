@@ -6,9 +6,12 @@ import foundustry.types.Category;
 import foundustry.ui.UI;
 import foundustry.ui.uiItems.Button;
 
+import java.util.function.Consumer;
+
 public class CategoryMenu extends UI {
 
     private Category selectedCategory;
+    private Consumer<Category> categoryListener;
 
     public CategoryMenu() {
         Category[] categories = Category.values();
@@ -36,6 +39,10 @@ public class CategoryMenu extends UI {
 
             button.onClick(b -> {
                 selectedCategory = category;
+
+                if (categoryListener != null) {
+                    categoryListener.accept(category);
+                }
             });
 
             items.add(button);
@@ -44,5 +51,22 @@ public class CategoryMenu extends UI {
 
     public Category getSelectedCategory() {
         return selectedCategory;
+    }
+
+    public float getButtonX(Category category) {
+        float buttonWidth = 150f;
+        float gap = 10f;
+
+        float totalWidth = Category.values().length * buttonWidth
+                + (Category.values().length - 1) * gap;
+
+        float startX = (com.badlogic.gdx.Gdx.graphics.getWidth()
+                - totalWidth) / 2f;
+
+        return startX + category.ordinal() * (buttonWidth + gap);
+    }
+
+    public void setCategoryListener(Consumer<Category> listener) {
+        categoryListener = listener;
     }
 }
