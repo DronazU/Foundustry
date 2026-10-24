@@ -13,13 +13,11 @@ public class DrawBlock {
         batch = new SpriteBatch();
     }
 
-
     public void render() {
         camera.update();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
         if (map != null) {
             for (Tile[] tiles : map) {
                 for (Tile tile : tiles) {
@@ -29,7 +27,6 @@ public class DrawBlock {
                 }
             }
         }
-
         batch.end();
     }
 

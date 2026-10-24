@@ -88,12 +88,30 @@ public class Player {
         build();
     }
 
+
     public void build() {
-        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            Vector3 mousePosition = getMousePosition();
-            map[(int)mousePosition.x][(int)mousePosition.y].block = block;
+        if (!Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
+            return;
         }
+
+        if (map == null || block == null || block == Blocks.nothing) {
+            return;
+        }
+
+        Vector3 mousePosition = getMousePosition();
+
+        int tileX = (int) mousePosition.x;
+        int tileY = (int) mousePosition.y;
+
+        if (tileX < 0 || tileX >= map.length) return;
+        if (tileY < 0 || tileY >= map[tileX].length) return;
+
+        var tile = map[tileX][tileY];
+
+        tile.block = block;
+        tile.block.rotation = block.rotation;
     }
+
 
     public Vector3 getMousePosition() {
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);

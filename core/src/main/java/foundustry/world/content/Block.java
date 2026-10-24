@@ -7,9 +7,11 @@ import foundustry.types.Category;
 import static foundustry.core.Vars.blocks;
 
 public class Block {
-    public String name;
-    public int size;
-    public Category category;
+    public String name = "parrot";
+    public int size = 1;
+    public int rotation = 0;
+    public boolean canRotate = false;
+    public Category category = null;
 
     public TextureRegion region;
 
@@ -20,5 +22,8 @@ public class Block {
 
     public void load() {
         this.region = Atlas.find(this.name);
+    }
+    public boolean canRotate() {
+        return canRotate;
     }
 }

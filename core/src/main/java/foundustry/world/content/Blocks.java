@@ -3,6 +3,7 @@ package foundustry.world.content;
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.log.Log;
+import foundustry.types.blockTypes.Conveyor;
 import foundustry.types.blockTypes.NothingBlock;
 import foundustry.types.blockTypes.Floor;
 import foundustry.types.Category;
@@ -11,8 +12,10 @@ public class Blocks {
     public static Block
 
     /** environment */
-    sandFloor, grass, stone, dirt, nothing, water, deepWater, sandWater
+    sandFloor, grass, stone, dirt, nothing, water, deepWater, sandWater,
 
+    /** logistic */
+    conveyor
     ;
 
     public static void load() {
@@ -24,6 +27,9 @@ public class Blocks {
         water = new Floor("water");
         deepWater = new Floor("deep-water");
         sandWater = new Floor("sand-water");
+        conveyor = new Conveyor("conveyor") {{
+            canRotate = true;
+        }};
 
         for (Block block : Vars.blocks) {
             block.load();

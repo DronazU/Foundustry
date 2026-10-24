@@ -43,6 +43,7 @@ public class Game {
 
         player = new Player();
         gameUI = new GameUI();
+        player.setGameUI(gameUI);
         map = generator.createMap(generator.width, generator.height);
 
         saveManager = new SaveManager();
