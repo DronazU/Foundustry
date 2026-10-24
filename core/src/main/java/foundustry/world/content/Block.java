@@ -9,7 +9,6 @@ import static foundustry.core.Vars.blocks;
 public class Block {
     public String name = "parrot";
     public int size = 1;
-    public int rotation = 0;
     public boolean canRotate = false;
     public Category category = null;
 

@@ -19,6 +19,7 @@ public class Player {
     public UnitType unit = UnitTypes.constructionDrone;
     public Block block = Blocks.nothing;
     private GameUI gameUI;
+    private int blockRotation = 0;
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta();
@@ -46,6 +47,12 @@ public class Player {
 
             moveX /= length;
             moveY /= length;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)
+                && block != null
+                && block.canRotate()) {
+            blockRotation = (blockRotation + 90) % 360;
         }
 
         float targetX = moveX * unit.speed;
@@ -109,7 +116,7 @@ public class Player {
         var tile = map[tileX][tileY];
 
         tile.block = block;
-        tile.block.rotation = block.rotation;
+        tile.rotation = block.canRotate() ? blockRotation : 0;
     }
 
 

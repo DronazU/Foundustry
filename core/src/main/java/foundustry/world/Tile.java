@@ -9,6 +9,7 @@ public class Tile {
 
     public Block floor;
     public Block block;
+    public int rotation;
 
     public Tile(float x, float y, Block floor) {
         this.x = x;
@@ -29,7 +30,7 @@ public class Tile {
                     size / 2f, size / 2f,
                     size, size,
                     1f, 1f,
-                    block.rotation
+                    rotation
             );
         }
     }
