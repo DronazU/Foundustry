@@ -22,8 +22,8 @@ public class Player {
     private int blockRotation = 0;
 
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta();
-        if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) camera.zoom -= Time.delta();
+        if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) camera.zoom -= Time.delta;
         if (camera.zoom < 0.5f) camera.zoom = 0.5f;
         if (camera.zoom > 3.0f) camera.zoom = 3.0f;
 
@@ -58,19 +58,19 @@ public class Player {
         float targetX = moveX * unit.speed;
         float targetY = moveY * unit.speed;
 
-        unit.velocityX += (targetX - unit.velocityX) * unit.accel * 60f * Time.delta();
-        unit.velocityY += (targetY - unit.velocityY) * unit.accel * 60f * Time.delta();
+        unit.velocityX += (targetX - unit.velocityX) * unit.accel * 60f * Time.delta;
+        unit.velocityY += (targetY - unit.velocityY) * unit.accel * 60f * Time.delta;
 
         if (moveX == 0f) {
-            unit.velocityX *= 1f - unit.drag * 60f * Time.delta();
+            unit.velocityX *= 1f - unit.drag * 60f * Time.delta;
         }
 
         if (moveY == 0f) {
-            unit.velocityY *= 1f - unit.drag * 60f * Time.delta();
+            unit.velocityY *= 1f - unit.drag * 60f * Time.delta;
         }
 
-        unit.x += unit.velocityX * Time.delta();
-        unit.y += unit.velocityY * Time.delta();
+        unit.x += unit.velocityX * Time.delta;
+        unit.y += unit.velocityY * Time.delta;
 
         if (a || d || w || s) {
             unit.rotation = MathUtils.lerpAngleDeg(
@@ -79,7 +79,7 @@ public class Player {
                             (a ? 1 : 0) - (d ? 1 : 0),
                             (w ? 1 : 0) - (s ? 1 : 0)
                     ) * MathUtils.radiansToDegrees,
-                    Math.min(1f, unit.rotateSpeed * Time.delta())
+                    Math.min(1f, unit.rotateSpeed * Time.delta)
             );
         }
 

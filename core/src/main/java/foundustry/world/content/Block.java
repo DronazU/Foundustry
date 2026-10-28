@@ -25,4 +25,9 @@ public class Block {
     public boolean canRotate() {
         return canRotate;
     }
+    public void update(float delta) { }
+
+    public TextureRegion getRegion() {
+        return region;
+    }
 }

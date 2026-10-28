@@ -2,6 +2,7 @@ package foundustry.graphics;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import foundustry.log.Log;
 
 public class Atlas {
@@ -19,6 +20,10 @@ public class Atlas {
         TextureAtlas.AtlasRegion thisRegion = atlas.findRegion(region);
         if (thisRegion == null) Log.warn("Region " + region + " not found.");
         return thisRegion;
+    }
+
+    public static Array<TextureAtlas.AtlasRegion> find(String name, boolean isArray) {
+        return atlas.findRegions(name);
     }
 
     public static void dispose() {

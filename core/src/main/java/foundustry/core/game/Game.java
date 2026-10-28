@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.core.Init;
+import foundustry.core.Vars;
 import foundustry.core.game.data.GameFiles;
 import foundustry.core.game.data.database.SaveManager;
 import foundustry.graphics.Atlas;
@@ -14,6 +15,7 @@ import foundustry.types.unitTypes.Player;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
+import foundustry.world.content.Block;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitTypes;
 
@@ -65,6 +67,10 @@ public class Game {
         if (gameState.isMenu()) {
             mainMenu.update();
             return;
+        }
+
+        for (Block block : Vars.blocks) {
+            block.update(Time.delta);
         }
 
         gameUI.update();

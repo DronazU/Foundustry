@@ -1,6 +1,7 @@
 package foundustry.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.core.Vars;
 import foundustry.world.content.Block;
 
@@ -23,15 +24,18 @@ public class Tile {
         if (floor != null && floor.region != null) {
             batch.draw(floor.region, x, y, size, size);
         }
-        if (block != null && block.region != null) {
-            batch.draw(
-                    block.region,
-                    x, y,
-                    size / 2f, size / 2f,
-                    size, size,
-                    1f, 1f,
-                    rotation
-            );
+        if (block != null) {
+            TextureRegion region = block.getRegion();
+            if (region != null) {
+                batch.draw(
+                        block.region,
+                        x, y,
+                        size / 2f, size / 2f,
+                        size, size,
+                        1f, 1f,
+                        rotation
+                );
+            }
         }
     }
 }
