@@ -6,56 +6,56 @@ filter: Nearest, Nearest
 repeat: none
 deep-water
   rotate: false
-  xy: 332, 94
+  xy: 400, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 dirt
   rotate: false
-  xy: 366, 94
+  xy: 434, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 400, 94
+  xy: 468, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 nothing
   rotate: false
-  xy: 434, 94
+  xy: 70, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-floor
   rotate: false
-  xy: 468, 94
+  xy: 104, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 332, 60
+  xy: 138, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 400, 60
+  xy: 206, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 434, 60
+  xy: 240, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -66,7 +66,56 @@ conveyor
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 0
+conveyor
+  rotate: false
+  xy: 332, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+conveyor
+  rotate: false
+  xy: 366, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+conveyor
+  rotate: false
+  xy: 400, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+conveyor
+  rotate: false
+  xy: 434, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+conveyor
+  rotate: false
+  xy: 468, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+conveyor
+  rotate: false
+  xy: 332, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+conveyor
+  rotate: false
+  xy: 366, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
 circle-shadow
   rotate: false
   xy: 2, 2
@@ -76,7 +125,7 @@ circle-shadow
   index: -1
 square-shadow
   rotate: false
-  xy: 366, 60
+  xy: 172, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

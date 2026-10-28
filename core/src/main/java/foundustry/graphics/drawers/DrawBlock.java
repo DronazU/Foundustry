@@ -13,23 +13,30 @@ public class DrawBlock {
         batch = new SpriteBatch();
     }
 
+
     public void render() {
         camera.update();
 
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        if (map != null) {
-            for (Tile[] tiles : map) {
-                for (Tile tile : tiles) {
-                    if (tile != null) {
-                        tile.draw(batch);
+        SpriteBatch currentBatch = batch;
+        currentBatch.setProjectionMatrix(camera.combined);
+        currentBatch.begin();
+
+        try {
+            if (map != null) {
+                for (Tile[] tiles : map) {
+                    for (Tile tile : tiles) {
+                        if (tile != null) {
+                            tile.draw(currentBatch);
+                        }
                     }
                 }
             }
+        } finally {
+            if (currentBatch.isDrawing()) {
+                currentBatch.end();
+            }
         }
-        batch.end();
     }
-
     public static void dispose() {
         if (batch != null) batch.dispose();
     }

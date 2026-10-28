@@ -29,6 +29,7 @@ public class Blocks {
         sandWater = new Floor("sand-water");
         conveyor = new Conveyor("conveyor") {{
             canRotate = true;
+            speed = 1f;
         }};
 
         for (Block block : Vars.blocks) {

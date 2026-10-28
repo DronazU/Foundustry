@@ -12,6 +12,8 @@ public class Conveyor extends LogisticBlock {
     private Animation<TextureRegion> animation;
     private float animationTime;
 
+    public float speed;
+
     public Conveyor(String name) {
         super(name);
         canRotate = true;
@@ -21,13 +23,18 @@ public class Conveyor extends LogisticBlock {
     public void load() {
         super.load();
 
-        Array<TextureAtlas.AtlasRegion> frames = Atlas.find(name, true);
+        Array<TextureAtlas.AtlasRegion> frames =
+                Atlas.find(name, true);
 
         if (frames.size > 1) {
-            frames.sort((a, b) -> Integer.compare(a.index, b.index));
+            frames.sort(
+                    (a, b) -> Integer.compare(a.index, b.index)
+            );
+
+            float frameDuration = 1f / (frames.size * speed);
 
             animation = new Animation<>(
-                    0.1f,
+                    frameDuration,
                     frames,
                     Animation.PlayMode.LOOP
             );
@@ -50,5 +57,9 @@ public class Conveyor extends LogisticBlock {
         }
 
         return animation.getKeyFrame(animationTime);
+    }
+
+    public float getSpeed() {
+        return speed;
     }
 }

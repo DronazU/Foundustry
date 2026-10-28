@@ -59,6 +59,7 @@ public class Game {
     }
 
     public void update() {
+        Time.update();
 
         if (gameState.isPaused()) {
             return;
