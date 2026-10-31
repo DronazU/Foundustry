@@ -15,7 +15,7 @@ public class Blocks {
     sandFloor, grass, stone, dirt, nothing, water, deepWater, sandWater,
 
     /** logistic */
-    conveyor
+    conveyor, cornerConveyor
     ;
 
     public static void load() {

@@ -14,6 +14,7 @@ public class DrawBlock {
     }
 
 
+
     public void render() {
         camera.update();
 
@@ -23,10 +24,12 @@ public class DrawBlock {
 
         try {
             if (map != null) {
-                for (Tile[] tiles : map) {
-                    for (Tile tile : tiles) {
+                for (int x = 0; x < map.length; x++) {
+                    for (int y = 0; y < map[x].length; y++) {
+                        Tile tile = map[x][y];
+
                         if (tile != null) {
-                            tile.draw(currentBatch);
+                            tile.draw(currentBatch, map, x, y);
                         }
                     }
                 }
@@ -37,6 +40,7 @@ public class DrawBlock {
             }
         }
     }
+
     public static void dispose() {
         if (batch != null) batch.dispose();
     }

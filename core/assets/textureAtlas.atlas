@@ -1,173 +1,229 @@
 
 textureAtlas.png
-size: 512, 128
+size: 256, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 deep-water
   rotate: false
-  xy: 400, 60
+  xy: 136, 44
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 dirt
   rotate: false
-  xy: 434, 60
+  xy: 170, 44
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 468, 60
+  xy: 204, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 nothing
   rotate: false
-  xy: 70, 28
+  xy: 70, 40
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-floor
   rotate: false
-  xy: 104, 28
+  xy: 70, 6
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 138, 28
+  xy: 104, 10
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 206, 28
+  xy: 172, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 240, 28
+  xy: 206, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 conveyor
   rotate: false
-  xy: 36, 2
+  xy: 68, 74
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
 conveyor
   rotate: false
-  xy: 332, 94
+  xy: 134, 180
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 conveyor
   rotate: false
-  xy: 366, 94
+  xy: 134, 146
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 conveyor
   rotate: false
-  xy: 400, 94
+  xy: 134, 112
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 conveyor
   rotate: false
-  xy: 434, 94
+  xy: 36, 8
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 conveyor
   rotate: false
-  xy: 468, 94
+  xy: 102, 74
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 conveyor
   rotate: false
-  xy: 332, 60
+  xy: 168, 180
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 conveyor
   rotate: false
-  xy: 366, 60
+  xy: 168, 146
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+conveyor_corner
+  rotate: false
+  xy: 168, 112
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+conveyor_corner
+  rotate: false
+  xy: 136, 78
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+conveyor_corner
+  rotate: false
+  xy: 170, 78
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+conveyor_corner
+  rotate: false
+  xy: 202, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+conveyor_corner
+  rotate: false
+  xy: 202, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+conveyor_corner
+  rotate: false
+  xy: 202, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+conveyor_corner
+  rotate: false
+  xy: 204, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+conveyor_corner
+  rotate: false
+  xy: 204, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 circle-shadow
   rotate: false
-  xy: 2, 2
+  xy: 2, 8
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 square-shadow
   rotate: false
-  xy: 172, 28
+  xy: 138, 10
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 category-defence
   rotate: false
-  xy: 2, 62
+  xy: 2, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 category-logistics
   rotate: false
-  xy: 2, 36
+  xy: 134, 214
   size: 64, 24
   orig: 64, 24
   offset: 0, 0
   index: -1
 category-power
   rotate: false
-  xy: 68, 62
+  xy: 2, 108
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 category-production
   rotate: false
-  xy: 134, 62
+  xy: 68, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 category-science
   rotate: false
-  xy: 200, 62
+  xy: 2, 42
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 construction-drone
   rotate: false
-  xy: 266, 62
+  xy: 68, 108
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

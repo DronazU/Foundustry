@@ -1,9 +1,9 @@
 package foundustry.world;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.core.Vars;
+import foundustry.types.blockTypes.Conveyor;
 import foundustry.world.content.Block;
 
 public class Tile {
@@ -21,30 +21,42 @@ public class Tile {
     }
 
 
-    public void draw(SpriteBatch batch) {
+
+    public void draw(
+            SpriteBatch batch,
+            Tile[][] map,
+            int tileX,
+            int tileY
+    ) {
         float size = Vars.tileSize;
 
+        // Поверхность
         if (floor != null && floor.region != null) {
             batch.draw(floor.region, x, y, size, size);
         }
 
         if (block == null) return;
 
-//        if (Vars.Shadow.squareShadow != null) {
-//            float shadowSize = size * 1.5f;
-//            float offset = (shadowSize - size) / 2f;
-//            batch.setColor(Color.BLACK);
-//            batch.draw(
-//                    Vars.Shadow.squareShadow,
-//                    x - offset,
-//                    y - offset,
-//                    shadowSize,
-//                    shadowSize
-//            );
-//            batch.setColor(Color.WHITE);
-//        }
-
         TextureRegion region = block.getRegion();
+
+        if (block instanceof Conveyor conveyor) {
+            Conveyor.CornerOrientation corner =
+                    conveyor.getCornerOrientation(
+                            map,
+                            tileX,
+                            tileY,
+                            rotation
+                    );
+
+            if (corner != null) {
+                TextureRegion cornerRegion =
+                        conveyor.getCornerRegion(corner.flipX);
+
+                if (cornerRegion != null) {
+                    region = cornerRegion;
+                }
+            }
+        }
 
         if (region != null) {
             batch.draw(
@@ -57,4 +69,5 @@ public class Tile {
             );
         }
     }
+
 }
