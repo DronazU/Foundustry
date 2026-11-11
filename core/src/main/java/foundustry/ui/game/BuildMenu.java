@@ -3,7 +3,7 @@ package foundustry.ui.game;
 
 import foundustry.types.Category;
 import foundustry.ui.UI;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 
 public class BuildMenu extends UI {
 

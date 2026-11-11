@@ -1,10 +1,10 @@
 package foundustry.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.core.Vars;
-import foundustry.types.blockTypes.Conveyor;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 
 public class Tile {
     public float x, y;
@@ -20,54 +20,52 @@ public class Tile {
         this.block = null;
     }
 
-
-
-    public void draw(
-            SpriteBatch batch,
-            Tile[][] map,
-            int tileX,
-            int tileY
-    ) {
+    public void drawFloor(SpriteBatch batch) {
         float size = Vars.tileSize;
 
-        // Поверхность
         if (floor != null && floor.region != null) {
             batch.draw(floor.region, x, y, size, size);
         }
+    }
 
+    public void drawShadow(SpriteBatch batch) {
+        if (block == null || !block.hasShadow) return;
+        if (Vars.Shadow.squareShadow == null) return;
+
+        float size = Vars.tileSize * 1.25f;
+        float offset = (size - Vars.tileSize) / 2f;
+
+        Color previousColor = new Color(batch.getColor());
+
+        batch.setColor(0f, 0f, 0f, 1);
+
+        batch.draw(
+                Vars.Shadow.squareShadow,
+                x - offset,
+                y - offset,
+                size,
+                size
+        );
+
+        batch.setColor(previousColor);
+    }
+
+    public void drawBlock(SpriteBatch batch) {
         if (block == null) return;
 
         TextureRegion region = block.getRegion();
 
-        if (block instanceof Conveyor conveyor) {
-            Conveyor.CornerOrientation corner =
-                    conveyor.getCornerOrientation(
-                            map,
-                            tileX,
-                            tileY,
-                            rotation
-                    );
+        if (region == null) return;
 
-            if (corner != null) {
-                TextureRegion cornerRegion =
-                        conveyor.getCornerRegion(corner.flipX);
+        float size = Vars.tileSize;
 
-                if (cornerRegion != null) {
-                    region = cornerRegion;
-                }
-            }
-        }
-
-        if (region != null) {
-            batch.draw(
-                    region,
-                    x, y,
-                    size / 2f, size / 2f,
-                    size, size,
-                    1f, 1f,
-                    rotation
-            );
-        }
+        batch.draw(
+                region,
+                x, y,
+                size / 2f, size / 2f,
+                size, size,
+                1f, 1f,
+                rotation
+        );
     }
-
 }

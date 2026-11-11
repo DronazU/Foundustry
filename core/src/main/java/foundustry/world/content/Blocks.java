@@ -3,9 +3,7 @@ package foundustry.world.content;
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.log.Log;
-import foundustry.types.blockTypes.Conveyor;
-import foundustry.types.blockTypes.NothingBlock;
-import foundustry.types.blockTypes.Floor;
+import foundustry.types.Block;
 import foundustry.types.Category;
 
 public class Blocks {
@@ -29,6 +27,9 @@ public class Blocks {
         sandWater = new Floor("sand-water");
         conveyor = new Conveyor("conveyor") {{
             canRotate = true;
+            speed = 1f;
+        }};
+        cornerConveyor = new Conveyor("conveyor_corner") {{
             speed = 1f;
         }};
 

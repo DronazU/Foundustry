@@ -2,7 +2,7 @@ package foundustry.world;
 
 import foundustry.core.Vars;
 import foundustry.log.Log;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 import foundustry.world.content.Blocks;
 
 import static foundustry.world.SimplexNoise.noise;

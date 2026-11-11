@@ -2,7 +2,7 @@ package foundustry.world.content;
 
 import foundustry.core.Vars;
 import foundustry.log.Log;
-import foundustry.types.unitTypes.GroundUnit;
+import foundustry.types.UnitType;
 
 public class UnitTypes {
     public static UnitType

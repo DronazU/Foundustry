@@ -1,3 +1,4 @@
+
 package foundustry.graphics.drawers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,8 +14,6 @@ public class DrawBlock {
         batch = new SpriteBatch();
     }
 
-
-
     public void render() {
         camera.update();
 
@@ -23,17 +22,32 @@ public class DrawBlock {
         currentBatch.begin();
 
         try {
-            if (map != null) {
-                for (int x = 0; x < map.length; x++) {
-                    for (int y = 0; y < map[x].length; y++) {
-                        Tile tile = map[x][y];
+            if (map == null) return;
 
-                        if (tile != null) {
-                            tile.draw(currentBatch, map, x, y);
-                        }
+            for (Tile[] tiles : map) {
+                for (Tile tile : tiles) {
+                    if (tile != null) {
+                        tile.drawFloor(currentBatch);
                     }
                 }
             }
+
+            for (Tile[] tiles : map) {
+                for (Tile tile : tiles) {
+                    if (tile != null) {
+                        tile.drawShadow(currentBatch);
+                    }
+                }
+            }
+
+            for (Tile[] tiles : map) {
+                for (Tile tile : tiles) {
+                    if (tile != null) {
+                        tile.drawBlock(currentBatch);
+                    }
+                }
+            }
+
         } finally {
             if (currentBatch.isDrawing()) {
                 currentBatch.end();
@@ -42,6 +56,9 @@ public class DrawBlock {
     }
 
     public static void dispose() {
-        if (batch != null) batch.dispose();
+        if (batch != null) {
+            batch.dispose();
+            batch = null;
+        }
     }
 }

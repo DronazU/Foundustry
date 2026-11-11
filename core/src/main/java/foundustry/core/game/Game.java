@@ -11,11 +11,11 @@ import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
-import foundustry.types.unitTypes.Player;
+import foundustry.world.content.Player;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitTypes;
 

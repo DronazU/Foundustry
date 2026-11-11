@@ -1,8 +1,7 @@
-package foundustry.world.content;
+package foundustry.types;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.graphics.Atlas;
-import foundustry.types.Category;
 
 import static foundustry.core.Vars.blocks;
 
@@ -11,6 +10,7 @@ public class Block {
     public int size = 1;
     public boolean canRotate = false;
     public Category category = null;
+    public boolean hasShadow = true;
 
     public TextureRegion region;
 

@@ -4,7 +4,7 @@ import foundustry.types.Category;
 import foundustry.ui.UI;
 import foundustry.ui.UIItem;
 import foundustry.ui.uiItems.Button;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 import foundustry.world.content.Blocks;
 
 public class CategoryChooseListMenu extends UI {

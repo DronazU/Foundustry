@@ -1,7 +1,7 @@
 package foundustry.graphics.drawers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import foundustry.world.content.UnitType;
+import foundustry.types.UnitType;
 
 import static foundustry.core.Init.camera;
 import static foundustry.core.Vars.units;

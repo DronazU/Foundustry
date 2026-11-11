@@ -2,7 +2,7 @@
 package foundustry.ui.game;
 
 import foundustry.ui.UI;
-import foundustry.world.content.Block;
+import foundustry.types.Block;
 
 public class GameUI extends UI {
 

@@ -3,8 +3,8 @@ package foundustry.core;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import foundustry.graphics.Atlas;
-import foundustry.world.content.UnitType;
-import foundustry.world.content.Block;
+import foundustry.types.UnitType;
+import foundustry.types.Block;
 
 public class Vars {
     public static int tileSize = 32;

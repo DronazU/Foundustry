@@ -1,6 +1,6 @@
-package foundustry.types.unitTypes;
+package foundustry.world.content;
 
-import foundustry.world.content.UnitType;
+import foundustry.types.UnitType;
 
 public class GroundUnit extends UnitType {
     public GroundUnit(String name) {

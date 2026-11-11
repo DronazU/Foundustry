@@ -1,7 +1,7 @@
-package foundustry.types.blockTypes;
+package foundustry.world.content;
 
+import foundustry.types.Block;
 import foundustry.types.Category;
-import foundustry.world.content.Block;
 
 public class LogisticBlock extends Block {
 

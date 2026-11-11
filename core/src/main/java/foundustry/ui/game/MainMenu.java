@@ -20,7 +20,7 @@ public class MainMenu extends UI {
     public MainMenu(GameState state) {
         this.state = state;
 
-        title = new Label(600, 700, "FOUNDustry");
+        title = new Label(600, 700, "Foundustry");
         play = new Button(500, 450, 200, 60, "PLAY");
         play.onHover(button -> {
             button.setFillColor(Color.BLUE);

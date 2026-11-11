@@ -1,4 +1,4 @@
-package foundustry.world.content;
+package foundustry.types;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
