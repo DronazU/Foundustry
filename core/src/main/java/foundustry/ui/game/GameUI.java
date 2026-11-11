@@ -1,20 +1,26 @@
 
 package foundustry.ui.game;
 
+import foundustry.types.Item;
 import foundustry.ui.UI;
-import foundustry.types.Block;
+import foundustry.world.player.Inventory;
 
 public class GameUI extends UI {
+    private final Hotbar hotbar;
+    private final InventoryUI inventoryUI;
 
-    private final BuildMenu buildMenu;
+    public GameUI(Inventory inventory) {
+        hotbar = new Hotbar(inventory);
+        inventoryUI = new InventoryUI(inventory, hotbar);
 
-    public GameUI() {
-        buildMenu = new BuildMenu();
-
-        childrens.add(buildMenu);
+        childrens.add(hotbar);
+        childrens.add(inventoryUI);
     }
 
-    public Block getSelectedBlock() {
-        return buildMenu.getSelectedBlock();
+    public Item getSelectedItem() {
+        return hotbar.getSelectedItem();
+    }
+    public void scrollHotbar(float amountY) {
+        hotbar.scroll(amountY);
     }
 }

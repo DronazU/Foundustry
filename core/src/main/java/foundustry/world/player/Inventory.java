@@ -1,7 +1,9 @@
+
 package foundustry.world.player;
 
 import foundustry.types.Item;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,15 +15,17 @@ public class Inventory {
     }
 
     public void add(Item item, int amount) {
+        if (item == null || amount <= 0) return;
+
         items.put(item, get(item) + amount);
     }
 
     public boolean remove(Item item, int amount) {
+        if (item == null || amount <= 0) return false;
+
         int count = get(item);
 
-        if (count < amount) {
-            return false;
-        }
+        if (count < amount) return false;
 
         if (count == amount) {
             items.remove(item);
@@ -33,6 +37,6 @@ public class Inventory {
     }
 
     public Map<Item, Integer> getItems() {
-        return items;
+        return Collections.unmodifiableMap(items);
     }
 }

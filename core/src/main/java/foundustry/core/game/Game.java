@@ -1,7 +1,9 @@
+
 package foundustry.core.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.core.Init;
 import foundustry.core.Vars;
@@ -17,6 +19,7 @@ import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;
 import foundustry.types.Block;
 import foundustry.world.content.Blocks;
+import foundustry.world.content.Items;
 import foundustry.world.content.UnitTypes;
 
 import static foundustry.world.Generator.map;
@@ -40,12 +43,28 @@ public class Game {
         Atlas.load();
         Init.init();
         GameFiles.init();
+
         Blocks.load();
+        Items.load();
         UnitTypes.load();
 
         player = new Player();
-        gameUI = new GameUI();
+
+        player.inventory.add(Items.unrefinedCopper, 75);
+        player.inventory.add(Items.unrefinedIron, 24);
+        player.inventory.add(Items.conveyor, 40);
+
+        gameUI = new GameUI(player.inventory);
         player.setGameUI(gameUI);
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean scrolled(float amountX, float amountY) {
+                gameUI.scrollHotbar(amountY);
+                return true;
+            }
+        });
+
         map = generator.createMap(generator.width, generator.height);
 
         saveManager = new SaveManager();

@@ -20,6 +20,7 @@ public class Player {
     public Block block = Blocks.nothing;
     private GameUI gameUI;
     private int blockRotation = 0;
+    public final Inventory inventory = new Inventory();
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta;
@@ -81,10 +82,6 @@ public class Player {
                     ) * MathUtils.radiansToDegrees,
                     Math.min(1f, unit.rotateSpeed * Time.delta)
             );
-        }
-
-        if (gameUI != null && gameUI.getSelectedBlock() != null) {
-            block = gameUI.getSelectedBlock();
         }
 
         camera.position.set(unit.x, unit.y, 0);

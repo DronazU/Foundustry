@@ -3,6 +3,7 @@ package foundustry.core;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import foundustry.graphics.Atlas;
+import foundustry.types.Item;
 import foundustry.types.UnitType;
 import foundustry.types.Block;
 
@@ -11,6 +12,7 @@ public class Vars {
 
     public static Array<UnitType> units = new Array<>();
     public static Array<Block> blocks = new Array<>();
+    public static final Array<Item> items = new Array<>();
 
     public static class Shadow {
         public static TextureRegion circleShadow = Atlas.find("circle-shadow");

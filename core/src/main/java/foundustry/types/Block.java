@@ -1,9 +1,8 @@
 package foundustry.types;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
-
-import static foundustry.core.Vars.blocks;
 
 public class Block {
     public String name = "parrot";
@@ -16,7 +15,7 @@ public class Block {
 
     public Block(String name) {
         this.name = name;
-        blocks.add(this);
+        Vars.blocks.add(this);
     }
 
     public void load() {
