@@ -11,7 +11,7 @@ import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
-import foundustry.world.content.Player;
+import foundustry.world.player.Player;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
 import foundustry.world.Generator;

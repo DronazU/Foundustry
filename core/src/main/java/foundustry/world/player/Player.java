@@ -1,4 +1,4 @@
-package foundustry.world.content;
+package foundustry.world.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,6 +9,8 @@ import foundustry.core.Vars;
 import foundustry.types.Block;
 import foundustry.types.UnitType;
 import foundustry.ui.game.GameUI;
+import foundustry.world.content.Blocks;
+import foundustry.world.content.UnitTypes;
 
 import static foundustry.core.Init.camera;
 import static foundustry.world.Generator.map;
