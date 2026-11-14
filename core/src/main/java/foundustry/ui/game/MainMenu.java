@@ -1,6 +1,7 @@
 package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import foundustry.core.EventType;
 import foundustry.core.Events;
@@ -45,5 +46,14 @@ public class MainMenu extends UI {
         items.add(play);
         items.add(settings);
         items.add(exit);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+            state.requestNewWorld();
+        }
     }
 }

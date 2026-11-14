@@ -1,4 +1,3 @@
-
 package foundustry.core.game;
 
 import com.badlogic.gdx.Gdx;
@@ -13,16 +12,15 @@ import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.graphics.drawers.DrawUnit;
-import foundustry.world.player.Player;
+import foundustry.types.Block;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
-import foundustry.world.Generator;
-import foundustry.types.Block;
+import foundustry.world.Chunk;
+import foundustry.world.World;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.Items;
 import foundustry.world.content.UnitTypes;
-
-import static foundustry.world.Generator.map;
+import foundustry.world.player.Player;
 
 public class Game {
     private final Player player;
@@ -31,12 +29,7 @@ public class Game {
     private final MainMenu mainMenu = new MainMenu(gameState);
     private final GameUI gameUI;
 
-    Generator generator = new Generator() {{
-        width = 300;
-        height = 300;
-        scale = 0.01f;
-        seed = (float)Math.random() * 1000;
-    }};
+    private World world;
 
     public Game() {
         Fonts.load();
@@ -53,9 +46,13 @@ public class Game {
         player.inventory.add(Items.unrefinedCopper, 75);
         player.inventory.add(Items.unrefinedIron, 24);
         player.inventory.add(Items.conveyor, 40);
+        player.inventory.add(Items.cornerConveyor, 31);
 
         gameUI = new GameUI(player.inventory);
         player.setGameUI(gameUI);
+
+        world = new World((float)Math.random() * 1000f);
+        player.setWorld(world);
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -65,8 +62,6 @@ public class Game {
             }
         });
 
-        map = generator.createMap(generator.width, generator.height);
-
         saveManager = new SaveManager();
 
         float[] position = saveManager.loadPosition();
@@ -74,7 +69,18 @@ public class Game {
         if (position != null) {
             player.unit.x = position[0];
             player.unit.y = position[1];
+        } else {
+            player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
+            player.unit.y = Chunk.SIZE * Vars.tileSize / 2f;
         }
+
+        world.update(player.unit.x, player.unit.y);
+
+        Init.camera.position.set(
+                player.unit.x,
+                player.unit.y,
+                0
+        );
     }
 
     public void update() {
@@ -86,6 +92,11 @@ public class Game {
 
         if (gameState.isMenu()) {
             mainMenu.update();
+
+            if (gameState.consumeNewWorldRequest()) {
+                createNewWorld();
+            }
+
             return;
         }
 
@@ -95,6 +106,8 @@ public class Game {
 
         gameUI.update();
         player.update();
+
+        world.update(player.unit.x, player.unit.y);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F5)) {
             saveManager.savePosition(
@@ -112,7 +125,7 @@ public class Game {
             return;
         }
 
-        Init.drawBlock.render();
+        Init.drawBlock.render(world);
         Init.drawUnit.render();
 
         gameUI.render();
@@ -126,6 +139,40 @@ public class Game {
         DrawBlock.dispose();
         DrawUnit.dispose();
         Fonts.dispose();
+
         saveManager.close();
+    }
+
+    private void createNewWorld() {
+        world = new World((float)Math.random() * 1000f);
+        player.setWorld(world);
+
+        player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
+        player.unit.y = Chunk.SIZE * Vars.tileSize / 2f;
+
+        player.unit.velocityX = 0f;
+        player.unit.velocityY = 0f;
+        player.unit.rotation = 0f;
+
+        world.update(player.unit.x, player.unit.y);
+
+        player.inventory.clear();
+
+        player.inventory.add(Items.unrefinedCopper, 75);
+        player.inventory.add(Items.unrefinedIron, 24);
+        player.inventory.add(Items.conveyor, 40);
+
+        Init.camera.position.set(
+                player.unit.x,
+                player.unit.y,
+                0
+        );
+
+        saveManager.savePosition(
+                player.unit.x,
+                player.unit.y
+        );
+
+        gameState.setState(GameState.State.GAME);
     }
 }

@@ -4,27 +4,32 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
-import foundustry.core.game.Time;
 import foundustry.core.Vars;
+import foundustry.core.game.Time;
 import foundustry.types.Block;
+import foundustry.types.Item;
 import foundustry.types.UnitType;
 import foundustry.ui.game.GameUI;
+import foundustry.world.World;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitTypes;
 
 import static foundustry.core.Init.camera;
-import static foundustry.world.Generator.map;
 
 public class Player {
     public UnitType unit = UnitTypes.constructionDrone;
     public Block block = Blocks.nothing;
+
     private GameUI gameUI;
+    private World world;
     private int blockRotation = 0;
+
     public final Inventory inventory = new Inventory();
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta;
         if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) camera.zoom -= Time.delta;
+
         if (camera.zoom < 0.5f) camera.zoom = 0.5f;
         if (camera.zoom > 3.0f) camera.zoom = 3.0f;
 
@@ -50,10 +55,15 @@ public class Player {
             moveY /= length;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)
-                && block != null
-                && block.canRotate()) {
-            blockRotation = (blockRotation + 90) % 360;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            Item item = gameUI == null ? null : gameUI.getSelectedItem();
+
+            if (item != null
+                    && item.placeableBlock != null
+                    && item.placeableBlock != Blocks.nothing
+                    && item.placeableBlock.canRotate()) {
+                blockRotation = (blockRotation + 90) % 360;
+            }
         }
 
         float targetX = moveX * unit.speed;
@@ -92,41 +102,66 @@ public class Player {
         build();
     }
 
-
     public void build() {
+        if (world == null || gameUI == null || gameUI.isInventoryOpen()) {
+            return;
+        }
+
         if (!Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             return;
         }
 
-        if (map == null || block == null || block == Blocks.nothing) {
+        Item item = gameUI.getSelectedItem();
+
+        if (item == null || item.placeableBlock == null
+                || item.placeableBlock == Blocks.nothing) {
+            return;
+        }
+
+        if (inventory.get(item) <= 0) {
             return;
         }
 
         Vector3 mousePosition = getMousePosition();
 
-        int tileX = (int) mousePosition.x;
-        int tileY = (int) mousePosition.y;
+        int tileX = (int)mousePosition.x;
+        int tileY = (int)mousePosition.y;
 
-        if (tileX < 0 || tileX >= map.length) return;
-        if (tileY < 0 || tileY >= map[tileX].length) return;
+        var tile = world.getTile(tileX, tileY);
 
-        var tile = map[tileX][tileY];
+        if (tile == null || tile.block != null) {
+            return;
+        }
 
-        tile.block = block;
-        tile.rotation = block.canRotate() ? blockRotation : 0;
+        Block selectedBlock = item.placeableBlock;
+
+        tile.block = selectedBlock;
+        tile.rotation = selectedBlock.canRotate() ? blockRotation : 0;
+
+        inventory.remove(item, 1);
     }
 
-
     public Vector3 getMousePosition() {
-        Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        Vector3 mousePosition = new Vector3(
+                Gdx.input.getX(),
+                Gdx.input.getY(),
+                0
+        );
+
         camera.unproject(mousePosition);
-        int tileX = (int)mousePosition.x / Vars.tileSize;
-        int tileY = (int)mousePosition.y / Vars.tileSize;
+
+        int tileX = (int)Math.floor(mousePosition.x / Vars.tileSize);
+        int tileY = (int)Math.floor(mousePosition.y / Vars.tileSize);
+
         return new Vector3(tileX, tileY, 0);
     }
 
     public void setGameUI(GameUI gameUI) {
         this.gameUI = gameUI;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     public void setBlock(Block block) {

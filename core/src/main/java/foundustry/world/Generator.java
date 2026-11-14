@@ -1,65 +1,53 @@
 package foundustry.world;
 
 import foundustry.core.Vars;
-import foundustry.log.Log;
 import foundustry.types.Block;
 import foundustry.world.content.Blocks;
 
 import static foundustry.world.SimplexNoise.noise;
 
 public class Generator {
-    public int width;
-    public int height;
-    public float scale;
+    public float scale = 0.01f;
     public float seed;
 
-    public static Tile[][] map;
+    public Chunk generateChunk(int chunkX, int chunkY) {
+        Chunk chunk = new Chunk(chunkX, chunkY);
 
-    public Tile[][] generate() {
-        Tile[][] map = new Tile[width][height];
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                float x = i * Vars.tileSize;
-                float y = j * Vars.tileSize;
+        for (int x = 0; x < Chunk.SIZE; x++) {
+            for (int y = 0; y < Chunk.SIZE; y++) {
+                int worldX = chunkX * Chunk.SIZE + x;
+                int worldY = chunkY * Chunk.SIZE + y;
 
                 float value = noise(
-                        i * scale + seed,
-                        j * scale + seed
+                        worldX * scale + seed,
+                        worldY * scale + seed
                 );
 
                 Block floor;
 
-                if (value < -0.3f) {
+                if (value < -0.5f) {
                     floor = Blocks.deepWater;
-                } else if (value < -0.1f) {
+                } else if (value < -0.3f) {
                     floor = Blocks.water;
-                } else if (value < 0.1f) {
+                } else if (value < -0.1f) {
                     floor = Blocks.sandWater;
-                } else if (value < 0.3f) {
+                } else if (value < 0.1f) {
                     floor = Blocks.sandFloor;
-                } else if (value < 0.5f) {
+                } else if (value < 0.3f) {
                     floor = Blocks.dirt;
-                } else if (value < 0.7f) {
+                } else if (value < 0.6f) {
                     floor = Blocks.grass;
                 } else {
                     floor = Blocks.stone;
                 }
 
-                map[i][j] = new Tile(x, y, floor);
+                chunk.tiles[x][y] = new Tile(
+                        worldX * Vars.tileSize,
+                        worldY * Vars.tileSize,
+                        floor
+                );
             }
         }
-
-        return map;
-    }
-
-    public Tile[][] createMap(int width, int height) {
-        this.width = width;
-        this.height = height;
-
-        map = generate();
-
-        Log.info("map created.");
-        return map;
+        return chunk;
     }
 }

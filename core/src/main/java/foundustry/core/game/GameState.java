@@ -1,7 +1,10 @@
+
 package foundustry.core.game;
 
 public class GameState {
     private State state = State.MENU;
+    private boolean newWorldRequested;
+
     public enum State {
         GAME,
         MENU,
@@ -24,15 +27,26 @@ public class GameState {
         return state == State.GAME;
     }
 
-    public boolean isPaused(){
+    public boolean isPaused() {
         return state == State.PAUSE;
     }
 
-    public boolean isGame(){
+    public boolean isGame() {
         return state != State.MENU;
     }
 
-    public boolean isMenu(){
+    public boolean isMenu() {
         return state == State.MENU;
+    }
+
+    public void requestNewWorld() {
+        newWorldRequested = true;
+    }
+
+    public boolean consumeNewWorldRequest() {
+        if (!newWorldRequested) return false;
+
+        newWorldRequested = false;
+        return true;
     }
 }

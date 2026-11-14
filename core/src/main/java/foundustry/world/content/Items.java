@@ -3,7 +3,6 @@ package foundustry.world.content;
 import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
 import foundustry.log.Log;
-import foundustry.types.Block;
 import foundustry.types.Item;
 
 public class Items {
@@ -11,7 +10,7 @@ public class Items {
             /** unrefined ore */
             unrefinedCopper, unrefinedIron,
             /** logistic */
-            conveyor
+            conveyor, cornerConveyor
             ;
 
     public static void load() {
@@ -20,6 +19,9 @@ public class Items {
 
         conveyor = new Item("conveyor") {{
            placeableBlock = Blocks.conveyor;
+        }};
+        cornerConveyor = new Item("conveyor_corner") {{
+            placeableBlock = Blocks.cornerConveyor;
         }};
 
         for (Item item : Vars.items) {

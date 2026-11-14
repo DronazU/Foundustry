@@ -20,7 +20,12 @@ public class GameUI extends UI {
     public Item getSelectedItem() {
         return hotbar.getSelectedItem();
     }
+
     public void scrollHotbar(float amountY) {
         hotbar.scroll(amountY);
+    }
+
+    public boolean isInventoryOpen() {
+        return inventoryUI.isVisible();
     }
 }

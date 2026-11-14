@@ -1,4 +1,3 @@
-
 package foundustry.world.player;
 
 import foundustry.types.Item;
@@ -38,5 +37,9 @@ public class Inventory {
 
     public Map<Item, Integer> getItems() {
         return Collections.unmodifiableMap(items);
+    }
+
+    public void clear() {
+        items.clear();
     }
 }

@@ -1,6 +1,7 @@
 package foundustry.core.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import foundustry.core.EventType;
@@ -35,6 +36,7 @@ public class GameLauncher extends ApplicationAdapter {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Foundustry");
+//        config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         config.setWindowedMode(1200, 900);
 
         Events.on(EventType.GameLaunchEvent.class, event -> {
