@@ -135,8 +135,16 @@ public class Player {
 
         Block selectedBlock = item.placeableBlock;
 
-        tile.block = selectedBlock;
-        tile.rotation = selectedBlock.canRotate() ? blockRotation : 0;
+        boolean placed = world.setBlock(
+                tileX,
+                tileY,
+                selectedBlock,
+                selectedBlock.canRotate() ? blockRotation : 0
+        );
+
+        if (!placed) {
+            return;
+        }
 
         inventory.remove(item, 1);
     }

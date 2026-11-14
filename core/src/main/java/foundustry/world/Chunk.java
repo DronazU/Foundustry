@@ -8,6 +8,8 @@ public class Chunk {
 
     public final Tile[][] tiles = new Tile[SIZE][SIZE];
 
+    public boolean dirty = false;
+
     public Chunk(int x, int y) {
         this.x = x;
         this.y = y;
@@ -17,6 +19,7 @@ public class Chunk {
         if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             return null;
         }
+
         return tiles[x][y];
     }
 }

@@ -51,9 +51,6 @@ public class Game {
         gameUI = new GameUI(player.inventory);
         player.setGameUI(gameUI);
 
-        world = new World((float)Math.random() * 1000f);
-        player.setWorld(world);
-
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean scrolled(float amountX, float amountY) {
@@ -64,17 +61,21 @@ public class Game {
 
         saveManager = new SaveManager();
 
-        float[] position = saveManager.loadPosition();
+        SaveManager.WorldData worldData = saveManager.loadWorld();
 
-        if (position != null) {
-            player.unit.x = position[0];
-            player.unit.y = position[1];
-        } else {
-            player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
-            player.unit.y = Chunk.SIZE * Vars.tileSize / 2f;
+        if (worldData == null) {
+            worldData = saveManager.createWorld(
+                    (float)Math.random() * 1000f
+            );
         }
 
-        world.update(player.unit.x, player.unit.y);
+        world = new World(
+                worldData.seed,
+                worldData.id,
+                saveManager
+        );
+
+        player.setWorld(world);
 
         Init.camera.position.set(
                 player.unit.x,
@@ -110,10 +111,7 @@ public class Game {
         world.update(player.unit.x, player.unit.y);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F5)) {
-            saveManager.savePosition(
-                    player.unit.x,
-                    player.unit.y
-            );
+            saveGame();
         }
     }
 
@@ -140,11 +138,21 @@ public class Game {
         DrawUnit.dispose();
         Fonts.dispose();
 
+        saveGame();
         saveManager.close();
     }
 
     private void createNewWorld() {
-        world = new World((float)Math.random() * 1000f);
+        SaveManager.WorldData worldData = saveManager.createWorld(
+                (float)Math.random() * 1000f
+        );
+
+        world = new World(
+                worldData.seed,
+                worldData.id,
+                saveManager
+        );
+
         player.setWorld(world);
 
         player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
@@ -174,5 +182,14 @@ public class Game {
         );
 
         gameState.setState(GameState.State.GAME);
+    }
+
+    private void saveGame() {
+        world.save();
+
+        saveManager.savePosition(
+                player.unit.x,
+                player.unit.y
+        );
     }
 }
