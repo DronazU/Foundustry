@@ -52,11 +52,10 @@ public class DrawBlock extends Drawer {
             float y,
             int rotation,
             boolean flipX,
-            float alpha
+            float alpha,
+            float size
     ) {
-        if (block == null) return;
-
-        if (block.getRegion() == null) return;
+        if (block == null || block.getRegion() == null) return;
 
         previousColor.set(batch.getColor());
 
@@ -67,8 +66,6 @@ public class DrawBlock extends Drawer {
                     previousColor.b,
                     previousColor.a * alpha
             );
-
-            float size = Vars.tileSize;
 
             batch.draw(
                     block.getRegion(),

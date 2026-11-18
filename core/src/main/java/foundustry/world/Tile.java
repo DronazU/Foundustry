@@ -1,8 +1,8 @@
+
 package foundustry.world;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
@@ -21,9 +21,7 @@ public class Tile {
     public float x, y;
 
     public Block floor;
-    public Block block;
-    public int rotation;
-    public boolean flipX;
+    public Building build;
 
     public final Array<ConveyorItem> conveyorItems = new Array<>();
 
@@ -31,11 +29,16 @@ public class Tile {
         this.x = x;
         this.y = y;
         this.floor = floor;
-        this.block = null;
+    }
+
+    public boolean isBuildingAnchor() {
+        return build != null
+                && MathUtils.floor(x / Vars.tileSize) == build.tileX
+                && MathUtils.floor(y / Vars.tileSize) == build.tileY;
     }
 
     public boolean addConveyorItem(Item item) {
-        if (!(block instanceof Conveyor) || item == null) {
+        if (build == null || !(build.block instanceof Conveyor) || item == null) {
             return false;
         }
 
@@ -54,21 +57,15 @@ public class Tile {
     }
 
     public void updateConveyor(World world, float delta) {
-        if (!(block instanceof Conveyor conveyor)) {
-            conveyorItems.clear();
+        if (!isBuildingAnchor() || !(build.block instanceof Conveyor conveyor)) {
             return;
         }
 
         conveyorItems.sort((a, b) ->
                 Float.compare(b.position, a.position));
 
-        int directionX = MathUtils.round(
-                MathUtils.cosDeg(rotation)
-        );
-
-        int directionY = MathUtils.round(
-                MathUtils.sinDeg(rotation)
-        );
+        int directionX = MathUtils.round(MathUtils.cosDeg(build.rotation));
+        int directionY = MathUtils.round(MathUtils.sinDeg(build.rotation));
 
         int tileX = MathUtils.floor(x / Vars.tileSize);
         int tileY = MathUtils.floor(y / Vars.tileSize);
@@ -109,14 +106,13 @@ public class Tile {
     }
 
     public void drawShadow(SpriteBatch batch) {
-        if (block == null || !block.hasShadow) return;
+        if (!isBuildingAnchor() || !build.block.hasShadow) return;
         if (Vars.Shadow.squareShadow == null) return;
 
-        float size = Vars.tileSize * 1.25f;
-        float offset = (size - Vars.tileSize) / 2f;
+        float size = Vars.tileSize * build.getSize() * 1.25f;
+        float offset = (size - Vars.tileSize * build.getSize()) / 2f;
 
         previousColor.set(batch.getColor());
-
         batch.setColor(0f, 0f, 0f, 1f);
 
         batch.draw(
@@ -131,25 +127,30 @@ public class Tile {
     }
 
     public void drawBlock(SpriteBatch batch) {
+        if (!isBuildingAnchor()) return;
+
+        float size = Vars.tileSize * build.getSize();
+
         DrawBlock.drawBlock(
                 batch,
-                block,
+                build.block,
                 x,
                 y,
-                rotation,
-                flipX,
-                1f
+                build.rotation,
+                build.flipX,
+                1f,
+                size
         );
     }
 
     public void drawConveyorItems(SpriteBatch batch) {
-        if (!(block instanceof Conveyor)) return;
+        if (!isBuildingAnchor() || !(build.block instanceof Conveyor)) return;
 
         float centerX = x + Vars.tileSize / 2f;
         float centerY = y + Vars.tileSize / 2f;
 
-        float directionX = MathUtils.cosDeg(rotation);
-        float directionY = MathUtils.sinDeg(rotation);
+        float directionX = MathUtils.cosDeg(build.rotation);
+        float directionY = MathUtils.sinDeg(build.rotation);
 
         float itemSize = Vars.tileSize * 0.4f;
 

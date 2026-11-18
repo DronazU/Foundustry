@@ -70,8 +70,17 @@ public class Player {
         build();
     }
 
+
     public void build() {
         if (world == null || gameUI == null || gameUI.isInventoryOpen()) {
+            return;
+        }
+
+        int tileX = getMouseTileX();
+        int tileY = getMouseTileY();
+
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.MIDDLE)) {
+            world.removeBlock(tileX, tileY);
             return;
         }
 
@@ -90,32 +99,19 @@ public class Player {
             return;
         }
 
-        Vector3 tilePosition = getMouseTile();
-
-        int tileX = (int)tilePosition.x;
-        int tileY = (int)tilePosition.y;
-
-        Tile tile = world.getTile(tileX, tileY);
-
-        if (tile == null || tile.block != null) {
-            return;
-        }
-
         Block selectedBlock = item.placeableBlock;
 
-        boolean placed = world.setBlock(
+        boolean placed = world.placeBlock(
+                selectedBlock,
                 tileX,
                 tileY,
-                selectedBlock,
                 selectedBlock.canRotate ? blockRotation : 0,
                 selectedBlock.canFlip && blockFlipX
         );
 
-        if (!placed) {
-            return;
+        if (placed) {
+            inventory.remove(item, 1);
         }
-
-        inventory.remove(item, 1);
     }
 
     public void setGameUI(GameUI gameUI) {

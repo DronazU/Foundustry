@@ -75,27 +75,6 @@ public class World {
         );
     }
 
-    public boolean setBlock(int worldTileX, int worldTileY, Block block, int rotation) {
-        return setBlock(worldTileX, worldTileY, block, rotation, false);
-    }
-
-    public boolean setBlock(int worldTileX, int worldTileY, Block block, int rotation, boolean flipX) {
-        Tile tile = getTile(worldTileX, worldTileY);
-        Chunk chunk = getChunk(worldTileX, worldTileY);
-
-        if (tile == null || chunk == null) {
-            return false;
-        }
-
-        tile.block = block;
-        tile.rotation = rotation;
-        tile.flipX = flipX;
-
-        chunk.dirty = true;
-
-        return true;
-    }
-
     public void save() {
         for (Chunk chunk : chunks.values()) {
             if (!chunk.dirty) {
@@ -124,5 +103,95 @@ public class World {
 
     public float getSeed() {
         return generator.seed;
+    }
+
+    public boolean canPlaceBlock(Block block, int tileX, int tileY) {
+        if (block == null || block.size <= 0) {
+            return false;
+        }
+
+        for (int x = 0; x < block.size; x++) {
+            for (int y = 0; y < block.size; y++) {
+                Tile tile = getTile(tileX + x, tileY + y);
+
+                if (tile == null || tile.build != null) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean placeBlock(
+            Block block,
+            int tileX,
+            int tileY,
+            int rotation,
+            boolean flipX
+    ) {
+        if (!canPlaceBlock(block, tileX, tileY)) {
+            return false;
+        }
+
+        Building building = new Building(
+                block,
+                tileX,
+                tileY,
+                rotation,
+                flipX
+        );
+
+        for (int x = 0; x < block.size; x++) {
+            for (int y = 0; y < block.size; y++) {
+                Tile tile = getTile(tileX + x, tileY + y);
+
+                tile.build = building;
+                tile.conveyorItems.clear();
+
+                getChunk(tileX + x, tileY + y).dirty = true;
+            }
+        }
+
+        return true;
+    }
+
+
+    public Building removeBlock(int tileX, int tileY) {
+        Tile tile = getTile(tileX, tileY);
+
+        if (tile == null || tile.build == null) {
+            return null;
+        }
+
+        Building building = tile.build;
+
+        for (int x = 0; x < building.getSize(); x++) {
+            for (int y = 0; y < building.getSize(); y++) {
+                Tile occupiedTile = getTile(
+                        building.tileX + x,
+                        building.tileY + y
+                );
+
+                if (occupiedTile == null || occupiedTile.build == null) {
+                    continue;
+                }
+
+                if (occupiedTile.build.tileX != building.tileX
+                        || occupiedTile.build.tileY != building.tileY) {
+                    continue;
+                }
+
+                occupiedTile.build = null;
+                occupiedTile.conveyorItems.clear();
+
+                getChunk(
+                        building.tileX + x,
+                        building.tileY + y
+                ).dirty = true;
+            }
+        }
+
+        return building;
     }
 }

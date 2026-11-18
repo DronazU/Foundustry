@@ -8,13 +8,12 @@ import com.mongodb.client.model.ReplaceOptions;
 import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.Block;
+import foundustry.world.Building;
 import foundustry.world.Chunk;
 import foundustry.world.Tile;
 import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -103,6 +102,7 @@ public class SaveManager implements AutoCloseable {
         return world;
     }
 
+
     public boolean saveChunk(Chunk chunk, String worldId) {
         try {
             List<Document> blockData = new ArrayList<>();
@@ -111,16 +111,20 @@ public class SaveManager implements AutoCloseable {
                 for (int y = 0; y < Chunk.SIZE; y++) {
                     Tile tile = chunk.tiles[x][y];
 
-                    if (tile == null || tile.block == null) {
+                    if (tile == null || tile.build == null) {
                         continue;
                     }
+
+                    Building building = tile.build;
 
                     blockData.add(
                             new Document("x", x)
                                     .append("y", y)
-                                    .append("block", tile.block.name)
-                                    .append("rotation", tile.rotation)
-                                    .append("flipX", tile.flipX)
+                                    .append("anchorX", building.tileX)
+                                    .append("anchorY", building.tileY)
+                                    .append("block", building.block.name)
+                                    .append("rotation", building.rotation)
+                                    .append("flipX", building.flipX)
                     );
                 }
             }
@@ -147,6 +151,7 @@ public class SaveManager implements AutoCloseable {
         }
     }
 
+
     public void loadChunk(Chunk chunk, String worldId) {
         try {
             String chunkId = worldId + ":" + chunk.x + ":" + chunk.y;
@@ -168,17 +173,19 @@ public class SaveManager implements AutoCloseable {
                 return;
             }
 
+            Map<String, Building> buildings = new HashMap<>();
+
             for (Document data : blockData) {
                 int x = data.getInteger("x", -1);
                 int y = data.getInteger("y", -1);
-                int rotation = data.getInteger("rotation", 0);
-                boolean flipX = data.getBoolean("flipX", false);
+
+                if (x < 0 || x >= Chunk.SIZE || y < 0 || y >= Chunk.SIZE) {
+                    continue;
+                }
 
                 String blockName = data.getString("block");
 
-                if (x < 0 || x >= Chunk.SIZE ||
-                        y < 0 || y >= Chunk.SIZE ||
-                        blockName == null) {
+                if (blockName == null) {
                     continue;
                 }
 
@@ -188,12 +195,36 @@ public class SaveManager implements AutoCloseable {
                     continue;
                 }
 
+                int anchorX = data.getInteger(
+                        "anchorX",
+                        chunk.x * Chunk.SIZE + x
+                );
+
+                int anchorY = data.getInteger(
+                        "anchorY",
+                        chunk.y * Chunk.SIZE + y
+                );
+
+                int rotation = data.getInteger("rotation", 0);
+                boolean flipX = data.getBoolean("flipX", false);
+
+                String buildingKey = anchorX + ":" + anchorY;
+
+                Building building = buildings.computeIfAbsent(
+                        buildingKey,
+                        key -> new Building(
+                                block,
+                                anchorX,
+                                anchorY,
+                                rotation,
+                                flipX
+                        )
+                );
+
                 Tile tile = chunk.tiles[x][y];
 
                 if (tile != null) {
-                    tile.block = block;
-                    tile.rotation = rotation;
-                    tile.flipX = flipX;
+                    tile.build = building;
                 }
             }
 
