@@ -1,6 +1,6 @@
 package foundustry.world.player;
 
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

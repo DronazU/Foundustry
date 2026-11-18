@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import foundustry.graphics.Fonts;
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 import foundustry.ui.UI;
 import foundustry.ui.UiLayout;
 import foundustry.world.player.Inventory;

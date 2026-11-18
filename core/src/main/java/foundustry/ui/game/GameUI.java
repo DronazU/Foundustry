@@ -1,7 +1,7 @@
 
 package foundustry.ui.game;
 
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 import foundustry.ui.UI;
 import foundustry.world.player.Inventory;
 

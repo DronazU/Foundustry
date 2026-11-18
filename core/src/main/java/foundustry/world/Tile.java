@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.types.Block;
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 import foundustry.world.content.conveyor.Conveyor;
 import foundustry.world.content.conveyor.ConveyorItem;
 

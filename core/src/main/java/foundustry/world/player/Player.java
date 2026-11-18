@@ -7,12 +7,13 @@ import com.badlogic.gdx.math.Vector3;
 import foundustry.core.Vars;
 import foundustry.core.game.Time;
 import foundustry.types.Block;
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 import foundustry.types.UnitType;
 import foundustry.ui.game.GameUI;
-import foundustry.world.Tile;
+import foundustry.world.Building;
 import foundustry.world.World;
 import foundustry.world.content.Blocks;
+import foundustry.world.content.Items;
 import foundustry.world.content.UnitTypes;
 
 import static foundustry.core.Init.camera;
@@ -80,7 +81,16 @@ public class Player {
         int tileY = getMouseTileY();
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.MIDDLE)) {
-            world.removeBlock(tileX, tileY);
+            Building building = world.removeBlock(tileX, tileY);
+
+            if (building != null) {
+                Item item = Items.getByBlock(building.block);
+
+                if (item != null) {
+                    inventory.add(item, 1);
+                }
+            }
+
             return;
         }
 

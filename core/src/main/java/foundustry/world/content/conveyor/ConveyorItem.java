@@ -1,6 +1,6 @@
 package foundustry.world.content.conveyor;
 
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 
 public class ConveyorItem {
     public final Item item;

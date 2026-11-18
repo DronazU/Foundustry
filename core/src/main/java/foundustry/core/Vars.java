@@ -3,7 +3,7 @@ package foundustry.core;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import foundustry.graphics.Atlas;
-import foundustry.types.Item;
+import foundustry.types.item.Item;
 import foundustry.types.UnitType;
 import foundustry.types.Block;
 

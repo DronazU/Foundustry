@@ -3,7 +3,8 @@ package foundustry.world.content;
 import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
 import foundustry.log.Log;
-import foundustry.types.Item;
+import foundustry.types.Block;
+import foundustry.types.item.Item;
 
 public class Items {
     public static Item
@@ -16,14 +17,26 @@ public class Items {
             ;
 
     public static void load() {
-        unrefinedCopper = new Item("unrefined-copper");
-        unrefinedIron = new Item("unrefined-iron");
+        unrefinedCopper = new Item("unrefined-copper") {{
+            inventoryCraftable = false;
+        }};
 
-        stone = new Item("stone");
+        unrefinedIron = new Item("unrefined-iron") {{
+            inventoryCraftable = false;
+        }};
+
+        stone = new Item("stone") {{
+            inventoryCraftable = false;
+        }};
 
         conveyor = new Item("conveyor") {{
            placeableBlock = Blocks.conveyor;
+           requirements
+                   .with(unrefinedCopper, 2)
+                   .with(unrefinedIron, 1);
+           craftTime = 0.5f;
         }};
+
         cornerConveyor = new Item("conveyor_corner") {{
             placeableBlock = Blocks.cornerConveyor;
         }};
@@ -33,5 +46,15 @@ public class Items {
         }
 
         Log.info("Items loaded.");
+    }
+
+    public static Item getByBlock(Block block) {
+        for (Item item : Vars.items) {
+            if (item.placeableBlock == block) {
+                return item;
+            }
+        }
+
+        return null;
     }
 }
