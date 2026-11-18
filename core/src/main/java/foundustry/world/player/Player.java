@@ -252,4 +252,8 @@ public class Player {
     public int getMouseTileY() {
         return (int)getMouseTile().y;
     }
+
+    public boolean getBlockFlipX() {
+        return blockFlipX;
+    }
 }

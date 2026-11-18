@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
+import foundustry.graphics.drawers.DrawBlock;
 import foundustry.types.Block;
 import foundustry.types.Item;
 import foundustry.world.content.conveyor.Conveyor;
@@ -130,22 +131,14 @@ public class Tile {
     }
 
     public void drawBlock(SpriteBatch batch) {
-        if (block == null) return;
-
-        TextureRegion region = block.getRegion();
-
-        if (region == null) return;
-
-        float size = Vars.tileSize;
-
-        batch.draw(
-                region,
-                x, y,
-                size / 2f, size / 2f,
-                size, size,
-                flipX ? -1f : 1f,
-                1f,
-                rotation
+        DrawBlock.drawBlock(
+                batch,
+                block,
+                x,
+                y,
+                rotation,
+                flipX,
+                1f
         );
     }
 

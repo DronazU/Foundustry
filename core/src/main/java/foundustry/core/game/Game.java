@@ -142,7 +142,7 @@ public class Game {
                     player.getMouseTileX(),
                     player.getMouseTileY(),
                     selectedBlock.canRotate ? player.getBlockRotation() : 0,
-                    false
+                    selectedBlock.canFlip && player.getBlockFlipX()
             );
         }
 
