@@ -8,7 +8,7 @@ import foundustry.types.UnitType;
 import foundustry.types.Block;
 
 public class Vars {
-    public static int tileSize = 32;
+    public static final int tileSize = 32;
 
     public static Array<UnitType> units = new Array<>();
     public static Array<Block> blocks = new Array<>();

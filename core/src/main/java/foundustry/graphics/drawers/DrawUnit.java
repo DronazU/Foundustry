@@ -1,28 +1,20 @@
 package foundustry.graphics.drawers;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import foundustry.types.UnitType;
 
-import static foundustry.core.Init.camera;
 import static foundustry.core.Vars.units;
 
-public class DrawUnit {
-    public static SpriteBatch batch;
-
-    public DrawUnit() {
-        batch = new SpriteBatch();
-    }
+public class DrawUnit extends Drawer {
 
     public void render() {
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        for (UnitType unit : units) {
-            unit.render(batch);
-        }
-        batch.end();
-    }
+        begin();
 
-    public static void dispose() {
-        batch.dispose();
+        try {
+            for (UnitType unit : units) {
+                unit.render(batch);
+            }
+        } finally {
+            end();
+        }
     }
 }

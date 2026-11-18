@@ -7,7 +7,13 @@ import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
 
 public abstract class UnitType {
-    public String name = "dog";
+    private static final float SHADOW_GROUND_OFFSET = 0.25f;
+    private static final float SHADOW_FLYING_OFFSET = 1f;
+    private static final float SHADOW_OPACITY = 0.25f;
+
+    private static final Color previousColor = new Color();
+
+    public String name;
     public float speed = 10 * 60f;
     public float x;
     public float y;
@@ -33,8 +39,12 @@ public abstract class UnitType {
     }
 
     public void render(SpriteBatch batch) {
+        if (region == null) return;
+
         float drawSize = size * Vars.tileSize;
+
         drawShadow(batch);
+
         batch.draw(
                 region,
                 x - drawSize / 2f,
@@ -50,10 +60,17 @@ public abstract class UnitType {
     }
 
     public void drawShadow(SpriteBatch batch) {
+        if (region == null) return;
+
         float drawSize = size * Vars.tileSize;
-        float shadowX = x - Vars.tileSize * (flying ? 1f : 0.25f);
-        float shadowY = y - Vars.tileSize * (flying ? 1f : 0.25f);
-        batch.setColor(0f, 0f, 0f, 0.25f);
+        float offset = Vars.tileSize * (flying ? SHADOW_FLYING_OFFSET : SHADOW_GROUND_OFFSET);
+
+        float shadowX = x - offset;
+        float shadowY = y - offset;
+
+        previousColor.set(batch.getColor());
+        batch.setColor(0f, 0f, 0f, SHADOW_OPACITY);
+
         batch.draw(
                 region,
                 shadowX - drawSize / 2f,
@@ -66,6 +83,7 @@ public abstract class UnitType {
                 1f,
                 rotation
         );
-        batch.setColor(Color.WHITE);
+
+        batch.setColor(previousColor);
     }
 }

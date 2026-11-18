@@ -5,6 +5,7 @@ import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.Block;
 import foundustry.types.Category;
+import foundustry.world.content.conveyor.Conveyor;
 
 public class Blocks {
     public static Block

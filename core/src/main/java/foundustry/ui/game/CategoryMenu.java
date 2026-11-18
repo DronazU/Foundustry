@@ -4,11 +4,17 @@ import com.badlogic.gdx.graphics.Color;
 import foundustry.graphics.Atlas;
 import foundustry.types.Category;
 import foundustry.ui.UI;
+import foundustry.ui.UiLayout;
 import foundustry.ui.uiItems.Button;
 
 import java.util.function.Consumer;
 
 public class CategoryMenu extends UI {
+
+    private static final float BUTTON_WIDTH = 150f;
+    private static final float BUTTON_HEIGHT = 50f;
+    private static final float GAP = 10f;
+    private static final float Y = 20f;
 
     private Category selectedCategory;
     private Consumer<Category> categoryListener;
@@ -16,22 +22,16 @@ public class CategoryMenu extends UI {
     public CategoryMenu() {
         Category[] categories = Category.values();
 
-        float buttonWidth = 150;
-        float buttonHeight = 50;
-        float gap = 10;
-
-        float totalWidth = categories.length * buttonWidth + (categories.length - 1) * gap;
-
-        float startX = (com.badlogic.gdx.Gdx.graphics.getWidth() - totalWidth) / 2f;
+        float startX = startX();
 
         for (int i = 0; i < categories.length; i++) {
             Category category = categories[i];
 
             Button button = new Button(
-                    startX + i * (buttonWidth + gap),
-                    20,
-                    buttonWidth,
-                    buttonHeight,
+                    UiLayout.slotX(startX, i, categories.length, BUTTON_WIDTH, GAP),
+                    Y,
+                    BUTTON_WIDTH,
+                    BUTTON_HEIGHT,
                     Atlas.find("category-" + category.name().toLowerCase())
             );
 
@@ -54,19 +54,24 @@ public class CategoryMenu extends UI {
     }
 
     public float getButtonX(Category category) {
-        float buttonWidth = 150f;
-        float gap = 10f;
-
-        float totalWidth = Category.values().length * buttonWidth
-                + (Category.values().length - 1) * gap;
-
-        float startX = (com.badlogic.gdx.Gdx.graphics.getWidth()
-                - totalWidth) / 2f;
-
-        return startX + category.ordinal() * (buttonWidth + gap);
+        return UiLayout.slotX(
+                startX(),
+                category.ordinal(),
+                Category.values().length,
+                BUTTON_WIDTH,
+                GAP
+        );
     }
 
     public void setCategoryListener(Consumer<Category> listener) {
         categoryListener = listener;
+    }
+
+    private static float startX() {
+        return UiLayout.centeredStartX(
+                Category.values().length,
+                BUTTON_WIDTH,
+                GAP
+        );
     }
 }

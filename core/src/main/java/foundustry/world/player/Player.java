@@ -10,6 +10,7 @@ import foundustry.types.Block;
 import foundustry.types.Item;
 import foundustry.types.UnitType;
 import foundustry.ui.game.GameUI;
+import foundustry.world.Tile;
 import foundustry.world.World;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.UnitTypes;
@@ -17,82 +18,44 @@ import foundustry.world.content.UnitTypes;
 import static foundustry.core.Init.camera;
 
 public class Player {
+    private static final float ZOOM_SPEED = 1f;
+    private static final float MIN_ZOOM = 0.5f;
+    private static final float MAX_ZOOM = 3f;
+    private static final float TICKS_PER_SECOND = 60f;
+
+    public final Inventory inventory = new Inventory();
+
     public UnitType unit = UnitTypes.constructionDrone;
-    public Block block = Blocks.nothing;
 
     private GameUI gameUI;
     private World world;
     private int blockRotation = 0;
 
-    public final Inventory inventory = new Inventory();
+    private final Vector3 mouseTile = new Vector3();
 
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) camera.zoom += Time.delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) camera.zoom -= Time.delta;
+        handleZoom();
 
-        if (camera.zoom < 0.5f) camera.zoom = 0.5f;
-        if (camera.zoom > 3.0f) camera.zoom = 3.0f;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            unit.flying = true;
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) unit.flying = true;
+        float moveX = movementAxis(Input.Keys.A, Input.Keys.D);
+        float moveY = movementAxis(Input.Keys.S, Input.Keys.W);
 
-        boolean a = Gdx.input.isKeyPressed(Input.Keys.A);
-        boolean d = Gdx.input.isKeyPressed(Input.Keys.D);
-        boolean w = Gdx.input.isKeyPressed(Input.Keys.W);
-        boolean s = Gdx.input.isKeyPressed(Input.Keys.S);
+        float length = (float)Math.sqrt(moveX * moveX + moveY * moveY);
 
-        float moveX = 0f;
-        float moveY = 0f;
-
-        if (a) moveX -= 1f;
-        if (d) moveX += 1f;
-        if (w) moveY += 1f;
-        if (s) moveY -= 1f;
-
-        if (moveX != 0f || moveY != 0f) {
-            float length = (float)Math.sqrt(moveX * moveX + moveY * moveY);
-
+        if (length != 0f) {
             moveX /= length;
             moveY /= length;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            Item item = gameUI == null ? null : gameUI.getSelectedItem();
-
-            if (item != null
-                    && item.placeableBlock != null
-                    && item.placeableBlock != Blocks.nothing
-                    && item.placeableBlock.canRotate()) {
-                blockRotation = (blockRotation + 90) % 360;
-            }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R) && canRotateSelectedBlock()) {
+            blockRotation = (blockRotation + 90) % 360;
         }
 
-        float targetX = moveX * unit.speed;
-        float targetY = moveY * unit.speed;
-
-        unit.velocityX += (targetX - unit.velocityX) * unit.accel * 60f * Time.delta;
-        unit.velocityY += (targetY - unit.velocityY) * unit.accel * 60f * Time.delta;
-
-        if (moveX == 0f) {
-            unit.velocityX *= 1f - unit.drag * 60f * Time.delta;
-        }
-
-        if (moveY == 0f) {
-            unit.velocityY *= 1f - unit.drag * 60f * Time.delta;
-        }
-
-        unit.x += unit.velocityX * Time.delta;
-        unit.y += unit.velocityY * Time.delta;
-
-        if (a || d || w || s) {
-            unit.rotation = MathUtils.lerpAngleDeg(
-                    unit.rotation,
-                    MathUtils.atan2(
-                            (a ? 1 : 0) - (d ? 1 : 0),
-                            (w ? 1 : 0) - (s ? 1 : 0)
-                    ) * MathUtils.radiansToDegrees,
-                    Math.min(1f, unit.rotateSpeed * Time.delta)
-            );
-        }
+        applyVelocity(moveX, moveY);
+        applyRotation(moveX, moveY);
 
         camera.position.set(unit.x, unit.y, 0);
     }
@@ -122,12 +85,12 @@ public class Player {
             return;
         }
 
-        Vector3 mousePosition = getMousePosition();
+        Vector3 tilePosition = getMouseTile();
 
-        int tileX = (int)mousePosition.x;
-        int tileY = (int)mousePosition.y;
+        int tileX = (int)tilePosition.x;
+        int tileY = (int)tilePosition.y;
 
-        var tile = world.getTile(tileX, tileY);
+        Tile tile = world.getTile(tileX, tileY);
 
         if (tile == null || tile.block != null) {
             return;
@@ -139,7 +102,7 @@ public class Player {
                 tileX,
                 tileY,
                 selectedBlock,
-                selectedBlock.canRotate() ? blockRotation : 0
+                selectedBlock.canRotate ? blockRotation : 0
         );
 
         if (!placed) {
@@ -147,21 +110,6 @@ public class Player {
         }
 
         inventory.remove(item, 1);
-    }
-
-    public Vector3 getMousePosition() {
-        Vector3 mousePosition = new Vector3(
-                Gdx.input.getX(),
-                Gdx.input.getY(),
-                0
-        );
-
-        camera.unproject(mousePosition);
-
-        int tileX = (int)Math.floor(mousePosition.x / Vars.tileSize);
-        int tileY = (int)Math.floor(mousePosition.y / Vars.tileSize);
-
-        return new Vector3(tileX, tileY, 0);
     }
 
     public void setGameUI(GameUI gameUI) {
@@ -172,9 +120,91 @@ public class Player {
         this.world = world;
     }
 
-    public void setBlock(Block block) {
-        if (block != null) {
-            this.block = block;
+    private void handleZoom() {
+        if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) {
+            camera.zoom += ZOOM_SPEED * Time.delta;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) {
+            camera.zoom -= ZOOM_SPEED * Time.delta;
+        }
+
+        camera.zoom = MathUtils.clamp(camera.zoom, MIN_ZOOM, MAX_ZOOM);
+    }
+
+    private void applyVelocity(float moveX, float moveY) {
+        float targetX = moveX * unit.speed;
+        float targetY = moveY * unit.speed;
+
+        unit.velocityX += (targetX - unit.velocityX)
+                * unit.accel * TICKS_PER_SECOND * Time.delta;
+        unit.velocityY += (targetY - unit.velocityY)
+                * unit.accel * TICKS_PER_SECOND * Time.delta;
+
+        if (moveX == 0f) {
+            unit.velocityX *= 1f - unit.drag * TICKS_PER_SECOND * Time.delta;
+        }
+
+        if (moveY == 0f) {
+            unit.velocityY *= 1f - unit.drag * TICKS_PER_SECOND * Time.delta;
+        }
+
+        unit.x += unit.velocityX * Time.delta;
+        unit.y += unit.velocityY * Time.delta;
+    }
+
+    private void applyRotation(float moveX, float moveY) {
+        if (moveX == 0f && moveY == 0f) {
+            return;
+        }
+
+        boolean a = Gdx.input.isKeyPressed(Input.Keys.A);
+        boolean d = Gdx.input.isKeyPressed(Input.Keys.D);
+        boolean w = Gdx.input.isKeyPressed(Input.Keys.W);
+        boolean s = Gdx.input.isKeyPressed(Input.Keys.S);
+
+        float targetAngle = MathUtils.atan2(
+                (a ? 1 : 0) - (d ? 1 : 0),
+                (w ? 1 : 0) - (s ? 1 : 0)
+        ) * MathUtils.radiansToDegrees;
+
+        unit.rotation = MathUtils.lerpAngleDeg(
+                unit.rotation,
+                targetAngle,
+                Math.min(1f, unit.rotateSpeed * Time.delta)
+        );
+    }
+
+    private Vector3 getMouseTile() {
+        mouseTile.set(Gdx.input.getX(), Gdx.input.getY(), 0f);
+
+        camera.unproject(mouseTile);
+
+        mouseTile.x = MathUtils.floor(mouseTile.x / Vars.tileSize);
+        mouseTile.y = MathUtils.floor(mouseTile.y / Vars.tileSize);
+
+        return mouseTile;
+    }
+
+    private boolean canRotateSelectedBlock() {
+        if (gameUI == null) {
+            return false;
+        }
+
+        Item item = gameUI.getSelectedItem();
+
+        return item != null
+                && item.placeableBlock != null
+                && item.placeableBlock != Blocks.nothing
+                && item.placeableBlock.canRotate;
+    }
+
+    private static float movementAxis(int negativeKey, int positiveKey) {
+        float axis = 0f;
+
+        if (Gdx.input.isKeyPressed(negativeKey)) axis -= 1f;
+        if (Gdx.input.isKeyPressed(positiveKey)) axis += 1f;
+
+        return axis;
     }
 }

@@ -1,4 +1,3 @@
-
 package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import foundustry.graphics.Fonts;
 import foundustry.types.Item;
 import foundustry.ui.UI;
+import foundustry.ui.UiLayout;
 import foundustry.world.player.Inventory;
 
 import java.util.ArrayList;
@@ -20,8 +20,23 @@ public class InventoryUI extends UI {
     private static final float SLOT_SIZE = 60f;
     private static final float GAP = 8f;
 
+    private static final float PANEL_SIDE_MARGIN = 40f;
+    private static final float PANEL_BOTTOM = 90f;
+    private static final float PANEL_HEIGHT_MARGIN = 180f;
+    private static final float PANEL_TITLE_MARGIN = 90f;
+    private static final float GRID_TOP_MARGIN = 150f;
+    private static final float TITLE_INSET_X = 20f;
+
+    private static final float ITEM_INSET_X = 10f;
+    private static final float ITEM_INSET_Y = 12f;
+    private static final float ITEM_SIZE = 40f;
+
+    private static final Color PANEL_COLOR = new Color(0.12f, 0.12f, 0.12f, 0.95f);
+
     private final Inventory inventory;
     private final Hotbar hotbar;
+
+    private final List<Item> sortedItems = new ArrayList<>();
 
     private final SpriteBatch batch = new SpriteBatch();
     private final ShapeRenderer shape = new ShapeRenderer();
@@ -45,23 +60,8 @@ public class InventoryUI extends UI {
 
         List<Item> items = getSortedItems();
 
-        float startX = (Gdx.graphics.getWidth()
-                - COLUMNS * SLOT_SIZE - (COLUMNS - 1) * GAP) / 2f;
-
-        float startY = Gdx.graphics.getHeight() - 150f;
-
         for (int i = 0; i < items.size(); i++) {
-            int column = i % COLUMNS;
-            int row = i / COLUMNS;
-
-            float x = startX + column * (SLOT_SIZE + GAP);
-            float y = startY - row * (SLOT_SIZE + GAP);
-
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-
-            if (mouseX >= x && mouseX <= x + SLOT_SIZE
-                    && mouseY >= y && mouseY <= y + SLOT_SIZE) {
+            if (UiLayout.mouseOver(slotX(i), slotY(i), SLOT_SIZE, SLOT_SIZE)) {
                 hotbar.setItem(hotbar.getSelectedSlot(), items.get(i));
                 return;
             }
@@ -74,51 +74,42 @@ public class InventoryUI extends UI {
 
         List<Item> items = getSortedItems();
 
-        float startX = (Gdx.graphics.getWidth()
-                - COLUMNS * SLOT_SIZE - (COLUMNS - 1) * GAP) / 2f;
-
-        float startY = Gdx.graphics.getHeight() - 150f;
-
-        float panelWidth = COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP + 40f;
-        float panelHeight = Gdx.graphics.getHeight() - 180f;
+        float gridWidth = COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP;
+        float panelWidth = gridWidth + PANEL_SIDE_MARGIN;
+        float panelHeight = Gdx.graphics.getHeight() - PANEL_HEIGHT_MARGIN;
         float panelX = (Gdx.graphics.getWidth() - panelWidth) / 2f;
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(new Color(0.12f, 0.12f, 0.12f, 0.95f));
-        shape.rect(panelX, 90, panelWidth, panelHeight);
-        shape.end();
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(PANEL_COLOR);
+        shape.rect(panelX, PANEL_BOTTOM, panelWidth, panelHeight);
+
+        shape.setColor(Color.DARK_GRAY);
 
         for (int i = 0; i < items.size(); i++) {
-            int column = i % COLUMNS;
-            int row = i / COLUMNS;
-
-            float x = startX + column * (SLOT_SIZE + GAP);
-            float y = startY - row * (SLOT_SIZE + GAP);
-
-            shape.setColor(Color.DARK_GRAY);
-            shape.rect(x, y, SLOT_SIZE, SLOT_SIZE);
+            shape.rect(slotX(i), slotY(i), SLOT_SIZE, SLOT_SIZE);
         }
 
         shape.end();
 
         batch.begin();
 
-        Fonts.ui.draw(batch, "Inventory", panelX + 20,
-                Gdx.graphics.getHeight() - 90);
+        Fonts.ui.draw(batch, "Inventory",
+                panelX + TITLE_INSET_X,
+                Gdx.graphics.getHeight() - PANEL_TITLE_MARGIN);
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
 
-            int column = i % COLUMNS;
-            int row = i / COLUMNS;
-
-            float x = startX + column * (SLOT_SIZE + GAP);
-            float y = startY - row * (SLOT_SIZE + GAP);
+            float x = slotX(i);
+            float y = slotY(i);
 
             if (item.region != null) {
-                batch.draw(item.region, x + 10, y + 12, 40, 40);
+                batch.draw(item.region,
+                        x + ITEM_INSET_X,
+                        y + ITEM_INSET_Y,
+                        ITEM_SIZE,
+                        ITEM_SIZE);
             }
 
             Fonts.ui.draw(batch, String.valueOf(inventory.get(item)),
@@ -128,14 +119,29 @@ public class InventoryUI extends UI {
         batch.end();
     }
 
-    private List<Item> getSortedItems() {
-        List<Item> result = new ArrayList<>(inventory.getItems().keySet());
+    private float slotX(int index) {
+        return UiLayout.slotX(
+                UiLayout.centeredStartX(COLUMNS, SLOT_SIZE, GAP),
+                index, COLUMNS, SLOT_SIZE, GAP
+        );
+    }
 
-        result.sort(Comparator
+    private float slotY(int index) {
+        return UiLayout.slotY(
+                Gdx.graphics.getHeight() - GRID_TOP_MARGIN,
+                index, COLUMNS, SLOT_SIZE, GAP
+        );
+    }
+
+    private List<Item> getSortedItems() {
+        sortedItems.clear();
+        sortedItems.addAll(inventory.getItems().keySet());
+
+        sortedItems.sort(Comparator
                 .comparingInt((Item item) -> item.category.ordinal())
                 .thenComparing(item -> item.name));
 
-        return result;
+        return sortedItems;
     }
 
     @Override

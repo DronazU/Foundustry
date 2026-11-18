@@ -19,22 +19,22 @@ public class Log {
     }
 
     public static void errExc(Exception exception) {
-        System.err.println("[Error]" + exception.getMessage() + " <- " + whereIsIt());
+        System.err.println("[Error] " + exception.getMessage() + " <- " + whereIsIt());
     }
 
     public static void errExc(String message) {
-        System.err.println("[Error]" + message + " <- " + whereIsIt());
+        System.err.println("[Error] " + message + " <- " + whereIsIt());
     }
 
     public static void info(String message) {
-        System.out.println("\u001B[34m" + "[Info]" +  message + " <- " + whereIsIt() + "\u001B[0m");
+        System.out.println("\u001B[34m" + "[Info] " +  message + " <- " + whereIsIt() + "\u001B[0m");
     }
 
     public static void debug(String message) {
-        System.out.println("\u001B[35m" + "[Debug]" + message + " <- " + whereIsIt() + "\u001B[0m");
+        System.out.println("\u001B[35m" + "[Debug] " + message + " <- " + whereIsIt() + "\u001B[0m");
     }
 
     public static void warn(String message) {
-        System.out.println("\u001B[33m" + "[Warn]" + message + " <- " + whereIsIt() + "\u001B[0m");
+        System.out.println("\u001B[33m" + "[Warn] " + message + " <- " + whereIsIt() + "\u001B[0m");
     }
 }

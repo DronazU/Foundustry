@@ -9,6 +9,8 @@ public class Items {
     public static Item
             /** unrefined ore */
             unrefinedCopper, unrefinedIron,
+            /** natural resources */
+            stone,
             /** logistic */
             conveyor, cornerConveyor
             ;
@@ -16,6 +18,8 @@ public class Items {
     public static void load() {
         unrefinedCopper = new Item("unrefined-copper");
         unrefinedIron = new Item("unrefined-iron");
+
+        stone = new Item("stone");
 
         conveyor = new Item("conveyor") {{
            placeableBlock = Blocks.conveyor;

@@ -1,11 +1,12 @@
 
-package foundustry.world.content;
+package foundustry.world.content.conveyor;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import foundustry.graphics.Atlas;
+import foundustry.world.content.LogisticBlock;
 
 public class Conveyor extends LogisticBlock {
 
@@ -30,7 +31,7 @@ public class Conveyor extends LogisticBlock {
         }
 
         Array<TextureAtlas.AtlasRegion> frames =
-                Atlas.find(name, true);
+                Atlas.findRegions(name);
 
         frames.sort((a, b) -> Integer.compare(a.index, b.index));
 

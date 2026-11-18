@@ -1,4 +1,3 @@
-
 package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
@@ -9,12 +8,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import foundustry.graphics.Fonts;
 import foundustry.types.Item;
 import foundustry.ui.UI;
+import foundustry.ui.UiLayout;
 import foundustry.world.player.Inventory;
 
 public class Hotbar extends UI {
     private static final int SLOT_COUNT = 10;
     private static final float SLOT_SIZE = 54f;
     private static final float GAP = 5f;
+    private static final float Y = 15f;
+
+    private static final float ITEM_INSET_X = 7f;
+    private static final float ITEM_INSET_Y = 9f;
+    private static final float ITEM_SIZE = 40f;
 
     private final Inventory inventory;
     private final Item[] slots = new Item[SLOT_COUNT];
@@ -39,23 +44,10 @@ public class Hotbar extends UI {
         }
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            float startX = (Gdx.graphics.getWidth()
-                    - SLOT_COUNT * SLOT_SIZE
-                    - (SLOT_COUNT - 1) * GAP) / 2f;
+            int hovered = slotAtMouse();
 
-            float y = 15f;
-
-            for (int i = 0; i < SLOT_COUNT; i++) {
-                float x = startX + i * (SLOT_SIZE + GAP);
-
-                float mouseX = Gdx.input.getX();
-                float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-
-                if (mouseX >= x && mouseX <= x + SLOT_SIZE
-                        && mouseY >= y && mouseY <= y + SLOT_SIZE) {
-                    selectedSlot = i;
-                    break;
-                }
+            if (hovered >= 0) {
+                selectedSlot = hovered;
             }
         }
     }
@@ -69,22 +61,21 @@ public class Hotbar extends UI {
 
     @Override
     public void render() {
-        float startX = (Gdx.graphics.getWidth()
-                - SLOT_COUNT * SLOT_SIZE
-                - (SLOT_COUNT - 1) * GAP) / 2f;
-
-        float y = 15f;
+        float startX = startX();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
 
         for (int i = 0; i < SLOT_COUNT; i++) {
-            float x = startX + i * (SLOT_SIZE + GAP);
-
             shape.setColor(i == selectedSlot
                     ? Color.GOLD
                     : Color.DARK_GRAY);
 
-            shape.rect(x, y, SLOT_SIZE, SLOT_SIZE);
+            shape.rect(
+                    UiLayout.slotX(startX, i, SLOT_COUNT, SLOT_SIZE, GAP),
+                    Y,
+                    SLOT_SIZE,
+                    SLOT_SIZE
+            );
         }
 
         shape.end();
@@ -92,26 +83,48 @@ public class Hotbar extends UI {
         batch.begin();
 
         for (int i = 0; i < SLOT_COUNT; i++) {
-            float x = startX + i * (SLOT_SIZE + GAP);
+            float x = UiLayout.slotX(startX, i, SLOT_COUNT, SLOT_SIZE, GAP);
             Item item = slots[i];
 
             Fonts.ui.draw(batch,
                     i == 9 ? "0" : String.valueOf(i + 1),
-                    x + 4, y + SLOT_SIZE - 4);
+                    x + 4, Y + SLOT_SIZE - 4);
 
             if (item == null) continue;
 
             if (item.region != null) {
-                batch.draw(item.region, x + 7, y + 9, 40, 40);
+                batch.draw(item.region,
+                        x + ITEM_INSET_X,
+                        Y + ITEM_INSET_Y,
+                        ITEM_SIZE,
+                        ITEM_SIZE);
             }
 
             int amount = inventory.get(item);
 
             Fonts.ui.draw(batch, String.valueOf(amount),
-                    x + SLOT_SIZE - 25, y + 10);
+                    x + SLOT_SIZE - 25, Y + 10);
         }
 
         batch.end();
+    }
+
+    private int slotAtMouse() {
+        float startX = startX();
+
+        for (int i = 0; i < SLOT_COUNT; i++) {
+            float x = UiLayout.slotX(startX, i, SLOT_COUNT, SLOT_SIZE, GAP);
+
+            if (UiLayout.mouseOver(x, Y, SLOT_SIZE, SLOT_SIZE)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private static float startX() {
+        return UiLayout.centeredStartX(SLOT_COUNT, SLOT_SIZE, GAP);
     }
 
     public void setItem(int slot, Item item) {

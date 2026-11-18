@@ -1,6 +1,9 @@
 package foundustry.world;
 
+import foundustry.core.Vars;
+import foundustry.core.game.Time;
 import foundustry.core.game.data.database.SaveManager;
+import foundustry.types.Block;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +17,9 @@ public class World {
 
     private final Map<Long, Chunk> chunks = new HashMap<>();
 
+    private final TileAction updateConveyorAction =
+            tile -> tile.updateConveyor(this, Time.delta);
+
     public World(float seed, String worldId, SaveManager saveManager) {
         generator = new Generator();
         generator.seed = seed;
@@ -23,8 +29,8 @@ public class World {
     }
 
     public void update(float worldX, float worldY) {
-        int tileX = (int)Math.floor(worldX / foundustry.core.Vars.tileSize);
-        int tileY = (int)Math.floor(worldY / foundustry.core.Vars.tileSize);
+        int tileX = (int)Math.floor(worldX / Vars.tileSize);
+        int tileY = (int)Math.floor(worldY / Vars.tileSize);
 
         int chunkX = Math.floorDiv(tileX, Chunk.SIZE);
         int chunkY = Math.floorDiv(tileY, Chunk.SIZE);
@@ -33,6 +39,14 @@ public class World {
             for (int y = chunkY - LOAD_RADIUS; y <= chunkY + LOAD_RADIUS; y++) {
                 loadChunk(x, y);
             }
+        }
+
+        forEachTile(updateConveyorAction);
+    }
+
+    public void forEachTile(TileAction action) {
+        for (Chunk chunk : chunks.values()) {
+            chunk.forEachTile(action);
         }
     }
 
@@ -49,34 +63,23 @@ public class World {
     }
 
     public Tile getTile(int worldTileX, int worldTileY) {
-        int chunkX = Math.floorDiv(worldTileX, Chunk.SIZE);
-        int chunkY = Math.floorDiv(worldTileY, Chunk.SIZE);
-
-        int localX = Math.floorMod(worldTileX, Chunk.SIZE);
-        int localY = Math.floorMod(worldTileY, Chunk.SIZE);
-
-        Chunk chunk = chunks.get(getKey(chunkX, chunkY));
+        Chunk chunk = getChunk(worldTileX, worldTileY);
 
         if (chunk == null) {
             return null;
         }
 
-        return chunk.getTile(localX, localY);
+        return chunk.getTile(
+                Math.floorMod(worldTileX, Chunk.SIZE),
+                Math.floorMod(worldTileY, Chunk.SIZE)
+        );
     }
 
-    public boolean setBlock(int worldTileX, int worldTileY, foundustry.types.Block block, int rotation) {
+    public boolean setBlock(int worldTileX, int worldTileY, Block block, int rotation) {
         Tile tile = getTile(worldTileX, worldTileY);
+        Chunk chunk = getChunk(worldTileX, worldTileY);
 
-        if (tile == null) {
-            return false;
-        }
-
-        int chunkX = Math.floorDiv(worldTileX, Chunk.SIZE);
-        int chunkY = Math.floorDiv(worldTileY, Chunk.SIZE);
-
-        Chunk chunk = chunks.get(getKey(chunkX, chunkY));
-
-        if (chunk == null) {
+        if (tile == null || chunk == null) {
             return false;
         }
 
@@ -101,6 +104,13 @@ public class World {
 
     public Iterable<Chunk> getLoadedChunks() {
         return chunks.values();
+    }
+
+    private Chunk getChunk(int worldTileX, int worldTileY) {
+        int chunkX = Math.floorDiv(worldTileX, Chunk.SIZE);
+        int chunkY = Math.floorDiv(worldTileY, Chunk.SIZE);
+
+        return chunks.get(getKey(chunkX, chunkY));
     }
 
     private long getKey(int x, int y) {

@@ -12,7 +12,7 @@ public class Item {
     public boolean stackable = true;
     public Block placeableBlock = Blocks.nothing;
 
-    public final Category category = Category.OTHER;
+    public Category category = Category.OTHER;
     public TextureRegion region;
 
     public Item(String name) {

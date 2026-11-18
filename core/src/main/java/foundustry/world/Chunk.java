@@ -1,7 +1,7 @@
 package foundustry.world;
 
 public class Chunk {
-    public static final int SIZE = 32;
+    public static final int SIZE = 4;
 
     public final int x;
     public final int y;
@@ -21,5 +21,15 @@ public class Chunk {
         }
 
         return tiles[x][y];
+    }
+
+    public void forEachTile(TileAction action) {
+        for (Tile[] column : tiles) {
+            for (Tile tile : column) {
+                if (tile != null) {
+                    action.accept(tile);
+                }
+            }
+        }
     }
 }

@@ -1,70 +1,29 @@
 package foundustry.graphics.drawers;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import foundustry.world.Chunk;
-import foundustry.world.Tile;
+import foundustry.world.TileAction;
 import foundustry.world.World;
 
-import static foundustry.core.Init.camera;
+public class DrawBlock extends Drawer {
 
-public class DrawBlock {
-    public static SpriteBatch batch;
-
-    public DrawBlock() {
-        batch = new SpriteBatch();
-    }
+    private final TileAction drawFloors = tile -> tile.drawFloor(batch);
+    private final TileAction drawShadows = tile -> tile.drawShadow(batch);
+    private final TileAction drawBlocks = tile -> tile.drawBlock(batch);
+    private final TileAction drawConveyorItems = tile -> tile.drawConveyorItems(batch);
 
     public void render(World world) {
-        camera.update();
+        if (world == null) {
+            return;
+        }
 
-        SpriteBatch currentBatch = batch;
-        currentBatch.setProjectionMatrix(camera.combined);
-        currentBatch.begin();
+        begin();
 
         try {
-            if (world == null) return;
-
-            for (Chunk chunk : world.getLoadedChunks()) {
-                for (Tile[] tiles : chunk.tiles) {
-                    for (Tile tile : tiles) {
-                        if (tile != null) {
-                            tile.drawFloor(currentBatch);
-                        }
-                    }
-                }
-            }
-
-            for (Chunk chunk : world.getLoadedChunks()) {
-                for (Tile[] tiles : chunk.tiles) {
-                    for (Tile tile : tiles) {
-                        if (tile != null) {
-                            tile.drawShadow(currentBatch);
-                        }
-                    }
-                }
-            }
-
-            for (Chunk chunk : world.getLoadedChunks()) {
-                for (Tile[] tiles : chunk.tiles) {
-                    for (Tile tile : tiles) {
-                        if (tile != null) {
-                            tile.drawBlock(currentBatch);
-                        }
-                    }
-                }
-            }
-
+            world.forEachTile(drawFloors);
+            world.forEachTile(drawShadows);
+            world.forEachTile(drawBlocks);
+            world.forEachTile(drawConveyorItems);
         } finally {
-            if (currentBatch.isDrawing()) {
-                currentBatch.end();
-            }
-        }
-    }
-
-    public static void dispose() {
-        if (batch != null) {
-            batch.dispose();
-            batch = null;
+            end();
         }
     }
 }

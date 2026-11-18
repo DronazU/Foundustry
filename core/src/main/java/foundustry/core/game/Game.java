@@ -10,8 +10,6 @@ import foundustry.core.game.data.GameFiles;
 import foundustry.core.game.data.database.SaveManager;
 import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
-import foundustry.graphics.drawers.DrawBlock;
-import foundustry.graphics.drawers.DrawUnit;
 import foundustry.types.Block;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
@@ -42,11 +40,7 @@ public class Game {
         UnitTypes.load();
 
         player = new Player();
-
-        player.inventory.add(Items.unrefinedCopper, 75);
-        player.inventory.add(Items.unrefinedIron, 24);
-        player.inventory.add(Items.conveyor, 40);
-        player.inventory.add(Items.cornerConveyor, 31);
+        giveStartingItems();
 
         gameUI = new GameUI(player.inventory);
         player.setGameUI(gameUI);
@@ -62,8 +56,9 @@ public class Game {
         saveManager = new SaveManager();
 
         SaveManager.WorldData worldData = saveManager.loadWorld();
+        boolean newWorld = worldData == null;
 
-        if (worldData == null) {
+        if (newWorld) {
             worldData = saveManager.createWorld(
                     (float)Math.random() * 1000f
             );
@@ -76,6 +71,17 @@ public class Game {
         );
 
         player.setWorld(world);
+
+        if (newWorld) {
+            setPlayerSpawn();
+        } else {
+            float[] position = saveManager.loadPosition();
+
+            if (position != null) {
+                player.unit.x = position[0];
+                player.unit.y = position[1];
+            }
+        }
 
         Init.camera.position.set(
                 player.unit.x,
@@ -123,6 +129,8 @@ public class Game {
             return;
         }
 
+        Init.camera.update();
+
         Init.drawBlock.render(world);
         Init.drawUnit.render();
 
@@ -134,8 +142,8 @@ public class Game {
         gameUI.dispose();
 
         Atlas.dispose();
-        DrawBlock.dispose();
-        DrawUnit.dispose();
+        Init.drawBlock.dispose();
+        Init.drawUnit.dispose();
         Fonts.dispose();
 
         saveGame();
@@ -155,20 +163,12 @@ public class Game {
 
         player.setWorld(world);
 
-        player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
-        player.unit.y = Chunk.SIZE * Vars.tileSize / 2f;
-
-        player.unit.velocityX = 0f;
-        player.unit.velocityY = 0f;
-        player.unit.rotation = 0f;
+        setPlayerSpawn();
 
         world.update(player.unit.x, player.unit.y);
 
         player.inventory.clear();
-
-        player.inventory.add(Items.unrefinedCopper, 75);
-        player.inventory.add(Items.unrefinedIron, 24);
-        player.inventory.add(Items.conveyor, 40);
+        giveStartingItems();
 
         Init.camera.position.set(
                 player.unit.x,
@@ -182,6 +182,22 @@ public class Game {
         );
 
         gameState.setState(GameState.State.GAME);
+    }
+
+    private void giveStartingItems() {
+        player.inventory.add(Items.unrefinedCopper, 75);
+        player.inventory.add(Items.unrefinedIron, 24);
+        player.inventory.add(Items.conveyor, 40);
+        player.inventory.add(Items.cornerConveyor, 31);
+    }
+
+    private void setPlayerSpawn() {
+        player.unit.x = Chunk.SIZE * Vars.tileSize / 2f;
+        player.unit.y = Chunk.SIZE * Vars.tileSize / 2f;
+
+        player.unit.velocityX = 0f;
+        player.unit.velocityY = 0f;
+        player.unit.rotation = 0f;
     }
 
     private void saveGame() {
