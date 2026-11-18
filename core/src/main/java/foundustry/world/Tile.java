@@ -22,6 +22,7 @@ public class Tile {
     public Block floor;
     public Block block;
     public int rotation;
+    public boolean flipX;
 
     public final Array<ConveyorItem> conveyorItems = new Array<>();
 
@@ -142,7 +143,8 @@ public class Tile {
                 x, y,
                 size / 2f, size / 2f,
                 size, size,
-                1f, 1f,
+                flipX ? -1f : 1f,
+                1f,
                 rotation
         );
     }

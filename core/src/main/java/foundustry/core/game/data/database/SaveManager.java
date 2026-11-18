@@ -1,3 +1,4 @@
+
 package foundustry.core.game.data.database;
 
 import com.mongodb.client.MongoClient;
@@ -20,7 +21,6 @@ import static com.mongodb.client.model.Filters.eq;
 public class SaveManager implements AutoCloseable {
 
     private static final String CONNECTION_URI = "mongodb://localhost:27017";
-
     private static final String DATABASE_NAME = "Foundustry";
     private static final String COLLECTION_NAME = "saves";
     private static final String PLAYER_ID = "player";
@@ -103,7 +103,7 @@ public class SaveManager implements AutoCloseable {
         return world;
     }
 
-    public void saveChunk(Chunk chunk, String worldId) {
+    public boolean saveChunk(Chunk chunk, String worldId) {
         try {
             List<Document> blockData = new ArrayList<>();
 
@@ -120,6 +120,7 @@ public class SaveManager implements AutoCloseable {
                                     .append("y", y)
                                     .append("block", tile.block.name)
                                     .append("rotation", tile.rotation)
+                                    .append("flipX", tile.flipX)
                     );
                 }
             }
@@ -138,8 +139,11 @@ public class SaveManager implements AutoCloseable {
                     new ReplaceOptions().upsert(true)
             );
 
+            return true;
+
         } catch (Exception e) {
             Log.errExc("Failed to save chunk: " + e.getMessage());
+            return false;
         }
     }
 
@@ -168,6 +172,7 @@ public class SaveManager implements AutoCloseable {
                 int x = data.getInteger("x", -1);
                 int y = data.getInteger("y", -1);
                 int rotation = data.getInteger("rotation", 0);
+                boolean flipX = data.getBoolean("flipX", false);
 
                 String blockName = data.getString("block");
 
@@ -188,6 +193,7 @@ public class SaveManager implements AutoCloseable {
                 if (tile != null) {
                     tile.block = block;
                     tile.rotation = rotation;
+                    tile.flipX = flipX;
                 }
             }
 

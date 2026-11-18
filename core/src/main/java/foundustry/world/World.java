@@ -76,6 +76,10 @@ public class World {
     }
 
     public boolean setBlock(int worldTileX, int worldTileY, Block block, int rotation) {
+        return setBlock(worldTileX, worldTileY, block, rotation, false);
+    }
+
+    public boolean setBlock(int worldTileX, int worldTileY, Block block, int rotation, boolean flipX) {
         Tile tile = getTile(worldTileX, worldTileY);
         Chunk chunk = getChunk(worldTileX, worldTileY);
 
@@ -85,6 +89,7 @@ public class World {
 
         tile.block = block;
         tile.rotation = rotation;
+        tile.flipX = flipX;
 
         chunk.dirty = true;
 

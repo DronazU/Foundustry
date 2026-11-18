@@ -134,6 +134,20 @@ public class Game {
         Init.drawBlock.render(world);
         Init.drawUnit.render();
 
+        Block selectedBlock = player.getSelectedBlock();
+
+        if (selectedBlock != null) {
+            Init.drawBlock.renderPreview(
+                    selectedBlock,
+                    player.getMouseTileX(),
+                    player.getMouseTileY(),
+                    selectedBlock.canRotate ? player.getBlockRotation() : 0,
+                    false
+            );
+        }
+
+        gameUI.render();
+
         gameUI.render();
     }
 

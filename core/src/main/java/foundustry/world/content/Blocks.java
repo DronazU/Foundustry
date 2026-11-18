@@ -17,8 +17,6 @@ public class Blocks {
     conveyor, cornerConveyor
     ;
 
-
-
     public static void load() {
         nothing = new NothingBlock("nothing");
         sandFloor = new Floor("sand-floor");
@@ -30,10 +28,12 @@ public class Blocks {
         sandWater = new Floor("sand-water");
         conveyor = new Conveyor("conveyor") {{
             canRotate = true;
-            speed = 1f;
+            speed = 1;
         }};
         cornerConveyor = new Conveyor("conveyor_corner") {{
             speed = 1f;
+            canFlip = true;
+            canRotate = true;
         }};
 
         for (Block block : Vars.blocks) {

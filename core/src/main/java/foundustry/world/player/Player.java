@@ -22,6 +22,7 @@ public class Player {
     private static final float MIN_ZOOM = 0.5f;
     private static final float MAX_ZOOM = 3f;
     private static final float TICKS_PER_SECOND = 60f;
+    private boolean blockFlipX = false;
 
     public final Inventory inventory = new Inventory();
 
@@ -52,6 +53,10 @@ public class Player {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) && canRotateSelectedBlock()) {
             blockRotation = (blockRotation + 90) % 360;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F) && canFlipSelectedBlock()) {
+            blockFlipX = !blockFlipX;
         }
 
         applyVelocity(moveX, moveY);
@@ -102,7 +107,8 @@ public class Player {
                 tileX,
                 tileY,
                 selectedBlock,
-                selectedBlock.canRotate ? blockRotation : 0
+                selectedBlock.canRotate ? blockRotation : 0,
+                selectedBlock.canFlip && blockFlipX
         );
 
         if (!placed) {
@@ -206,5 +212,44 @@ public class Player {
         if (Gdx.input.isKeyPressed(positiveKey)) axis += 1f;
 
         return axis;
+    }
+
+    private boolean canFlipSelectedBlock() {
+        if (gameUI == null) {
+            return false;
+        }
+
+        Item item = gameUI.getSelectedItem();
+
+        return item != null
+                && item.placeableBlock != null
+                && item.placeableBlock.canFlip;
+    }
+
+    public Block getSelectedBlock() {
+        if (gameUI == null || gameUI.isInventoryOpen()) {
+            return null;
+        }
+
+        Item item = gameUI.getSelectedItem();
+
+        if (item == null || item.placeableBlock == null
+                || item.placeableBlock == Blocks.nothing) {
+            return null;
+        }
+
+        return item.placeableBlock;
+    }
+
+    public int getBlockRotation() {
+        return blockRotation;
+    }
+
+    public int getMouseTileX() {
+        return (int)getMouseTile().x;
+    }
+
+    public int getMouseTileY() {
+        return (int)getMouseTile().y;
     }
 }

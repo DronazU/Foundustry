@@ -10,6 +10,7 @@ public class Block {
     public boolean canRotate = false;
     public Category category = null;
     public boolean hasShadow = true;
+    public boolean canFlip = false;
 
     public TextureRegion region;
 

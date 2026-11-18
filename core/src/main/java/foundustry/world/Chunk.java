@@ -1,7 +1,7 @@
 package foundustry.world;
 
 public class Chunk {
-    public static final int SIZE = 4;
+    public static final int SIZE = 32;
 
     public final int x;
     public final int y;
