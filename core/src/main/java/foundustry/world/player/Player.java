@@ -15,6 +15,7 @@ import foundustry.world.World;
 import foundustry.world.content.Blocks;
 import foundustry.world.content.Items;
 import foundustry.world.content.UnitTypes;
+import foundustry.world.player.inventory.Inventory;
 
 import static foundustry.core.Init.camera;
 

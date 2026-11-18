@@ -9,7 +9,7 @@ import foundustry.graphics.Fonts;
 import foundustry.types.item.Item;
 import foundustry.ui.UI;
 import foundustry.ui.UiLayout;
-import foundustry.world.player.Inventory;
+import foundustry.world.player.inventory.Inventory;
 
 public class Hotbar extends UI {
     private static final int SLOT_COUNT = 10;

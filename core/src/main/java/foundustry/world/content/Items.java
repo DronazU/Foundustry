@@ -32,13 +32,19 @@ public class Items {
         conveyor = new Item("conveyor") {{
            placeableBlock = Blocks.conveyor;
            requirements
-                   .with(unrefinedCopper, 2)
+                   .with(unrefinedCopper, 1)
                    .with(unrefinedIron, 1);
            craftTime = 0.5f;
+           craftAmount = 2;
         }};
 
         cornerConveyor = new Item("conveyor_corner") {{
             placeableBlock = Blocks.cornerConveyor;
+            requirements
+                    .with(unrefinedCopper, 1)
+                    .with(unrefinedIron, 1);
+            craftTime = 0.5f;
+            craftAmount = 2;
         }};
 
         for (Item item : Vars.items) {

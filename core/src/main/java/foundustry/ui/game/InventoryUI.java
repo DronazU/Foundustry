@@ -1,7 +1,7 @@
+
 package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,7 +9,7 @@ import foundustry.graphics.Fonts;
 import foundustry.types.item.Item;
 import foundustry.ui.UI;
 import foundustry.ui.UiLayout;
-import foundustry.world.player.Inventory;
+import foundustry.world.player.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,11 +26,12 @@ public class InventoryUI extends UI {
     private static final float PANEL_TITLE_MARGIN = 90f;
     private static final float GRID_TOP_MARGIN = 150f;
     private static final float TITLE_INSET_X = 20f;
-
     private static final float ITEM_INSET_X = 10f;
     private static final float ITEM_INSET_Y = 12f;
     private static final float ITEM_SIZE = 40f;
-
+    private static final float PANEL_GAP = 20f;
+    private static final float GRID_WIDTH = COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP;
+    private static final float PANEL_WIDTH = GRID_WIDTH + PANEL_SIDE_MARGIN;
     private static final Color PANEL_COLOR = new Color(0.12f, 0.12f, 0.12f, 0.95f);
 
     private final Inventory inventory;
@@ -50,19 +51,25 @@ public class InventoryUI extends UI {
 
     @Override
     public void update() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            setVisible(!isVisible());
-        }
-
         if (!isVisible()) return;
 
-        if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) return;
+        if (!Gdx.input.isButtonJustPressed(com.badlogic.gdx.Input.Buttons.LEFT)) {
+            return;
+        }
 
         List<Item> items = getSortedItems();
 
         for (int i = 0; i < items.size(); i++) {
-            if (UiLayout.mouseOver(slotX(i), slotY(i), SLOT_SIZE, SLOT_SIZE)) {
-                hotbar.setItem(hotbar.getSelectedSlot(), items.get(i));
+            if (UiLayout.mouseOver(
+                    slotX(i),
+                    slotY(i),
+                    SLOT_SIZE,
+                    SLOT_SIZE
+            )) {
+                hotbar.setItem(
+                        hotbar.getSelectedSlot(),
+                        items.get(i)
+                );
                 return;
             }
         }
@@ -74,29 +81,41 @@ public class InventoryUI extends UI {
 
         List<Item> items = getSortedItems();
 
-        float gridWidth = COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP;
-        float panelWidth = gridWidth + PANEL_SIDE_MARGIN;
-        float panelHeight = Gdx.graphics.getHeight() - PANEL_HEIGHT_MARGIN;
-        float panelX = (Gdx.graphics.getWidth() - panelWidth) / 2f;
+        float panelX = panelX();
+        float panelHeight =
+                Gdx.graphics.getHeight() - PANEL_HEIGHT_MARGIN;
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
 
         shape.setColor(PANEL_COLOR);
-        shape.rect(panelX, PANEL_BOTTOM, panelWidth, panelHeight);
+        shape.rect(
+                panelX,
+                PANEL_BOTTOM,
+                PANEL_WIDTH,
+                panelHeight
+        );
 
         shape.setColor(Color.DARK_GRAY);
 
         for (int i = 0; i < items.size(); i++) {
-            shape.rect(slotX(i), slotY(i), SLOT_SIZE, SLOT_SIZE);
+            shape.rect(
+                    slotX(i),
+                    slotY(i),
+                    SLOT_SIZE,
+                    SLOT_SIZE
+            );
         }
 
         shape.end();
 
         batch.begin();
 
-        Fonts.ui.draw(batch, "Inventory",
+        Fonts.ui.draw(
+                batch,
+                "Inventory",
                 panelX + TITLE_INSET_X,
-                Gdx.graphics.getHeight() - PANEL_TITLE_MARGIN);
+                Gdx.graphics.getHeight() - PANEL_TITLE_MARGIN
+        );
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
@@ -105,31 +124,52 @@ public class InventoryUI extends UI {
             float y = slotY(i);
 
             if (item.region != null) {
-                batch.draw(item.region,
+                batch.draw(
+                        item.region,
                         x + ITEM_INSET_X,
                         y + ITEM_INSET_Y,
                         ITEM_SIZE,
-                        ITEM_SIZE);
+                        ITEM_SIZE
+                );
             }
 
-            Fonts.ui.draw(batch, String.valueOf(inventory.get(item)),
-                    x + SLOT_SIZE - 25, y + 8);
+            Fonts.ui.draw(
+                    batch,
+                    String.valueOf(inventory.get(item)),
+                    x + SLOT_SIZE - 25f,
+                    y + 8f
+            );
         }
 
         batch.end();
     }
 
+    private float panelX() {
+        float totalWidth = PANEL_WIDTH * 2f + PANEL_GAP;
+
+        return (Gdx.graphics.getWidth() - totalWidth) / 2f;
+    }
+
     private float slotX(int index) {
+        float startX = panelX()
+                + (PANEL_WIDTH - GRID_WIDTH) / 2f;
+
         return UiLayout.slotX(
-                UiLayout.centeredStartX(COLUMNS, SLOT_SIZE, GAP),
-                index, COLUMNS, SLOT_SIZE, GAP
+                startX,
+                index,
+                COLUMNS,
+                SLOT_SIZE,
+                GAP
         );
     }
 
     private float slotY(int index) {
         return UiLayout.slotY(
                 Gdx.graphics.getHeight() - GRID_TOP_MARGIN,
-                index, COLUMNS, SLOT_SIZE, GAP
+                index,
+                COLUMNS,
+                SLOT_SIZE,
+                GAP
         );
     }
 
