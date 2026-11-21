@@ -1,4 +1,4 @@
-package foundustry.world.content.conveyor;
+package foundustry.world.contentType.conveyor;
 
 import foundustry.types.item.Item;
 

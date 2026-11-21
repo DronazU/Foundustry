@@ -5,7 +5,7 @@ import foundustry.types.Category;
 import foundustry.ui.UI;
 import foundustry.ui.uiItems.Button;
 import foundustry.types.Block;
-import foundustry.world.content.Blocks;
+import foundustry.world.contentRegister.Blocks;
 
 import java.util.function.Consumer;
 

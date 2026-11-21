@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import foundustry.core.Vars;
 import foundustry.types.Block;
 import foundustry.types.Category;
-import foundustry.world.content.Blocks;
+import foundustry.world.contentRegister.Blocks;
 
 public class Item {
     public final String name;

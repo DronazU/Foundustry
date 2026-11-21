@@ -1,12 +1,12 @@
 
-package foundustry.world.content.conveyor;
+package foundustry.world.contentType.conveyor;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import foundustry.graphics.Atlas;
-import foundustry.world.content.LogisticBlock;
+import foundustry.world.contentType.LogisticBlock;
 
 public class Conveyor extends LogisticBlock {
 

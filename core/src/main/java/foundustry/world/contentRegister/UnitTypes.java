@@ -1,8 +1,9 @@
-package foundustry.world.content;
+package foundustry.world.contentRegister;
 
 import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.UnitType;
+import foundustry.world.contentType.GroundUnit;
 
 public class UnitTypes {
     public static UnitType

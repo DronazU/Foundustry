@@ -1,11 +1,13 @@
-package foundustry.world.content;
+package foundustry.world.contentRegister;
 
 import com.badlogic.gdx.utils.Array;
 import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.Block;
 import foundustry.types.Category;
-import foundustry.world.content.conveyor.Conveyor;
+import foundustry.world.contentType.Floor;
+import foundustry.world.contentType.NothingBlock;
+import foundustry.world.contentType.conveyor.Conveyor;
 
 public class Blocks {
     public static Block

@@ -12,9 +12,9 @@ import foundustry.types.UnitType;
 import foundustry.ui.game.GameUI;
 import foundustry.world.Building;
 import foundustry.world.World;
-import foundustry.world.content.Blocks;
-import foundustry.world.content.Items;
-import foundustry.world.content.UnitTypes;
+import foundustry.world.contentRegister.Blocks;
+import foundustry.world.contentRegister.Items;
+import foundustry.world.contentRegister.UnitTypes;
 import foundustry.world.player.inventory.Inventory;
 
 import static foundustry.core.Init.camera;

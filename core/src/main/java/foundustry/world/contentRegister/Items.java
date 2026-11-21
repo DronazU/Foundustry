@@ -1,4 +1,4 @@
-package foundustry.world.content;
+package foundustry.world.contentRegister;
 
 import foundustry.core.Vars;
 import foundustry.graphics.Atlas;
@@ -8,15 +8,16 @@ import foundustry.types.item.Item;
 
 public class Items {
     public static Item
-            /** unrefined ore */
-            unrefinedCopper, unrefinedIron,
-            /** natural resources */
-            stone,
-            /** logistic */
+            /** environment */
+            unrefinedCopper, unrefinedIron, stone,
+            /** materials region */
+            copperIngot, ironIngot,
+            /** items */
             conveyor, cornerConveyor
             ;
 
     public static void load() {
+        /** environment region */
         unrefinedCopper = new Item("unrefined-copper") {{
             inventoryCraftable = false;
         }};
@@ -29,6 +30,16 @@ public class Items {
             inventoryCraftable = false;
         }};
 
+        /** materials region */
+        copperIngot = new Item("copper-ingot") {{
+           inventoryCraftable = false;
+        }};
+
+        ironIngot = new Item("copper-ingot") {{
+            inventoryCraftable = false;
+        }};
+
+        /** items region */
         conveyor = new Item("conveyor") {{
            placeableBlock = Blocks.conveyor;
            requirements
