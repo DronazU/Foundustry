@@ -25,15 +25,17 @@ public class CraftingUI extends UI {
 
     private static final float SLOT_SIZE = 60f;
     private static final float GAP = 8f;
+    private static final float SLOT_RADIUS = 8f;
+    private static final float PANEL_RADIUS = 12f;
 
-    private static final float PANEL_SIDE_MARGIN = 40f;
+    private static final float PANEL_SIDE_MARGIN = 56f;
     private static final float PANEL_BOTTOM = 90f;
     private static final float PANEL_HEIGHT_MARGIN = 180f;
-    private static final float PANEL_TITLE_MARGIN = 90f;
-    private static final float GRID_TOP_MARGIN = 150f;
+    private static final float GRID_TOP_MARGIN = 175f;
     private static final float PANEL_GAP = 20f;
 
     private static final float ITEM_SIZE = 40f;
+
     private static final float QUEUE_SLOT_SIZE = 54f;
     private static final float QUEUE_GAP = 8f;
     private static final float QUEUE_TITLE_Y = 370f;
@@ -46,7 +48,10 @@ public class CraftingUI extends UI {
             GRID_WIDTH + PANEL_SIDE_MARGIN;
 
     private static final Color PANEL_COLOR =
-            new Color(0.12f, 0.12f, 0.12f, 0.95f);
+            new Color(0.12f, 0.12f, 0.12f, 0.5f);
+
+    private static final Color SLOT_COLOR =
+            new Color(0.22f, 0.22f, 0.22f, 1f);
 
     private final Inventory inventory;
     private final CraftingQueue queue;
@@ -86,7 +91,9 @@ public class CraftingUI extends UI {
             }
 
             if (inventory.getCraftableAmount(item) > 0
-                    && item.craftTime > 0f) {
+                    && item.inventoryCraftable
+                    && item.craftTime > 0f
+                    && item.requirements.getItems().size > 0) {
                 queue.add(item, 1, inventory);
             }
 
@@ -107,11 +114,13 @@ public class CraftingUI extends UI {
         shape.begin(ShapeRenderer.ShapeType.Filled);
 
         shape.setColor(PANEL_COLOR);
-        shape.rect(
+
+        drawRoundedRect(
                 panelX + PANEL_WIDTH + PANEL_GAP,
                 PANEL_BOTTOM,
                 PANEL_WIDTH,
-                panelHeight
+                panelHeight,
+                PANEL_RADIUS
         );
 
         for (int i = 0; i < items.size(); i++) {
@@ -129,68 +138,73 @@ public class CraftingUI extends UI {
                 shape.setColor(Color.GRAY);
             }
 
-            shape.rect(
+            drawRoundedRect(
                     slotX(i),
                     slotY(i),
                     SLOT_SIZE,
-                    SLOT_SIZE
+                    SLOT_SIZE,
+                    SLOT_RADIUS
             );
         }
 
         Array<CraftingEntry> entries = queue.getEntries();
 
-        for (int i = 0; i < entries.size; i++) {
-            float x = queueSlotX(i);
-            float y = queueSlotY(i);
+        shape.setColor(SLOT_COLOR);
 
-            shape.setColor(Color.DARK_GRAY);
-            shape.rect(x, y, QUEUE_SLOT_SIZE, QUEUE_SLOT_SIZE);
+        for (int i = 0; i < entries.size; i++) {
+            drawRoundedRect(
+                    queueSlotX(i),
+                    queueSlotY(i),
+                    QUEUE_SLOT_SIZE,
+                    QUEUE_SLOT_SIZE,
+                    SLOT_RADIUS
+            );
         }
 
         shape.end();
 
         batch.begin();
 
-        Fonts.ui.draw(
-                batch,
-                "Crafting",
-                panelX + PANEL_WIDTH + PANEL_GAP + 20f,
-                Gdx.graphics.getHeight() - PANEL_TITLE_MARGIN
-        );
-
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
+
+            if (item.region == null) continue;
 
             float x = slotX(i);
             float y = slotY(i);
 
-            if (item.region != null) {
-                batch.draw(
-                        item.region,
-                        x + 10f,
-                        y + 12f,
-                        ITEM_SIZE,
-                        ITEM_SIZE
-                );
+            batch.draw(
+                    item.region,
+                    x + 10f,
+                    y + 12f,
+                    ITEM_SIZE,
+                    ITEM_SIZE
+            );
+        }
+
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+
+            if (!item.inventoryCraftable
+                    || item.craftTime <= 0f
+                    || item.requirements.getItems().size == 0) {
+                continue;
             }
 
-            int craftable = inventory.getCraftableAmount(item);
+            float x = slotX(i);
+            float y = slotY(i);
 
-            if (item.inventoryCraftable
-                    && item.craftTime > 0f
-                    && item.requirements.getItems().size > 0) {
-                Fonts.ui.draw(
-                        batch,
-                        String.valueOf(craftable),
-                        x + SLOT_SIZE - 22f,
-                        y + 9f
-                );
-            }
+            Fonts.ui.draw(
+                    batch,
+                    String.valueOf(inventory.getCraftableAmount(item)),
+                    x + SLOT_SIZE - 25f,
+                    y + 9f
+            );
         }
 
         Fonts.ui.draw(
                 batch,
-                "Crafting queue",
+                "Очередь создания",
                 panelX + PANEL_WIDTH + PANEL_GAP + 20f,
                 QUEUE_TITLE_Y
         );
@@ -210,6 +224,13 @@ public class CraftingUI extends UI {
                         40f
                 );
             }
+        }
+
+        for (int i = 0; i < entries.size; i++) {
+            CraftingEntry entry = entries.get(i);
+
+            float x = queueSlotX(i);
+            float y = queueSlotY(i);
 
             Fonts.ui.draw(
                     batch,
@@ -229,6 +250,38 @@ public class CraftingUI extends UI {
         }
 
         batch.end();
+    }
+
+    private void drawRoundedRect(
+            float x,
+            float y,
+            float width,
+            float height,
+            float radius
+    ) {
+        shape.rect(
+                x + radius,
+                y,
+                width - radius * 2f,
+                height
+        );
+
+        shape.rect(
+                x,
+                y + radius,
+                width,
+                height - radius * 2f
+        );
+
+        shape.circle(x + radius, y + radius, radius, 12);
+        shape.circle(x + width - radius, y + radius, radius, 12);
+        shape.circle(x + radius, y + height - radius, radius, 12);
+        shape.circle(
+                x + width - radius,
+                y + height - radius,
+                radius,
+                12
+        );
     }
 
     private float panelX() {
@@ -285,6 +338,7 @@ public class CraftingUI extends UI {
 
     private List<Item> getSortedItems() {
         sortedItems.clear();
+
         for (Item item : Vars.items) {
             sortedItems.add(item);
         }

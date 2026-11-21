@@ -1,7 +1,7 @@
-
 package foundustry.ui.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,22 +17,33 @@ import java.util.List;
 
 public class InventoryUI extends UI {
     private static final int COLUMNS = 8;
+
     private static final float SLOT_SIZE = 60f;
     private static final float GAP = 8f;
+    private static final float SLOT_RADIUS = 8f;
+    private static final float PANEL_RADIUS = 12f;
 
-    private static final float PANEL_SIDE_MARGIN = 40f;
+    private static final float PANEL_SIDE_MARGIN = 56f;
     private static final float PANEL_BOTTOM = 90f;
     private static final float PANEL_HEIGHT_MARGIN = 180f;
-    private static final float PANEL_TITLE_MARGIN = 90f;
-    private static final float GRID_TOP_MARGIN = 150f;
-    private static final float TITLE_INSET_X = 20f;
+    private static final float GRID_TOP_MARGIN = 175f;
+    private static final float PANEL_GAP = 20f;
+
     private static final float ITEM_INSET_X = 10f;
     private static final float ITEM_INSET_Y = 12f;
     private static final float ITEM_SIZE = 40f;
-    private static final float PANEL_GAP = 20f;
-    private static final float GRID_WIDTH = COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP;
-    private static final float PANEL_WIDTH = GRID_WIDTH + PANEL_SIDE_MARGIN;
-    private static final Color PANEL_COLOR = new Color(0.12f, 0.12f, 0.12f, 0.95f);
+
+    private static final float GRID_WIDTH =
+            COLUMNS * SLOT_SIZE + (COLUMNS - 1) * GAP;
+
+    private static final float PANEL_WIDTH =
+            GRID_WIDTH + PANEL_SIDE_MARGIN;
+
+    private static final Color PANEL_COLOR =
+            new Color(0.12f, 0.12f, 0.12f, 0.5f);
+
+    private static final Color SLOT_COLOR =
+            new Color(0.22f, 0.22f, 0.22f, 1f);
 
     private final Inventory inventory;
     private final Hotbar hotbar;
@@ -53,7 +64,7 @@ public class InventoryUI extends UI {
     public void update() {
         if (!isVisible()) return;
 
-        if (!Gdx.input.isButtonJustPressed(com.badlogic.gdx.Input.Buttons.LEFT)) {
+        if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             return;
         }
 
@@ -88,34 +99,47 @@ public class InventoryUI extends UI {
         shape.begin(ShapeRenderer.ShapeType.Filled);
 
         shape.setColor(PANEL_COLOR);
-        shape.rect(
+
+        drawRoundedRect(
                 panelX,
                 PANEL_BOTTOM,
                 PANEL_WIDTH,
-                panelHeight
+                panelHeight,
+                PANEL_RADIUS
         );
 
-        shape.setColor(Color.DARK_GRAY);
+        shape.setColor(SLOT_COLOR);
 
         for (int i = 0; i < items.size(); i++) {
-            shape.rect(
+            drawRoundedRect(
                     slotX(i),
                     slotY(i),
                     SLOT_SIZE,
-                    SLOT_SIZE
+                    SLOT_SIZE,
+                    SLOT_RADIUS
             );
         }
 
         shape.end();
 
         batch.begin();
+        
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
 
-        Fonts.ui.draw(
-                batch,
-                "Inventory",
-                panelX + TITLE_INSET_X,
-                Gdx.graphics.getHeight() - PANEL_TITLE_MARGIN
-        );
+            if (item.region == null) continue;
+
+            float x = slotX(i);
+            float y = slotY(i);
+
+            batch.draw(
+                    item.region,
+                    x + ITEM_INSET_X,
+                    y + ITEM_INSET_Y,
+                    ITEM_SIZE,
+                    ITEM_SIZE
+            );
+        }
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
@@ -123,25 +147,47 @@ public class InventoryUI extends UI {
             float x = slotX(i);
             float y = slotY(i);
 
-            if (item.region != null) {
-                batch.draw(
-                        item.region,
-                        x + ITEM_INSET_X,
-                        y + ITEM_INSET_Y,
-                        ITEM_SIZE,
-                        ITEM_SIZE
-                );
-            }
-
             Fonts.ui.draw(
                     batch,
                     String.valueOf(inventory.get(item)),
                     x + SLOT_SIZE - 25f,
-                    y + 8f
+                    y + 9f
             );
         }
 
         batch.end();
+    }
+
+    private void drawRoundedRect(
+            float x,
+            float y,
+            float width,
+            float height,
+            float radius
+    ) {
+        shape.rect(
+                x + radius,
+                y,
+                width - radius * 2f,
+                height
+        );
+
+        shape.rect(
+                x,
+                y + radius,
+                width,
+                height - radius * 2f
+        );
+
+        shape.circle(x + radius, y + radius, radius, 12);
+        shape.circle(x + width - radius, y + radius, radius, 12);
+        shape.circle(x + radius, y + height - radius, radius, 12);
+        shape.circle(
+                x + width - radius,
+                y + height - radius,
+                radius,
+                12
+        );
     }
 
     private float panelX() {

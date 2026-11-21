@@ -32,7 +32,6 @@ public final class UiLayout {
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        return mouseX >= x && mouseX <= x + width
-                && mouseY >= y && mouseY <= y + height;
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }
 }
