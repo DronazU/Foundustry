@@ -1,8 +1,11 @@
+
 package foundustry.core.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import foundustry.core.Init;
 import foundustry.core.Vars;
@@ -10,6 +13,8 @@ import foundustry.core.game.data.GameFiles;
 import foundustry.core.game.data.database.SaveManager;
 import foundustry.graphics.Atlas;
 import foundustry.graphics.Fonts;
+import foundustry.graphics.particle.Particle;
+import foundustry.graphics.particle.ParticleShape;
 import foundustry.types.Block;
 import foundustry.ui.game.GameUI;
 import foundustry.ui.game.MainMenu;
@@ -28,6 +33,8 @@ public class Game {
     private final GameUI gameUI;
 
     private World world;
+
+    private float particleTestTimer;
 
     public Game() {
         Fonts.load();
@@ -116,6 +123,28 @@ public class Game {
 
         world.update(player.unit.x, player.unit.y);
 
+        particleTestTimer += Time.delta;
+
+        if (particleTestTimer >= 0.1f) {
+            particleTestTimer = 0f;
+
+            Init.particleSystem.add(new Particle(
+                    player.unit.x,
+                    player.unit.y,
+                    MathUtils.random(-5f, 5f),
+                    MathUtils.random(10f, 20f),
+                    1.5f,
+                    MathUtils.random(3f, 5f),
+                    2f,
+                    Color.GRAY,
+                    0.8f,
+                    -0.5f,
+                    ParticleShape.CIRCLE
+            ));
+        }
+
+        Init.particleSystem.update(Time.delta);
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.F5)) {
             saveGame();
         }
@@ -132,6 +161,7 @@ public class Game {
         Init.camera.update();
 
         Init.drawBlock.render(world);
+        Init.particleSystem.render(Init.camera);
         Init.drawUnit.render();
 
         Block selectedBlock = player.getSelectedBlock();
@@ -147,13 +177,13 @@ public class Game {
         }
 
         gameUI.render();
-
-        gameUI.render();
     }
 
     public void dispose() {
         mainMenu.dispose();
         gameUI.dispose();
+
+        Init.particleSystem.dispose();
 
         Atlas.dispose();
         Init.drawBlock.dispose();
