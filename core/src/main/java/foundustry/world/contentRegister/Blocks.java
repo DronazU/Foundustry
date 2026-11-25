@@ -9,6 +9,7 @@ import foundustry.types.recipe.ProductionType;
 import foundustry.world.contentType.block.environment.Floor;
 import foundustry.world.contentType.NothingBlock;
 import foundustry.world.contentType.block.logistics.Conveyor;
+import foundustry.world.contentType.block.logistics.Unloader;
 import foundustry.world.contentType.block.production.GenericCrafter;
 
 public class Blocks {
@@ -46,11 +47,7 @@ public class Blocks {
             canFlip = true;
             canRotate = true;
         }};
-        unloader = new Conveyor("unloader") {{
-            speed = 1f;
-            canFlip = true;
-            canRotate = true;
-        }};
+        unloader = new Unloader("unloader");
         // Logistic endregion
 
         // Production region
