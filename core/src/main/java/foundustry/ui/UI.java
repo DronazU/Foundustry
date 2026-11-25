@@ -6,28 +6,18 @@ public abstract class UI {
     private boolean visible = true;
 
     protected final Array<UIItem> items = new Array<>();
-    protected final Array<UI> childrens = new Array<>();
+    protected final Array<UI> children = new Array<>();
 
     public void update() {
         if (!visible) return;
-        for (UIItem item : items) {
-            item.update();
-        }
-
-        for (UI ui : childrens) {
-            ui.update();
-        }
+        for (UIItem item : items) item.update();
+        for (UI ui : children) ui.update();
     }
 
     public void render() {
         if (!visible) return;
-        for (UIItem item : items) {
-            item.render();
-        }
-
-        for (UI ui : childrens) {
-            ui.render();
-        }
+        for (UIItem item : items) item.render();
+        for (UI ui : children) ui.render();
     }
 
     public void setVisible(boolean visible) {
@@ -39,12 +29,7 @@ public abstract class UI {
     }
 
     public void dispose() {
-        for (UIItem item : items) {
-            item.dispose();
-        }
-
-        for (UI ui : childrens) {
-            ui.dispose();
-        }
+        for (UIItem item : items) item.dispose();
+        for (UI ui : children) ui.dispose();
     }
 }

@@ -35,8 +35,8 @@ public class BuildMenu extends UI {
             blockMenu.setVisible(true);
         });
 
-        childrens.add(categoryMenu);
-        childrens.add(blockMenu);
+        children.add(categoryMenu);
+        children.add(blockMenu);
     }
 
     @Override

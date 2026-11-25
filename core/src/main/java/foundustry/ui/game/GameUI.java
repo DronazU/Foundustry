@@ -26,9 +26,9 @@ public class GameUI extends UI {
 
         craftingUI.setVisible(false);
 
-        childrens.add(hotbar);
-        childrens.add(inventoryUI);
-        childrens.add(craftingUI);
+        children.add(hotbar);
+        children.add(inventoryUI);
+        children.add(craftingUI);
     }
 
     @Override

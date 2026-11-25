@@ -1,4 +1,3 @@
-
 package foundustry.graphics.particle;
 
 import com.badlogic.gdx.graphics.Color;
