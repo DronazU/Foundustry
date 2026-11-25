@@ -31,7 +31,6 @@ public class Recipes {
                 result.add(recipe);
             }
         }
-
         return result;
     }
 }

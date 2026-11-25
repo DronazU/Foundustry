@@ -18,7 +18,7 @@ public class Blocks {
     sandFloor, grass, stone, dirt, nothing, water, deepWater, sandWater,
 
     /** logistic */
-    conveyor, cornerConveyor,
+    conveyor, cornerConveyor, unloader,
 
     /** production */
     stoneFurnace
@@ -46,10 +46,17 @@ public class Blocks {
             canFlip = true;
             canRotate = true;
         }};
+        unloader = new Conveyor("unloader") {{
+            speed = 1f;
+            canFlip = true;
+            canRotate = true;
+        }};
         // Logistic endregion
 
         // Production region
-        stoneFurnace = new GenericCrafter("stone-furnace", ProductionType.FURNACE);
+        stoneFurnace = new GenericCrafter("stone-furnace", ProductionType.FURNACE) {{
+           size = 2;
+        }};
         // Production endregion
 
         for (Block block : Vars.blocks) {

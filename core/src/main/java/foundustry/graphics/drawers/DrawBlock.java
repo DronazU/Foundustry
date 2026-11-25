@@ -33,13 +33,22 @@ public class DrawBlock extends Drawer {
         }
     }
 
-    public void renderPreview(Block block, int tileX, int tileY, int rotation, boolean flipX) {
-        if (block == null) return;
+    public void renderPreview(
+            World world,
+            Block block,
+            int tileX,
+            int tileY,
+            int rotation,
+            boolean flipX
+    ) {
+        if (world == null || block == null) return;
+
+        boolean canPlace = world.canPlaceBlock(block, tileX, tileY);
 
         begin();
 
         try {
-            drawPreview(batch, block, tileX, tileY, rotation, flipX);
+            drawPreview(batch, block, tileX, tileY, rotation, flipX, canPlace);
         } finally {
             end();
         }
@@ -110,7 +119,15 @@ public class DrawBlock extends Drawer {
     }
 
 
-    private void drawPreview(SpriteBatch batch, Block block, int x, int y, int rotation, boolean flipX) {
+    private void drawPreview(
+            SpriteBatch batch,
+            Block block,
+            int x,
+            int y,
+            int rotation,
+            boolean flipX,
+            boolean canPlace
+    ) {
         TextureRegion region = block.region;
 
         if (region == null) return;
@@ -118,14 +135,13 @@ public class DrawBlock extends Drawer {
         previousColor.set(batch.getColor());
 
         try {
-            batch.setColor(
-                    previousColor.r,
-                    previousColor.g,
-                    previousColor.b,
-                    previousColor.a * 0.5f
-            );
+            if (canPlace) {
+                batch.setColor(1f, 1f, 1f, 0.5f);
+            } else {
+                batch.setColor(1f, 0f, 0f, 0.65f);
+            }
 
-            float size = Vars.tileSize;
+            float size = Vars.tileSize * block.size;
 
             batch.draw(
                     region,

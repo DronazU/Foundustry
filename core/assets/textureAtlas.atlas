@@ -6,60 +6,116 @@ filter: Nearest, Nearest
 repeat: none
 deep-water
   rotate: false
-  xy: 842, 94
+  xy: 832, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 dirt
   rotate: false
-  xy: 876, 94
+  xy: 866, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 910, 94
+  xy: 900, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 nothing
   rotate: false
-  xy: 944, 94
+  xy: 968, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-floor
   rotate: false
-  xy: 978, 94
+  xy: 70, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 332, 60
+  xy: 104, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 400, 60
+  xy: 172, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 502, 60
+  xy: 546, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+conveyor_corner
+  rotate: false
+  xy: 900, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+conveyor_corner
+  rotate: false
+  xy: 934, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+conveyor_corner
+  rotate: false
+  xy: 968, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+conveyor_corner
+  rotate: false
+  xy: 662, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+conveyor_corner
+  rotate: false
+  xy: 696, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+conveyor_corner
+  rotate: false
+  xy: 730, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+conveyor_corner
+  rotate: false
+  xy: 764, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+conveyor_corner
+  rotate: false
+  xy: 798, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
 conveyor
   rotate: false
   xy: 36, 2
@@ -69,109 +125,144 @@ conveyor
   index: 0
 conveyor
   rotate: false
-  xy: 332, 94
+  xy: 662, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 conveyor
   rotate: false
-  xy: 366, 94
+  xy: 696, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 conveyor
   rotate: false
-  xy: 400, 94
+  xy: 730, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 conveyor
   rotate: false
-  xy: 434, 94
+  xy: 764, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 conveyor
   rotate: false
-  xy: 468, 94
+  xy: 798, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 conveyor
   rotate: false
-  xy: 502, 94
+  xy: 832, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 conveyor
   rotate: false
-  xy: 536, 94
+  xy: 866, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
-conveyor_corner
+unloader-0
   rotate: false
-  xy: 570, 94
+  xy: 206, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
-conveyor_corner
+  index: -1
+unloader-1
   rotate: false
-  xy: 604, 94
+  xy: 240, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
-conveyor_corner
+  index: -1
+unloader-2
   rotate: false
-  xy: 638, 94
+  xy: 274, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 2
-conveyor_corner
+  index: -1
+unloader-3
   rotate: false
-  xy: 672, 94
+  xy: 308, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 3
-conveyor_corner
+  index: -1
+unloader-4
   rotate: false
-  xy: 706, 94
+  xy: 342, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 4
-conveyor_corner
+  index: -1
+unloader-5
   rotate: false
-  xy: 740, 94
+  xy: 376, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 5
-conveyor_corner
+  index: -1
+unloader-6
   rotate: false
-  xy: 774, 94
+  xy: 410, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 6
-conveyor_corner
+  index: -1
+unloader-7
   rotate: false
-  xy: 808, 94
+  xy: 444, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 7
+  index: -1
+stone-furnace
+  rotate: false
+  xy: 332, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone-furnace_animation-0
+  rotate: false
+  xy: 398, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone-furnace_animation-1
+  rotate: false
+  xy: 464, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone-furnace_animation-2
+  rotate: false
+  xy: 530, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone-furnace_animation-3
+  rotate: false
+  xy: 596, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 circle-shadow
   rotate: false
   xy: 2, 2
@@ -181,21 +272,28 @@ circle-shadow
   index: -1
 square-shadow
   rotate: false
-  xy: 366, 60
+  xy: 138, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+item-stone
+  rotate: false
+  xy: 934, 60
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 unrefined-copper
   rotate: false
-  xy: 434, 60
+  xy: 478, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 unrefined-iron
   rotate: false
-  xy: 468, 60
+  xy: 512, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

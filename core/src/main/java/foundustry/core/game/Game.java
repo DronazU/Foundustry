@@ -170,6 +170,7 @@ public class Game {
 
         if (selectedBlock != null) {
             Init.drawBlock.renderPreview(
+                    world,
                     selectedBlock,
                     player.getMouseTileX(),
                     player.getMouseTileY(),
@@ -235,6 +236,8 @@ public class Game {
         player.inventory.add(Items.unrefinedIron, 24);
         player.inventory.add(Items.conveyor, 40);
         player.inventory.add(Items.cornerConveyor, 31);
+        player.inventory.add(Items.stone, 19);
+        player.inventory.add(Items.stoneFurnace, 2);
     }
 
     private void setPlayerSpawn() {
