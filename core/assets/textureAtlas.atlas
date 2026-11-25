@@ -235,34 +235,34 @@ stone-furnace
   orig: 64, 64
   offset: 0, 0
   index: -1
-stone-furnace_animation-0
+stone-furnace_animation
   rotate: false
   xy: 398, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-stone-furnace_animation-1
+  index: 0
+stone-furnace_animation
   rotate: false
   xy: 464, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-stone-furnace_animation-2
+  index: 1
+stone-furnace_animation
   rotate: false
   xy: 530, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
-stone-furnace_animation-3
+  index: 2
+stone-furnace_animation
   rotate: false
   xy: 596, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 3
 circle-shadow
   rotate: false
   xy: 2, 2

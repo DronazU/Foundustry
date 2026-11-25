@@ -64,7 +64,6 @@ public class Blocks {
 
     public static Array<Block> getByCategory(Category category) {
         Array<Block> output = new Array<>();
-
         for (Block block : Vars.blocks) {
             if (block.category == category) {
                 output.add(block);

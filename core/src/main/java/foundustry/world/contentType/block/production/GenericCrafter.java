@@ -35,7 +35,7 @@ public class GenericCrafter extends Block {
         super.load();
 
         workingRegions.clear();
-        workingRegions.addAll(Atlas.findRegions(name + "-working"));
+        workingRegions.addAll(Atlas.findRegions(name + "_animation"));
 
         workingRegions.sort((first, second) ->
                 Integer.compare(first.index, second.index));

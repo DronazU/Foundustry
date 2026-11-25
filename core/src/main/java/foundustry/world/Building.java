@@ -63,6 +63,11 @@ public class Building {
     }
 
     public void update(float delta) {
+        if (block instanceof GenericCrafter && currentRecipe == null) {
+            animationTime += delta;
+            return;
+        }
+
         if (!(block instanceof GenericCrafter)
                 || currentRecipe == null
                 || currentRecipe.craftTime <= 0f
@@ -99,7 +104,7 @@ public class Building {
     }
 
     public TextureRegion getDrawRegion() {
-        if (isCrafting && block instanceof GenericCrafter crafter) {
+        if (block instanceof GenericCrafter crafter) {
             return crafter.getWorkingRegion(animationTime);
         }
 
