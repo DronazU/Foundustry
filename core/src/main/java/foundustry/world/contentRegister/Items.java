@@ -35,7 +35,7 @@ public class Items {
            inventoryCraftable = false;
         }};
 
-        ironIngot = new Item("copper-ingot") {{
+        ironIngot = new Item("iron-ingot") {{
             inventoryCraftable = false;
         }};
 

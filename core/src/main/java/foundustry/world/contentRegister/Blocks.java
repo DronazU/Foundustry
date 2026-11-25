@@ -5,9 +5,9 @@ import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.Block;
 import foundustry.types.Category;
-import foundustry.world.contentType.Floor;
+import foundustry.world.contentType.block.environment.Floor;
 import foundustry.world.contentType.NothingBlock;
-import foundustry.world.contentType.conveyor.Conveyor;
+import foundustry.world.contentType.block.logistics.Conveyor;
 
 public class Blocks {
     public static Block

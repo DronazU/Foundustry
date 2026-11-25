@@ -9,8 +9,8 @@ import foundustry.core.Vars;
 import foundustry.graphics.drawers.DrawBlock;
 import foundustry.types.Block;
 import foundustry.types.item.Item;
-import foundustry.world.contentType.conveyor.Conveyor;
-import foundustry.world.contentType.conveyor.ConveyorItem;
+import foundustry.world.contentType.block.logistics.Conveyor;
+import foundustry.world.contentType.block.logistics.ConveyorItem;
 
 public class Tile {
     public static final int MAX_CONVEYOR_ITEMS = 4;

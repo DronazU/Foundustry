@@ -1,4 +1,4 @@
-package foundustry.world.contentType;
+package foundustry.world.contentType.unit;
 
 import foundustry.types.UnitType;
 

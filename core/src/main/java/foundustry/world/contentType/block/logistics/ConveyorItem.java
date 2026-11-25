@@ -1,4 +1,4 @@
-package foundustry.world.contentType.conveyor;
+package foundustry.world.contentType.block.logistics;
 
 import foundustry.types.item.Item;
 

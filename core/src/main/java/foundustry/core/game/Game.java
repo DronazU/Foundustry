@@ -22,6 +22,7 @@ import foundustry.world.Chunk;
 import foundustry.world.World;
 import foundustry.world.contentRegister.Blocks;
 import foundustry.world.contentRegister.Items;
+import foundustry.world.contentRegister.Recipes;
 import foundustry.world.contentRegister.UnitTypes;
 import foundustry.world.player.Player;
 
@@ -44,6 +45,7 @@ public class Game {
 
         Blocks.load();
         Items.load();
+        Recipes.load();
         UnitTypes.load();
 
         player = new Player();

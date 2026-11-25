@@ -1,4 +1,4 @@
-package foundustry.world.contentType;
+package foundustry.world.contentType.block.logistics;
 
 import foundustry.types.Block;
 import foundustry.types.Category;
