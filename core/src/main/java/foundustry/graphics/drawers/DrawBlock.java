@@ -45,6 +45,7 @@ public class DrawBlock extends Drawer {
         }
     }
 
+
     public static void drawBlock(
             SpriteBatch batch,
             Block block,
@@ -55,7 +56,31 @@ public class DrawBlock extends Drawer {
             float alpha,
             float size
     ) {
-        if (block == null || block.getRegion() == null) return;
+        if (block == null) return;
+
+        drawBlock(
+                batch,
+                block.getRegion(),
+                x,
+                y,
+                rotation,
+                flipX,
+                alpha,
+                size
+        );
+    }
+
+    public static void drawBlock(
+            SpriteBatch batch,
+            TextureRegion region,
+            float x,
+            float y,
+            int rotation,
+            boolean flipX,
+            float alpha,
+            float size
+    ) {
+        if (region == null) return;
 
         previousColor.set(batch.getColor());
 
@@ -68,7 +93,7 @@ public class DrawBlock extends Drawer {
             );
 
             batch.draw(
-                    block.getRegion(),
+                    region,
                     x,
                     y,
                     size / 2f,
@@ -83,6 +108,7 @@ public class DrawBlock extends Drawer {
             batch.setColor(previousColor);
         }
     }
+
 
     private void drawPreview(SpriteBatch batch, Block block, int x, int y, int rotation, boolean flipX) {
         TextureRegion region = block.region;

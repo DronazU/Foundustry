@@ -15,6 +15,8 @@ public class World {
     private final SaveManager saveManager;
     private final String worldId;
 
+    private final TileAction updateBuildingAction = tile -> tile.updateBuilding(Time.delta);
+
     private final Map<Long, Chunk> chunks = new HashMap<>();
 
     private final TileAction updateConveyorAction =
@@ -42,6 +44,7 @@ public class World {
         }
 
         forEachTile(updateConveyorAction);
+        forEachTile(updateBuildingAction);
     }
 
     public void forEachTile(TileAction action) {

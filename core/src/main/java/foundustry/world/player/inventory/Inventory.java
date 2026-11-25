@@ -2,6 +2,7 @@ package foundustry.world.player.inventory;
 
 import foundustry.types.item.Item;
 import foundustry.types.item.ItemStack;
+import foundustry.types.item.ItemStackList;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -73,5 +74,33 @@ public class Inventory {
 
     public void clear() {
         items.clear();
+    }
+
+    public boolean canRemoveAll(ItemStackList stacks) {
+        Map<Item, Integer> required = new LinkedHashMap<>();
+
+        for (ItemStack stack : stacks.getItems()) {
+            required.merge(stack.item, stack.amount, Integer::sum);
+        }
+
+        for (Map.Entry<Item, Integer> entry : required.entrySet()) {
+            if (get(entry.getKey()) < entry.getValue()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean removeAll(ItemStackList stacks) {
+        if (!canRemoveAll(stacks)) {
+            return false;
+        }
+
+        for (ItemStack stack : stacks.getItems()) {
+            remove(stack.item, stack.amount);
+        }
+
+        return true;
     }
 }

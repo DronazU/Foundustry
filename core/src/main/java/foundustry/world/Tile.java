@@ -133,7 +133,7 @@ public class Tile {
 
         DrawBlock.drawBlock(
                 batch,
-                build.block,
+                build.getDrawRegion(),
                 x,
                 y,
                 build.rotation,
@@ -170,5 +170,13 @@ public class Tile {
                     itemSize
             );
         }
+    }
+
+    public void updateBuilding(float delta) {
+        if (!isBuildingAnchor()) {
+            return;
+        }
+
+        build.update(delta);
     }
 }

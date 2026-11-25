@@ -13,7 +13,7 @@ public class Items {
             /** materials region */
             copperIngot, ironIngot,
             /** items */
-            conveyor, cornerConveyor
+            conveyor, cornerConveyor, stoneFurnace
             ;
 
     public static void load() {
@@ -56,6 +56,12 @@ public class Items {
                     .with(unrefinedIron, 1);
             craftTime = 0.5f;
             craftAmount = 2;
+        }};
+
+        stoneFurnace = new  Item("stone-furnace") {{
+            placeableBlock = Blocks.stoneFurnace;
+            requirements.with(stone, 5);
+            craftTime = 1f;
         }};
 
         for (Item item : Vars.items) {
