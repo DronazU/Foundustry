@@ -5,9 +5,11 @@ import foundustry.core.Vars;
 import foundustry.log.Log;
 import foundustry.types.Block;
 import foundustry.types.Category;
+import foundustry.types.recipe.ProductionType;
 import foundustry.world.contentType.block.environment.Floor;
 import foundustry.world.contentType.NothingBlock;
 import foundustry.world.contentType.block.logistics.Conveyor;
+import foundustry.world.contentType.block.production.GenericCrafter;
 
 public class Blocks {
     public static Block
@@ -16,10 +18,14 @@ public class Blocks {
     sandFloor, grass, stone, dirt, nothing, water, deepWater, sandWater,
 
     /** logistic */
-    conveyor, cornerConveyor
+    conveyor, cornerConveyor,
+
+    /** production */
+    stoneFurnace
     ;
 
     public static void load() {
+        // Environment region
         nothing = new NothingBlock("nothing");
         sandFloor = new Floor("sand-floor");
         grass = new Floor("grass");
@@ -28,6 +34,9 @@ public class Blocks {
         water = new Floor("water");
         deepWater = new Floor("deep-water");
         sandWater = new Floor("sand-water");
+        // Environment endregion
+
+        // Logistic region
         conveyor = new Conveyor("conveyor") {{
             canRotate = true;
             speed = 1;
@@ -37,6 +46,11 @@ public class Blocks {
             canFlip = true;
             canRotate = true;
         }};
+        // Logistic endregion
+
+        // Production region
+        stoneFurnace = new GenericCrafter("stone-furnace", ProductionType.FURNACE);
+        // Production endregion
 
         for (Block block : Vars.blocks) {
             block.load();
