@@ -32,30 +32,72 @@ nothing
   orig: 32, 32
   offset: 0, 0
   index: -1
-sand-floor
+ore-copper
   rotate: false
   xy: 70, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+ore-copper
+  rotate: false
+  xy: 104, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+ore-copper
+  rotate: false
+  xy: 138, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+ore-iron
+  rotate: false
+  xy: 172, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+ore-iron
+  rotate: false
+  xy: 206, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+ore-iron
+  rotate: false
+  xy: 240, 28
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+sand-floor
+  rotate: false
+  xy: 274, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sand-water
   rotate: false
-  xy: 104, 28
+  xy: 308, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 172, 28
+  xy: 376, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 546, 28
+  xy: 750, 26
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -174,56 +216,56 @@ conveyor
   index: 7
 unloader
   rotate: false
-  xy: 206, 28
+  xy: 410, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
 unloader
   rotate: false
-  xy: 240, 28
+  xy: 444, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 unloader
   rotate: false
-  xy: 274, 28
+  xy: 478, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 unloader
   rotate: false
-  xy: 308, 28
+  xy: 512, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 unloader
   rotate: false
-  xy: 342, 28
+  xy: 546, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 unloader
   rotate: false
-  xy: 376, 28
+  xy: 580, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 unloader
   rotate: false
-  xy: 410, 28
+  xy: 614, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 unloader
   rotate: false
-  xy: 444, 28
+  xy: 648, 26
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -272,7 +314,7 @@ circle-shadow
   index: -1
 square-shadow
   rotate: false
-  xy: 138, 28
+  xy: 342, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -286,14 +328,14 @@ item-stone
   index: -1
 unrefined-copper
   rotate: false
-  xy: 478, 28
+  xy: 682, 26
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 unrefined-iron
   rotate: false
-  xy: 512, 28
+  xy: 716, 26
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

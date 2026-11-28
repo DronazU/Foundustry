@@ -14,6 +14,7 @@ public class DrawBlock extends Drawer {
     private static final Color previousColor = new Color();
 
     private final TileAction drawFloors = tile -> tile.drawFloor(batch);
+    private final TileAction drawOres = tile -> tile.drawOre(batch);
     private final TileAction drawShadows = tile -> tile.drawShadow(batch);
     private final TileAction drawBlocks = tile -> tile.drawBlock(batch);
     private final TileAction drawConveyorItems = tile -> tile.drawConveyorItems(batch);
@@ -25,6 +26,7 @@ public class DrawBlock extends Drawer {
 
         try {
             world.forEachTile(drawFloors);
+            world.forEachTile(drawOres);
             world.forEachTile(drawShadows);
             world.forEachTile(drawBlocks);
             world.forEachTile(drawConveyorItems);

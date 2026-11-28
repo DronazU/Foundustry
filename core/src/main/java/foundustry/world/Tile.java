@@ -23,12 +23,21 @@ public class Tile {
     public Block floor;
     public Building build;
 
+    public OreDeposit ore;
+
     public final Array<ConveyorItem> conveyorItems = new Array<>();
 
     public Tile(float x, float y, Block floor) {
         this.x = x;
         this.y = y;
         this.floor = floor;
+    }
+
+    public void drawOre(SpriteBatch batch) {
+        if (ore == null || ore.region == null) return;
+
+        float size = Vars.tileSize;
+        batch.draw(ore.region, x, y, size, size);
     }
 
     public boolean isBuildingAnchor() {

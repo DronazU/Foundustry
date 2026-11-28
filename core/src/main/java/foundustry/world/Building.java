@@ -80,7 +80,6 @@ public class Building {
                 if (!inputInventory.removeAll(currentRecipe.inputs)) {
                     return;
                 }
-
                 isCrafting = true;
             }
 
@@ -107,7 +106,6 @@ public class Building {
         if (block instanceof GenericCrafter crafter) {
             return crafter.getWorkingRegion(animationTime);
         }
-
         return block.getRegion();
     }
 }
