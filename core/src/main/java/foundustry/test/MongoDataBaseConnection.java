@@ -1,5 +1,5 @@
 
-package foundustry.test.core.data.dataBase;
+package foundustry.test;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
